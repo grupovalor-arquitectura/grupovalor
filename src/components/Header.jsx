@@ -1,12 +1,11 @@
 import GVIcon from "../assets/GVIcon.svg?react";
-import MenuIconOpen from "../assets/MenuIconOpen.svg?react";
-import MenuIconClose from "../assets/MenuIconClose.svg?react";
+import MenuIcon from "./MenuIcon";
+
 
 import { Box } from "@mui/material";
 
 
 export default function Header({ onMenuClick, isOpen }) {
-  const Icon = isOpen ? MenuIconClose : MenuIconOpen;
 
   return (
     <Box
@@ -25,15 +24,12 @@ export default function Header({ onMenuClick, isOpen }) {
         }}
       />
 
-      {/* Menú */}
-      <Icon
+      {/* Menú animado */}
+      <MenuIcon
+        isOpen={isOpen}
         onClick={onMenuClick}
-        style={{
-          height: 20,
-          width: "auto",
-          cursor: "pointer",
-        }}
       />
+
     </Box>
   );
 }
