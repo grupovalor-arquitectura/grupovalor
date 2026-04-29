@@ -1,6 +1,7 @@
 import LayoutBase from "../components/LayoutBase";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
+import FooterContainer from "../containers/FooterContainer";
+import { Box } from "@mui/material";
 
 import useMenu from "../hooks/useMenu";
 
@@ -30,16 +31,14 @@ export default function HomeContainer() {
                 onMenuClick={toggleMenu}
             />}
         main={
-            <div>
-            {/* placeholder visual del centro */}
-            </div>
+            <Box
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
         }
-        footer={
-            <Footer 
-                brand={data.brand} 
-                tagline={data.tagline} 
-            />
-        }
+        footer={<FooterContainer />}
     />
   );
 }

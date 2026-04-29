@@ -6,13 +6,14 @@ export default function LayoutBase({ header, main, footer }) {
       sx={{
         width: "100%",
         height: "100dvh",
-        bgcolor: "#421b1e",
-        color: "#bfafaa",
+        bgcolor: "background.default",
+        color: "primary.main",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
-        padding: { xs: "16px", md: "32px" },
-        overflow: "hidden",
+        justifyContent: "flex-start",
+        px: { xs: 2, md: 4 },
+        pt: { xs: 2, md: 4 },
+        pb: 2, 
       }}
     >
       {header}

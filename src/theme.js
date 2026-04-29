@@ -1,15 +1,22 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#bfafaa",   // color base
-      hover: "#c16242",  // hover / activo
+
+    typography: {
+        fontFamily: "Satoshi, sans-serif",
     },
-    background: {
-      default: "#421b1e",
+    palette: {
+        primary: {
+        main: "#bfafaa",   // color base (texto/iconos)
+        },
+        secondary: {
+        main: "#c16242",   // hover / activo
+        },
+        background: {
+        default: "#421b1e", // fondo oscuro
+        paper: "#bfafaa",   // superficies claras
+        },
     },
-  },
 });
 
 export default theme;

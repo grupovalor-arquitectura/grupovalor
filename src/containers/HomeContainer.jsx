@@ -1,3 +1,7 @@
+import FooterContainer from "./FooterContainer";
+import LayoutBase from "../LayoutBase";
+import Header from "../components/Header";
+
 import useMenu from "../hooks/useMenu";
 
 export default function HomeContainer() {
@@ -5,11 +9,16 @@ export default function HomeContainer() {
 
   return (
     <LayoutBase
-      header={
-        <Header onMenuClick={toggleMenu} />
-      }
-      main={<div />}
-      footer={<Footer brand="gv°" />}
+        header={
+            <Header
+                onMenuClick={toggleMenu}
+                isOpen={isOpen}   
+            />
+        }
+
+        main={<div />}
+
+        footer={<FooterContainer />}
     />
   );
 }
