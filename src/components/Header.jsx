@@ -1,14 +1,14 @@
 import GVIcon from "../assets/GVIcon.svg?react";
 import MenuIcon from "./MenuIcon";
-
+import HeaderMenuItems from "./HeaderMenuItems";
 
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-
-
+import { useState } from "react";
 
 export default function Header({ onMenuClick, isOpen }) {
-   const theme = useTheme();
+  const theme = useTheme();
+  const [active, setActive] = useState(null);
 
   return (
     <Box
@@ -19,22 +19,45 @@ export default function Header({ onMenuClick, isOpen }) {
         alignItems: "center",
       }}
     >
-      {/* Logo */}
+      {/* LOGO */}
       <GVIcon
         style={{
           height: 40,
           width: "auto",
           color: theme.palette.primary.main,
-          stroke: "none", 
+          stroke: "none",
         }}
       />
 
-      {/* Menú animado */}
-      <MenuIcon
-        isOpen={isOpen}
-        onClick={onMenuClick}
-      />
+      {/* DERECHA: menú + icono */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: "24px",
+        }}
+      >
+        {/* 🔥 MENÚ CONTROLADO POR isOpen */}
+        <Box
+          sx={{
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? "translateY(0)" : "translateY(-16px)",
+            pointerEvents: isOpen ? "auto" : "none",
+            transition: "all 0.3s ease",
+          }}
+        >
+          <HeaderMenuItems
+            active={active}
+            onSelect={setActive}
+          />
+        </Box>
 
+        {/* ICONO */}
+        <MenuIcon
+          isOpen={isOpen}
+          onClick={onMenuClick}
+        />
+      </Box>
     </Box>
   );
 }
