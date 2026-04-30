@@ -11,7 +11,7 @@ const items = [
 ];
 
 export default function BottomMenuItems({ onSelect }) {
-  const [selected, setSelected] = useState("default");
+  const [selected, setSelected] = useState("null");
 
   return (
     <Box

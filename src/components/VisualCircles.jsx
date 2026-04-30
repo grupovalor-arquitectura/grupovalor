@@ -1,39 +1,46 @@
 import { Box } from "@mui/material";
 
-export default function VisualCircles() {
-  const circles = [-3, -2, -1, 0, 1, 2, 3];
+export default function VisualCircles({ active = null }) {
+  const circles = [
+    { pos: -3, key: "promotora" },
+    { pos: -2, key: "constructora" },
+    { pos: -1, key: "arquitectura" },
+    { pos: 0, key: "default" },
+    { pos: 1, key: "estrategia" },
+    { pos: 2, key: "banca" },
+    { pos: 3, key: null },
+  ];
 
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100%",          // ocupa todo el espacio del LayoutBase
+        height: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
 
-        /* 🔹 Animación del centro */
+        /* 🔹 respiración (solo escala) */
         "@keyframes breath": {
-          "0%": { transform: "scale(1)", opacity: 0.5 },
-          "50%": { transform: "scale(1.05)", opacity: 1 },
-          "100%": { transform: "scale(1)", opacity: 0.5 },
+          "0%": { scale: 1 },
+          "50%": { scale: 1.03},
+          "100%": { scale: 1},
         },
 
-        /* 🔹 Onda */
+        /* 🔹 expansión + quedarse */
         ...Object.fromEntries(
           [-3, -2, -1, 1, 2, 3].map((pos) => [
             `@keyframes waveMove-${pos}`,
             {
               "0%": {
-                transform: "translateX(0) scale(0.95)",
-                opacity: 0,
+                transform: "translateX(0)",
+               
               },
-              "40%": {
-                opacity: 0.6,
+              "30%": {
+                
               },
               "100%": {
-                transform: `translateX(${pos * 120}px) scale(1)`,
-                opacity: 1,
+                transform: `translateX(${pos * 120}px)`,
               },
             },
           ])
@@ -41,30 +48,43 @@ export default function VisualCircles() {
       }}
     >
       <svg
-        viewBox="0 0 1600 600"   // 🔥 más ancho real
+        viewBox="0 0 1600 600"
         width="100%"
         height="100%"
         preserveAspectRatio="xMidYMid meet"
       >
-        {circles.map((pos, i) => {
-          const delay = Math.abs(pos) * 0.35;
+        {circles.map((c, i) => {
+          const delay = 1.5 + Math.abs(c.pos) * 0.3; // 🔥 espera inicial + onda progresiva
+          const isActive = active === c.key && c.key !== null;
 
           return (
             <circle
               key={i}
-              cx={800}           // 🔥 centro REAL del svg (la mitad de 1600)
+              cx={800}
               cy={300}
-              r={180}           // 🔥 grande pero controlado
-              fill="none"
+              r={180}
+              fill={isActive ? "#c16242" : "none"}
               stroke="#c16242"
-              strokeWidth="1"
+              strokeWidth={1}
               style={{
                 transformOrigin: "800px 300px",
-                opacity: pos === 0 ? 1 : 0,
+
+                /* 🔥 CLAVE: animaciones separadas correctamente */
                 animation:
-                  pos === 0
+                  c.pos === 0
                     ? "breath 4s ease-in-out infinite"
-                    : `waveMove-${pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s`,
+                    : `
+                        waveMove-${c.pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s,
+                        breath 4s ease-in-out infinite ${delay + 4}s
+                      `,
+
+
+                transition:
+                  "fill 0.4s ease, opacity 0.4s ease, filter 0.4s ease",
+
+                filter: isActive
+                  ? "drop-shadow(0 0 12px rgba(193,98,66,0.4))"
+                  : "none",
               }}
             />
           );

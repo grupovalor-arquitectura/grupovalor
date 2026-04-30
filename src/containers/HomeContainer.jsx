@@ -1,21 +1,18 @@
 import { Box } from "@mui/material";
+import { useState } from "react";
 
 import LayoutBase from "../components/LayoutBase";
 import Header from "../components/Header";
 import BottomBar from "../components/BottomBar";
 import VisualCircles from "../components/VisualCircles";
 
-
-import circles from "../assets/Circle_2.svg";
-
 import useMenu from "../hooks/useMenu";
 
 export default function HomeContainer() {
-  // 🔹 estado header
-  const { isOpen: isHeaderOpen, toggleMenu: toggleHeader, } = useMenu();
+  const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu();
+  const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu();
 
-  // 🔹 estado bottom (independiente)
-  const { isOpen: isBottomOpen, toggleMenu: toggleBottom, } = useMenu();
+  const [activeSection, setActiveSection] = useState(null);
 
   return (
     <LayoutBase
@@ -26,11 +23,14 @@ export default function HomeContainer() {
         />
       }
 
-      visual={<VisualCircles />}  // 🔥 AQUÍ VA
+      visual={
+        <VisualCircles active={activeSection} />
+      }
 
       bottom={
         <BottomBar
-          tagline="valor más allá del espacio"
+          active={activeSection}          // 🔥 conexión
+          onSelect={setActiveSection}     // 🔥 conexión
           isOpen={isBottomOpen}
           onMenuClick={toggleBottom}
         />

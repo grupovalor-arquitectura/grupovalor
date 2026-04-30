@@ -5,64 +5,48 @@ import BottomMenuIcon from "./BottomMenuIcon";
 import BottomMenuItems from "./BottomMenuItems";
 import Divider from "./Divider";
 
-import { useState } from "react";
-
-
-export default function BottomBar({ tagline, isOpen, onMenuClick }) {
-
-    const [activeSection, setActiveSection] = useState("default");
-
+export default function BottomBar({ active, onSelect, isOpen, onMenuClick }) {
   return (
     <Box
-        sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between", 
-            alignItems: "flex-end",
-            pb: { xs: 2, md: 4 },
-        }}
-        >
-        {/* IZQUIERDA: icono + menu */}
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        pb: { xs: 2, md: 4 },
+      }}
+    >
+      {/* IZQUIERDA */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <MenuTrigger
+          onClick={onMenuClick}
+          icon={<BottomMenuIcon isOpen={isOpen} />}
+        />
+
+        <Divider
+          sx={{
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? "scaleY(1)" : "scaleY(0)",
+            transition: "all 0.3s ease",
+          }}
+        />
+
         <Box
-            sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
-            }}
+          sx={{
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? "translateY(0)" : "translateY(10px)",
+            transition: "all 0.4s ease",
+          }}
         >
-            <MenuTrigger
-            onClick={onMenuClick}
-            icon={<BottomMenuIcon isOpen={isOpen} />}
-            />
-
-            <Divider
-            sx={{
-                opacity: isOpen ? 1 : 0,
-                transform: isOpen ? "scaleY(1)" : "scaleY(0)",
-                transition: "all 0.3s ease",
-            }}
-            />
-
-            <Box
-            sx={{
-                opacity: isOpen ? 1 : 0,
-                transform: isOpen ? "translateY(0)" : "translateY(10px)",
-                transition: "all 0.4s ease",
-            }}
-            >
-            <BottomMenuItems onSelect={setActiveSection} />
-            </Box>
+          {/* 🔥 usa el onSelect del padre */}
+          <BottomMenuItems onSelect={onSelect} />
         </Box>
+      </Box>
 
-        {/* DERECHA: tagline */}
-        <Box
-            sx={{
-            textAlign: "right",
-
-            }}
-        >
-            <Tagline active={activeSection} />
-        </Box>
-        </Box>
+      {/* DERECHA */}
+      <Box sx={{ textAlign: "right" }}>
+        <Tagline active={active} />
+      </Box>
+    </Box>
   );
 }
