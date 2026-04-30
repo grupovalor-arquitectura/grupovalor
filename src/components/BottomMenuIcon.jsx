@@ -65,7 +65,8 @@ export default function BottomMenuIcon({ isOpen }) {
 
           // 👇 esto fuerza el fill
           "& svg": {
-            fill: "currentColor",
+            fill: "#c16242",
+            stroke: "#c16242",
           },
         }}
       >

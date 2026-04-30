@@ -11,8 +11,8 @@ const TAGLINES = {
 
 export default function Tagline({ active = "default" }) {
   const lineStyle = {
-    fontSize: "20px",
-    fontWeight: 300,
+    fontSize: "25px",
+    fontWeight: 400,
     lineHeight: "1.2",
     color: "#d6cfc9",
     whiteSpace: "nowrap",

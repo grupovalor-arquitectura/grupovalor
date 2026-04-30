@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 
-export default function LayoutBase({ header, visual, bottom }) {
+export default function LayoutBase({ header, visual, bottom, footer}) {
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",

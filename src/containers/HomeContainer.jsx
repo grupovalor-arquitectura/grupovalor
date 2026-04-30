@@ -5,6 +5,7 @@ import LayoutBase from "../components/LayoutBase";
 import Header from "../components/Header";
 import BottomBar from "../components/BottomBar";
 import VisualCircles from "../components/VisualCircles";
+import Footer from "../components/Footer";
 
 import useMenu from "../hooks/useMenu";
 
@@ -15,26 +16,32 @@ export default function HomeContainer() {
   const [activeSection, setActiveSection] = useState(null);
 
   return (
-    <LayoutBase
-      header={
-        <Header
-          onMenuClick={toggleHeader}
-          isOpen={isHeaderOpen}
-        />
-      }
+    <Box>
+      {/* HERO */}
+      <LayoutBase
+        header={
+          <Header
+            onMenuClick={toggleHeader}
+            isOpen={isHeaderOpen}
+          />
+        }
 
-      visual={
-        <VisualCircles active={activeSection} />
-      }
+        visual={
+          <VisualCircles active={activeSection} />
+        }
 
-      bottom={
-        <BottomBar
-          active={activeSection}          // 🔥 conexión
-          onSelect={setActiveSection}     // 🔥 conexión
-          isOpen={isBottomOpen}
-          onMenuClick={toggleBottom}
-        />
-      }
-    />
+        bottom={
+          <BottomBar
+            active={activeSection}
+            onSelect={setActiveSection}
+            isOpen={isBottomOpen}
+            onMenuClick={toggleBottom}
+          />
+        }
+      />
+
+      {/* 🔥 FOOTER (FUERA DEL LAYOUT) */}
+      <Footer />
+    </Box>
   );
 }
