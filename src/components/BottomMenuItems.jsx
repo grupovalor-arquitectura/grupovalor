@@ -2,16 +2,16 @@ import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 
 const items = [
-  "GrupoValor",
-  "Arquitectura Valor",
-  "Constructora Valor",
-  "Promotora Valor",
-  "Estrategia Valor",
-  "Banca Valor",
+  { label: "GrupoValor", key: "default" },
+  { label: "Arquitectura Valor", key: "arquitectura" },
+  { label: "Constructora Valor", key: "constructora" },
+  { label: "Promotora Valor", key: "promotora" },
+  { label: "Estrategia Valor", key: "estrategia" },
+  { label: "Banca Valor", key: "banca" },
 ];
 
-export default function BottomMenuItems() {
-  const [selected, setSelected] = useState(null);
+export default function BottomMenuItems({ onSelect }) {
+  const [selected, setSelected] = useState("default");
 
   return (
     <Box
@@ -22,19 +22,21 @@ export default function BottomMenuItems() {
       }}
     >
       {items.map((item) => {
-        const isSelected = selected === item;
+        const isSelected = selected === item.key;
 
         return (
           <Box
-            key={item}
-            onClick={() => setSelected(item)}
+            key={item.key}
+            onClick={() => {
+              setSelected(item.key);
+              onSelect?.(item.key);
+            }}
             sx={{
               borderRadius: "999px",
               px: 2,
               py: 0.5,
               cursor: "pointer",
 
-              // estado base
               border: "1px solid",
               borderColor: isSelected
                 ? "secondary.main"
@@ -46,7 +48,6 @@ export default function BottomMenuItems() {
 
               transition: "all 0.25s ease",
 
-              // hover SOLO del item
               "&:hover": {
                 borderColor: "secondary.main",
 
@@ -62,14 +63,11 @@ export default function BottomMenuItems() {
               className="label"
               sx={{
                 fontSize: 14,
-                color: isSelected
-                  ? "primary.main"   // texto oscuro sobre fondo naranja
-                  : "primary.main", // gris base (#bfafaa)
-
+                color: isSelected ? "primary.main" : "primary.main",
                 transition: "color 0.25s ease",
               }}
             >
-              {item}
+              {item.label}
             </Typography>
           </Box>
         );

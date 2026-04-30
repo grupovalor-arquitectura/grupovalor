@@ -5,13 +5,19 @@ import BottomMenuIcon from "./BottomMenuIcon";
 import BottomMenuItems from "./BottomMenuItems";
 import Divider from "./Divider";
 
+import { useState } from "react";
+
+
 export default function BottomBar({ tagline, isOpen, onMenuClick }) {
+
+    const [activeSection, setActiveSection] = useState("default");
+
   return (
     <Box
         sx={{
             width: "100%",
             display: "flex",
-            justifyContent: "space-between", // 👈 CLAVE
+            justifyContent: "space-between", 
             alignItems: "flex-end",
             pb: { xs: 2, md: 4 },
         }}
@@ -44,7 +50,7 @@ export default function BottomBar({ tagline, isOpen, onMenuClick }) {
                 transition: "all 0.4s ease",
             }}
             >
-            <BottomMenuItems />
+            <BottomMenuItems onSelect={setActiveSection} />
             </Box>
         </Box>
 
@@ -52,9 +58,10 @@ export default function BottomBar({ tagline, isOpen, onMenuClick }) {
         <Box
             sx={{
             textAlign: "right",
+
             }}
         >
-            <Tagline text={tagline} />
+            <Tagline active={activeSection} />
         </Box>
         </Box>
   );

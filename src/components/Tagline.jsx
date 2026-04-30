@@ -1,6 +1,15 @@
 import { Box, Typography } from "@mui/material";
 
-export default function Tagline() {
+const TAGLINES = {
+  default: ["valor", "más allá", "del espacio"],
+  arquitectura: ["valor", "más allá", "de la rentabilidad"],
+  constructora: ["valor", "más allá", "de la obra"],
+  promotora: ["valor", "más allá", "de la rentabilidad"],
+  estrategia: ["valor", "más allá", "de las ventas"],
+  banca: ["valor", "más allá", "del capital"],
+};
+
+export default function Tagline({ active = "default" }) {
   const lineStyle = {
     fontSize: "20px",
     fontWeight: 300,
@@ -9,24 +18,15 @@ export default function Tagline() {
     whiteSpace: "nowrap",
   };
 
+  const lines = TAGLINES[active] || TAGLINES.default;
+
   return (
-    <Box
-      sx={{
-        
-        textAlign: "right",
-      }}
-    >
-      <Typography sx={lineStyle}>
-        valor
-      </Typography>
-
-      <Typography sx={lineStyle}>
-        más allá
-      </Typography>
-
-      <Typography sx={lineStyle}>
-        del espacio
-      </Typography>
+    <Box sx={{ textAlign: "right" }}>
+      {lines.map((line, i) => (
+        <Typography key={i} sx={lineStyle}>
+          {line}
+        </Typography>
+      ))}
     </Box>
   );
 }
