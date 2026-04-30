@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 699.07 148.19">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.09em;
+      }
+
+      .cls-2 {
+        font-family: Satoshi-Black, Satoshi;
+        font-size: 80.15px;
+        font-weight: 800;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #211d1e;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <polygon class="cls-3" points="161.29 70.37 146.88 100.77 103.67 9.56 132.47 9.56 161.29 70.37"/>
+    <circle class="cls-3" cx="183.32" cy="23.86" r="14.38"/>
+    <rect class="cls-3" x="231.86" y="9.58" width="2.93" height="91.2"/>
+    <path class="cls-3" d="M100.62,9.3h-28.75v14.42c-5-7.41-14.52-14.32-27.1-14.32C18.69,9.4,0,28.48,0,55.97s17.62,44.37,43.52,44.37c12.03,0,22.76-3.14,28.31-9.65l.04,12.25c0,12.84-9.28,21.26-22.19,21.26-9.97,0-19.08-3.84-20.9-14.24H0c2.59,25.68,21.59,38.22,49.89,38.22,31.64,0,50.75-18.72,50.75-51.09l-.02-87.81ZM50.28,76.37c-11.9,0-21.55-9.63-21.55-21.5s9.65-21.5,21.55-21.5,21.55,9.63,21.55,21.5-9.65,21.5-21.55,21.5Z"/>
+    <text class="cls-2" transform="translate(258.83 69.75)"><tspan x="0" y="0">Grupo</tspan></text>
+    <text class="cls-2" transform="translate(497.51 69.73)"><tspan class="cls-1" x="0" y="0">V</tspan><tspan x="51.77" y="0">alor</tspan></text>
+  </g>
+</svg>

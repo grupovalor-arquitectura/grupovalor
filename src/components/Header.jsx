@@ -3,9 +3,12 @@ import MenuIcon from "./MenuIcon";
 
 
 import { Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+
 
 
 export default function Header({ onMenuClick, isOpen }) {
+   const theme = useTheme();
 
   return (
     <Box
@@ -19,8 +22,10 @@ export default function Header({ onMenuClick, isOpen }) {
       {/* Logo */}
       <GVIcon
         style={{
-          height: 30,
+          height: 40,
           width: "auto",
+          color: theme.palette.primary.main,
+          stroke: "none", 
         }}
       />
 
