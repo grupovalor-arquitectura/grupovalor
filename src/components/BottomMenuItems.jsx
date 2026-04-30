@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 
 const items = [
-  { label: "GrupoValor", key: "default" },
+  { label: "Grupo Valor", key: "default" },
   { label: "Arquitectura Valor", key: "arquitectura" },
   { label: "Constructora Valor", key: "constructora" },
   { label: "Promotora Valor", key: "promotora" },

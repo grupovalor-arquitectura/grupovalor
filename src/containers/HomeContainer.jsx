@@ -3,6 +3,8 @@ import { Box } from "@mui/material";
 import LayoutBase from "../components/LayoutBase";
 import Header from "../components/Header";
 import BottomBar from "../components/BottomBar";
+import VisualCircles from "../components/VisualCircles";
+
 
 import circles from "../assets/Circle_2.svg";
 
@@ -24,17 +26,7 @@ export default function HomeContainer() {
         />
       }
 
-      visual={
-        <Box
-          component="img"
-          src={circles}
-          alt="circles"
-          sx={{
-            width: "100%",
-            maxWidth: "1200px",
-          }}
-        />
-      }
+      visual={<VisualCircles />}  // 🔥 AQUÍ VA
 
       bottom={
         <BottomBar
