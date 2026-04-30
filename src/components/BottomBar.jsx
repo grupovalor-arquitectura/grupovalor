@@ -52,9 +52,6 @@ export default function BottomBar({ tagline, isOpen, onMenuClick }) {
         <Box
             sx={{
             textAlign: "right",
-            opacity: isOpen ? 0 : 1,
-            transform: isOpen ? "translateY(10px)" : "translateY(0)",
-            transition: "all 0.3s ease",
             }}
         >
             <Tagline text={tagline} />
