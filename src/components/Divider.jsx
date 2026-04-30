@@ -1,21 +1,15 @@
 import { Box } from "@mui/material";
 
-export default function Divider({ orientation = "vertical" }) {
+export default function Divider({ orientation = "vertical", sx = {} }) {
   return (
     <Box
       sx={{
-        ...(orientation === "vertical"
-          ? {
-              width: "1px",
-              height: 40, // 👈 CLAVE
-            }
-          : {
-              height: "1px",
-              width: "100%",
-            }),
-
+        width: orientation === "vertical" ? "1px" : "100%",
+        height: orientation === "vertical" ? 24 : "1px",
         bgcolor: "primary.main",
-        alignSelf: "center", // 👈 centra con icono
+        opacity: 0.3,
+        alignSelf: "center",
+        ...sx, // 👈 permite extender estilos desde afuera
       }}
     />
   );

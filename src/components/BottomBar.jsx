@@ -5,45 +5,60 @@ import BottomMenuIcon from "./BottomMenuIcon";
 import BottomMenuItems from "./BottomMenuItems";
 import Divider from "./Divider";
 
-export default function BottomBar({
-    
-    tagline,
-    isOpen,
-    onMenuClick
-
-}) {
+export default function BottomBar({ tagline, isOpen, onMenuClick }) {
   return (
     <Box
-    sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        pb: { xs: 2, md: 4 },
-        gap: 4,
-    }}
-    >
-    {/* GRUPO IZQUIERDA (icono + divider) */}
-    <Box
         sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: 3, // 👈 gap ENTRE icono y divider
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between", // 👈 CLAVE
+            alignItems: "flex-end",
+            pb: { xs: 2, md: 4 },
         }}
-    >
-        <MenuTrigger
-        onClick={onMenuClick}
-        icon={<BottomMenuIcon isOpen={isOpen} />}
-        />
+        >
+        {/* IZQUIERDA: icono + menu */}
+        <Box
+            sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            }}
+        >
+            <MenuTrigger
+            onClick={onMenuClick}
+            icon={<BottomMenuIcon isOpen={isOpen} />}
+            />
 
-        {isOpen && <Divider />}
-    </Box>
+            <Divider
+            sx={{
+                opacity: isOpen ? 1 : 0,
+                transform: isOpen ? "scaleY(1)" : "scaleY(0)",
+                transition: "all 0.3s ease",
+            }}
+            />
 
-    {/* CONTENIDO DERECHO */}
-    {isOpen ? (
-        <BottomMenuItems />
-    ) : (
-        <Tagline text={tagline} />
-    )}
-    </Box>
+            <Box
+            sx={{
+                opacity: isOpen ? 1 : 0,
+                transform: isOpen ? "translateY(0)" : "translateY(10px)",
+                transition: "all 0.4s ease",
+            }}
+            >
+            <BottomMenuItems />
+            </Box>
+        </Box>
+
+        {/* DERECHA: tagline */}
+        <Box
+            sx={{
+            textAlign: "right",
+            opacity: isOpen ? 0 : 1,
+            transform: isOpen ? "translateY(10px)" : "translateY(0)",
+            transition: "all 0.3s ease",
+            }}
+        >
+            <Tagline text={tagline} />
+        </Box>
+        </Box>
   );
 }

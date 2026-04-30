@@ -1,4 +1,4 @@
-import { Box, Chip } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const items = [
   "GrupoValor",
@@ -16,21 +16,27 @@ export default function BottomMenuItems() {
         display: "flex",
         gap: 1.5,
         flexWrap: "wrap",
-        alignItems: "center",
       }}
     >
       {items.map((item) => (
-        <Chip
+        <Box
           key={item}
-          label={item}
-          variant="outlined"
           sx={{
-            borderColor: "rgba(255,255,255,0.4)",
-            color: "secondary.main",
-            borderRadius: "30px",
-            px: 1,
+            border: "1px solid rgba(255,255,255,0.4)",
+            borderRadius: "999px",
+            px: 2,
+            py: 0.5,
           }}
-        />
+        >
+          <Typography
+            sx={{
+              fontSize: 14,
+              color: "secondary.main",
+            }}
+          >
+            {item}
+          </Typography>
+        </Box>
       ))}
     </Box>
   );
