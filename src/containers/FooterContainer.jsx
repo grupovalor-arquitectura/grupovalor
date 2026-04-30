@@ -1,5 +1,6 @@
 import LayoutBase from "../components/LayoutBase"
 import FooterStatic from "../components/FooterStatic"
+import FooterDynamic from "../components/FooterDynamic"
 import { Box } from "@mui/material";
 
 
@@ -13,6 +14,7 @@ export default function FooterContainer() {
       }}
     >
       <FooterStatic />
+      <FooterDynamic />
     </Box>
   );
 }

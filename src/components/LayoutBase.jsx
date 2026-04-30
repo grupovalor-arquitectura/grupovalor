@@ -5,7 +5,7 @@ export default function LayoutBase({ header, main, footer }) {
     <Box
       sx={{
         width: "100%",
-        height: "100dvh",
+        minHeight: "100vh",
         bgcolor: "background.default",
         color: "primary.main",
         display: "flex",
@@ -23,7 +23,7 @@ export default function LayoutBase({ header, main, footer }) {
       <Box
         sx={{
           flex: 1,
-          position: "relative",
+      
         }}
       >
         {main}
