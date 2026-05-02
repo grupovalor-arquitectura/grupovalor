@@ -1,5 +1,12 @@
 import { Box } from "@mui/material";
 
+import LogoGV from "../assets/LogoGV.svg?react";
+import LogoAV from "../assets/LogoAV.svg?react";
+import LogoCV from "../assets/LogoCV.svg?react";
+import LogoPV from "../assets/LogoPV.svg?react";
+import LogoEV from "../assets/LogoEV.svg?react";
+import LogoBV from "../assets/LogoBV.svg?react";
+
 export default function VisualCircles({ active = null }) {
   const circles = [
     { pos: -3, key: "promotora" },
@@ -11,6 +18,15 @@ export default function VisualCircles({ active = null }) {
     { pos: 3, key: null },
   ];
 
+  const logos = {
+    default: LogoGV,
+    arquitectura: LogoAV,
+    constructora: LogoCV,
+    promotora: LogoPV,
+    estrategia: LogoEV,
+    banca: LogoBV,
+  };
+
   return (
     <Box
       sx={{
@@ -20,25 +36,19 @@ export default function VisualCircles({ active = null }) {
         alignItems: "center",
         justifyContent: "center",
 
-        /* 🔹 respiración (solo escala) */
+        /* 🔹 respiración */
         "@keyframes breath": {
           "0%": { scale: 1 },
-          "50%": { scale: 1.03},
-          "100%": { scale: 1},
+          "50%": { scale: 1.03 },
+          "100%": { scale: 1 },
         },
 
-        /* 🔹 expansión + quedarse */
+        /* 🔹 expansión */
         ...Object.fromEntries(
           [-3, -2, -1, 1, 2, 3].map((pos) => [
             `@keyframes waveMove-${pos}`,
             {
-              "0%": {
-                transform: "translateX(0)",
-               
-              },
-              "30%": {
-                
-              },
+              "0%": { transform: "translateX(0)" },
               "100%": {
                 transform: `translateX(${pos * 120}px)`,
               },
@@ -54,39 +64,63 @@ export default function VisualCircles({ active = null }) {
         preserveAspectRatio="xMidYMid meet"
       >
         {circles.map((c, i) => {
-          const delay = 1.5 + Math.abs(c.pos) * 0.3; // 🔥 espera inicial + onda progresiva
+          const delay = 1.5 + Math.abs(c.pos) * 0.3;
           const isActive = active === c.key && c.key !== null;
+          const Logo = logos[c.key];
 
           return (
-            <circle
-              key={i}
-              cx={800}
-              cy={300}
-              r={180}
-              fill={isActive ? "#c16242" : "none"}
-              stroke="#c16242"
-              strokeWidth={1}
-              style={{
-                transformOrigin: "800px 300px",
+            <g key={i}>
+              {/* 🔵 CÍRCULO */}
+              <circle
+                cx={800}
+                cy={300}
+                r={180}
+                fill={isActive ? "#c16242" : "none"}
+                stroke="#c16242"
+                strokeWidth={1}
+                style={{
+                  transformOrigin: "800px 300px",
 
-                /* 🔥 CLAVE: animaciones separadas correctamente */
-                animation:
-                  c.pos === 0
-                    ? "breath 4s ease-in-out infinite"
-                    : `
-                        waveMove-${c.pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s,
-                        breath 4s ease-in-out infinite ${delay + 4}s
-                      `,
+                  animation:
+                    c.pos === 0
+                      ? "breath 4s ease-in-out infinite"
+                      : `
+                          waveMove-${c.pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s,
+                          breath 4s ease-in-out infinite ${delay + 4}s
+                        `,
 
+                  transition:
+                    "fill 0.4s ease, opacity 0.4s ease, filter 0.4s ease",
 
-                transition:
-                  "fill 0.4s ease, opacity 0.4s ease, filter 0.4s ease",
+                  filter: isActive
+                    ? "drop-shadow(0 0 12px rgba(193,98,66,0.4))"
+                    : "none",
+                }}
+              />
 
-                filter: isActive
-                  ? "drop-shadow(0 0 12px rgba(193,98,66,0.4))"
-                  : "none",
-              }}
-            />
+              {/* 🔥 LOGO ESCALADO CORRECTAMENTE */}
+              {isActive && Logo && (
+                <g
+                  style={{
+                    transform: `
+                      translateX(${c.pos * 120}px)
+                      scale(2)
+                    `,
+                    transformOrigin: "800px 300px",
+                  }}
+                >
+                  <Logo
+                    x={800 - 90}
+                    y={300 - 30}
+                    width={180}
+                    height={60}
+                    style={{
+                      fill: "#bfafaa",
+                    }}
+                  />
+                </g>
+              )}
+            </g>
           );
         })}
       </svg>

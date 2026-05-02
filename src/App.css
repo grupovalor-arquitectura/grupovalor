@@ -1,0 +1,28 @@
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid #c16242;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* 🔻 abajo */
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #c16242;
+  z-index: 9999;
+  pointer-events: none;
+}

@@ -33,7 +33,7 @@ export default function Footer() {
             }}
           />
 
-          {/* 🔥 DIVIDER */}
+          {/* DIVIDER */}
           <Box
             sx={{
               width: "2px",
@@ -79,7 +79,7 @@ export default function Footer() {
 
         {/* FORMULARIO */}
         <Box sx={{  minWidth: 280,
-            textAlign: "right",        // 🔥 clave
+            textAlign: "right",      
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-end", }}>

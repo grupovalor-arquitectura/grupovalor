@@ -10,8 +10,8 @@ import Footer from "../components/Footer";
 import useMenu from "../hooks/useMenu";
 
 export default function HomeContainer() {
-  const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu();
-  const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu();
+  const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false); // cerrado
+  const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);  // abierto
 
   const [activeSection, setActiveSection] = useState(null);
 
