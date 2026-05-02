@@ -63,6 +63,7 @@ export default function VisualCircles({ active = null }) {
         height="100%"
         preserveAspectRatio="xMidYMid meet"
       >
+        {/* 🔹 BASE */}
         {circles.map((c, i) => {
           const delay = 1.5 + Math.abs(c.pos) * 0.3;
           const isActive = active === c.key && c.key !== null;
@@ -70,7 +71,7 @@ export default function VisualCircles({ active = null }) {
 
           return (
             <g key={i}>
-              {/* 🔵 CÍRCULO */}
+              {/* círculo base */}
               <circle
                 cx={800}
                 cy={300}
@@ -85,9 +86,9 @@ export default function VisualCircles({ active = null }) {
                     c.pos === 0
                       ? "breath 4s ease-in-out infinite"
                       : `
-                          waveMove-${c.pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s,
-                          breath 4s ease-in-out infinite ${delay + 4}s
-                        `,
+                        waveMove-${c.pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s,
+                        breath 4s ease-in-out infinite ${delay + 4}s
+                      `,
 
                   transition:
                     "fill 0.4s ease, opacity 0.4s ease, filter 0.4s ease",
@@ -98,7 +99,7 @@ export default function VisualCircles({ active = null }) {
                 }}
               />
 
-              {/* 🔥 LOGO ESCALADO CORRECTAMENTE */}
+              {/* logo base */}
               {isActive && Logo && (
                 <g
                   style={{
@@ -114,15 +115,65 @@ export default function VisualCircles({ active = null }) {
                     y={300 - 30}
                     width={180}
                     height={60}
-                    style={{
-                      fill: "#bfafaa",
-                    }}
+                    style={{ fill: "#bfafaa" }}
                   />
                 </g>
               )}
             </g>
           );
         })}
+
+        {/* 🔥 OVERLAY SUPERIOR (SIN ANIMACIÓN) */}
+        {active && (
+          (() => {
+            const c = circles.find((c) => c.key === active);
+            if (!c) return null;
+
+            const Logo = logos[c.key];
+            const translateX = c.pos * 120;
+
+            return (
+              <g>
+                {/* círculo overlay */}
+                <circle
+                  cx={800}
+                  cy={300}
+                  r={180}
+                  fill="#c16242"
+                  stroke="#c16242"
+                  strokeWidth={1}
+                  style={{
+                    transform: `translateX(${translateX}px)`,
+                    transformOrigin: "800px 300px",
+                    filter:
+                      "drop-shadow(0 0 12px rgba(193,98,66,0.4))",
+                  }}
+                />
+
+                {/* logo overlay */}
+                {Logo && (
+                  <g
+                    style={{
+                      transform: `
+                        translateX(${translateX}px)
+                        scale(2)
+                      `,
+                      transformOrigin: "800px 300px",
+                    }}
+                  >
+                    <Logo
+                      x={800 - 90}
+                      y={300 - 30}
+                      width={180}
+                      height={60}
+                      style={{ fill: "#bfafaa" }}
+                    />
+                  </g>
+                )}
+              </g>
+            );
+          })()
+        )}
       </svg>
     </Box>
   );
