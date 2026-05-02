@@ -115,7 +115,7 @@ export default function VisualCircles({ active = null }) {
                     y={300 - 30}
                     width={180}
                     height={60}
-                    style={{ fill: "#bfafaa" }}
+                    style={{ color: "#bfafaa" }}
                   />
                 </g>
               )}
@@ -166,7 +166,7 @@ export default function VisualCircles({ active = null }) {
                       y={300 - 30}
                       width={180}
                       height={60}
-                      style={{ fill: "#bfafaa" }}
+                      style={{ color: "#bfafaa" }}
                     />
                   </g>
                 )}
