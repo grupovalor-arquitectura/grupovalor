@@ -10,7 +10,7 @@ const items = [
   { label: "Banca Valor", key: "banca" },
 ];
 
-export default function BottomMenuItems({ onSelect }) {
+export default function BottomMenuItems({ onSelect, isReady }) {
   const [selected, setSelected] = useState(null);
 
   return (
@@ -29,6 +29,8 @@ export default function BottomMenuItems({ onSelect }) {
             key={item.key}
             onClick={() => {
 
+              if (!isReady) return;
+
               const newValue = selected === item.key ? null : item.key;
 
               setSelected(newValue);
@@ -38,8 +40,11 @@ export default function BottomMenuItems({ onSelect }) {
               borderRadius: "999px",
               px: 2,
               py: 0.5,
-              cursor: "pointer",
 
+              cursor: isReady ? "pointer" : "default",
+              opacity: isReady ? 1 : 0.4,
+              pointerEvents: isReady ? "auto" : "none",
+              
               border: "1px solid",
               borderColor: isSelected
                 ? "secondary.main"

@@ -5,7 +5,7 @@ import BottomMenuIcon from "./BottomMenuIcon";
 import BottomMenuItems from "./BottomMenuItems";
 import Divider from "./Divider";
 
-export default function BottomBar({ active, onSelect, isOpen, onMenuClick }) {
+export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isReady}) {
   return (
     <Box
       sx={{
@@ -39,7 +39,10 @@ export default function BottomBar({ active, onSelect, isOpen, onMenuClick }) {
           }}
         >
           {/* 🔥 usa el onSelect del padre */}
-          <BottomMenuItems onSelect={onSelect} />
+          <BottomMenuItems 
+            onSelect={onSelect} 
+            isReady={isReady}
+          />
         </Box>
       </Box>
 
