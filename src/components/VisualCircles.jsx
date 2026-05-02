@@ -27,6 +27,15 @@ export default function VisualCircles({ active = null }) {
     banca: LogoBV,
   };
 
+  // 🔥 COLOR BASE UNIFICADO
+  const circleColor = "#b9afaf";
+
+  // 🔥 GLOW CONTENIDO (mismo color)
+  const glow = `
+    drop-shadow(0 0 6px rgba(185,175,175,0.45))
+    drop-shadow(0 0 12px rgba(185,175,175,0.25))
+  `;
+
   return (
     <Box
       sx={{
@@ -36,14 +45,12 @@ export default function VisualCircles({ active = null }) {
         alignItems: "center",
         justifyContent: "center",
 
-        /* 🔹 respiración */
         "@keyframes breath": {
           "0%": { scale: 1 },
           "50%": { scale: 1.03 },
           "100%": { scale: 1 },
         },
 
-        /* 🔹 expansión */
         ...Object.fromEntries(
           [-3, -2, -1, 1, 2, 3].map((pos) => [
             `@keyframes waveMove-${pos}`,
@@ -71,13 +78,12 @@ export default function VisualCircles({ active = null }) {
 
           return (
             <g key={i}>
-              {/* círculo base */}
               <circle
                 cx={800}
                 cy={300}
                 r={180}
-                fill={isActive ? "#c16242" : "none"}
-                stroke="#c16242"
+                fill={isActive ? circleColor : "none"}
+                stroke={circleColor}
                 strokeWidth={1}
                 style={{
                   transformOrigin: "800px 300px",
@@ -93,13 +99,10 @@ export default function VisualCircles({ active = null }) {
                   transition:
                     "fill 0.4s ease, opacity 0.4s ease, filter 0.4s ease",
 
-                  filter: isActive
-                    ? "drop-shadow(0 0 12px rgba(193,98,66,0.4))"
-                    : "none",
+                  filter: isActive ? glow : "none",
                 }}
               />
 
-              {/* logo base */}
               {isActive && Logo && (
                 <g
                   style={{
@@ -115,7 +118,7 @@ export default function VisualCircles({ active = null }) {
                     y={300 - 30}
                     width={180}
                     height={60}
-                    style={{ color: "#bfafaa" }}
+                    style={{ color: "#421b1e" }}
                   />
                 </g>
               )}
@@ -123,7 +126,7 @@ export default function VisualCircles({ active = null }) {
           );
         })}
 
-        {/* 🔥 OVERLAY SUPERIOR (SIN ANIMACIÓN) */}
+        {/* 🔥 OVERLAY */}
         {active && (
           (() => {
             const c = circles.find((c) => c.key === active);
@@ -134,23 +137,20 @@ export default function VisualCircles({ active = null }) {
 
             return (
               <g>
-                {/* círculo overlay */}
                 <circle
                   cx={800}
                   cy={300}
                   r={180}
-                  fill="#c16242"
-                  stroke="#c16242"
+                  fill={circleColor}
+                  stroke={circleColor}
                   strokeWidth={1}
                   style={{
                     transform: `translateX(${translateX}px)`,
                     transformOrigin: "800px 300px",
-                    filter:
-                      "drop-shadow(0 0 12px rgba(193,98,66,0.4))",
+                    filter: glow,
                   }}
                 />
 
-                {/* logo overlay */}
                 {Logo && (
                   <g
                     style={{
@@ -166,7 +166,7 @@ export default function VisualCircles({ active = null }) {
                       y={300 - 30}
                       width={180}
                       height={60}
-                      style={{ color: "#bfafaa" }}
+                      style={{ color: "#421b1e" }}
                     />
                   </g>
                 )}
