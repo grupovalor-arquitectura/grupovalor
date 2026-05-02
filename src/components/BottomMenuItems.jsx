@@ -11,7 +11,7 @@ const items = [
 ];
 
 export default function BottomMenuItems({ onSelect }) {
-  const [selected, setSelected] = useState("null");
+  const [selected, setSelected] = useState(null);
 
   return (
     <Box
@@ -28,8 +28,11 @@ export default function BottomMenuItems({ onSelect }) {
           <Box
             key={item.key}
             onClick={() => {
-              setSelected(item.key);
-              onSelect?.(item.key);
+
+              const newValue = selected === item.key ? null : item.key;
+
+              setSelected(newValue);
+              onSelect?.(newValue);
             }}
             sx={{
               borderRadius: "999px",
