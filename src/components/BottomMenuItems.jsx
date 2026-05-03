@@ -28,10 +28,9 @@ export default function BottomMenuItems({ onSelect, isReady }) {
           <Box
             key={item.key}
             onClick={() => {
-
               if (!isReady) return;
 
-              const newValue = selected === item.key ? null : item.key;
+              const newValue = isSelected ? null : item.key;
 
               setSelected(newValue);
               onSelect?.(newValue);
@@ -44,34 +43,33 @@ export default function BottomMenuItems({ onSelect, isReady }) {
               cursor: isReady ? "pointer" : "default",
               opacity: isReady ? 1 : 0.4,
               pointerEvents: isReady ? "auto" : "none",
-              
+
               border: "1px solid",
               borderColor: isSelected
-                ? "secondary.main"
+                ? "primary.main"
                 : "rgba(255,255,255,0.4)",
 
               backgroundColor: isSelected
-                ? "secondary.main"
+                ? "primary.main"
                 : "transparent",
 
               transition: "all 0.25s ease",
 
               "&:hover": {
-                borderColor: "secondary.main",
-
-                "& .label": {
-                  color: isSelected
-                    ? "primary.main"
-                    : "secondary.main",
-                },
+                borderColor: "primary.main",
               },
             }}
           >
             <Typography
-              className="label"
               sx={{
                 fontSize: 14,
-                color: isSelected ? "primary.main" : "primary.main",
+
+                color: isSelected
+                  ? "background.default" // 🔥 texto claro sobre fondo
+                  : "primary.main",
+
+                fontWeight: isSelected ? 600 : 400,
+
                 transition: "color 0.25s ease",
               }}
             >

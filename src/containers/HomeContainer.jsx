@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
+import { useTheme } from "@mui/material/styles";
 
 import { homeContentMap } from "../data/homeContent";
 
@@ -12,11 +13,20 @@ import HomeContentPanel from "../components/HomeContentPanel";
 
 import useMenu from "../hooks/useMenu";
 
+
+
 export default function HomeContainer() {
+
   const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false);
   const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);
 
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState("default");
+
+  const muiTheme = useTheme();
+
+  const theme =
+    muiTheme.custom.brandTheme[activeSection] ||
+    muiTheme.custom.brandTheme.default;
 
   const [isReady, setIsReady] = useState(false);
 
@@ -29,7 +39,11 @@ export default function HomeContainer() {
   }, []);
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ 
+      position: "relative", 
+      backgroundColor: theme.bg,
+      transition: "background-color 0.6s ease",
+    }}>
 
       <LayoutBase
         header={
@@ -40,13 +54,20 @@ export default function HomeContainer() {
         }
 
         visual={
-          <VisualCircles active={activeSection} /> // 🔥 SIN wrapper
+          <VisualCircles 
+          active={activeSection}
+          color={theme.circle}
+          textColor={theme.text} /> // 🔥 SIN wrapper
         }
 
         bottom={
           <BottomBar
             active={activeSection}
-            onSelect={setActiveSection}
+            onSelect={(key) =>
+              setActiveSection((prev) =>
+                prev === key ? "default" : key
+              )
+            }
             isOpen={isBottomOpen}
             onMenuClick={toggleBottom}
             isReady={isReady}

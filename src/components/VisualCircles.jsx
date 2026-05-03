@@ -7,7 +7,15 @@ import LogoPV from "../assets/LogoPV.svg?react";
 import LogoEV from "../assets/LogoEV.svg?react";
 import LogoBV from "../assets/LogoBV.svg?react";
 
-export default function VisualCircles({ active = null }) {
+export default function VisualCircles({ 
+  
+  active = null,
+  color = "#b9afaf",
+  textColor = "#421b1e",
+}) {
+
+  const circleColor = color;
+
   const circles = [
     { pos: -3, key: "promotora" },
     { pos: -2, key: "constructora" },
@@ -27,13 +35,10 @@ export default function VisualCircles({ active = null }) {
     banca: LogoBV,
   };
 
-  // 🔥 COLOR BASE UNIFICADO
-  const circleColor = "#b9afaf";
 
   // 🔥 GLOW CONTENIDO (mismo color)
   const glow = `
     drop-shadow(0 0 6px rgba(185,175,175,0.45))
-    drop-shadow(0 0 12px rgba(185,175,175,0.25))
   `;
 
   return (
