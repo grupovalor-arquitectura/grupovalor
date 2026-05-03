@@ -7,6 +7,13 @@ import LogoPV from "../assets/LogoPV.svg?react";
 import LogoEV from "../assets/LogoEV.svg?react";
 import LogoBV from "../assets/LogoBV.svg?react";
 
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 export default function VisualCircles({ 
   
   active = null,
@@ -38,8 +45,9 @@ export default function VisualCircles({
 
   // 🔥 GLOW CONTENIDO (mismo color)
   const glow = `
-    drop-shadow(0 0 6px rgba(185,175,175,0.45))
-  `;
+  drop-shadow(0 0 6px ${hexToRgba(circleColor, 0.45)})
+  drop-shadow(0 0 12px ${hexToRgba(circleColor, 0.25)})
+`;
 
   return (
     <Box
