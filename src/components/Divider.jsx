@@ -1,15 +1,21 @@
 import { Box } from "@mui/material";
+import { alpha, useTheme } from "@mui/material/styles";
 
 export default function Divider({ orientation = "vertical", sx = {} }) {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
-        width: orientation === "vertical" ? "1px" : "100%",
+        width: orientation === "vertical" ? "0.75px" : "100%",
         height: orientation === "vertical" ? 24 : "1px",
-        bgcolor: "primary.main",
-        opacity: 0.3,
+
+        // 🔥 color controlado sin opacity
+        bgcolor: theme.palette.primary.main,
+
         alignSelf: "center",
-        ...sx, // 👈 permite extender estilos desde afuera
+
+        ...sx,
       }}
     />
   );

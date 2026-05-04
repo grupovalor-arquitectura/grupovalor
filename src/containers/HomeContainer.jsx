@@ -20,8 +20,7 @@ export default function HomeContainer() {
   const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false);
   const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);
 
-  const [activeSection, setActiveSection] = useState("default");
-
+  const [activeSection, setActiveSection] = useState(null);
   const muiTheme = useTheme();
 
   const theme =
@@ -33,6 +32,7 @@ export default function HomeContainer() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsReady(true);
+      setActiveSection("default");
     }, 3800);
 
     return () => clearTimeout(timer);
