@@ -23,13 +23,7 @@ export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isRea
           icon={<BottomMenuIcon isOpen={isOpen} />}
         />
 
-        <Divider
-          sx={{
-            opacity: isOpen ? 1 : 0,
-            transform: isOpen ? "scaleY(1)" : "scaleY(0)",
-            transition: "all 0.3s ease",
-          }}
-        />
+       
 
         <Box
           sx={{

@@ -14,13 +14,11 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-export default function VisualCircles({ 
-  
+export default function VisualCircles({
   active = null,
   color = "#b9afaf",
   textColor = "#421b1e",
 }) {
-
   const circleColor = color;
 
   const circles = [
@@ -42,12 +40,10 @@ export default function VisualCircles({
     banca: LogoBV,
   };
 
-
-  // 🔥 GLOW CONTENIDO (mismo color)
   const glow = `
-  drop-shadow(0 0 6px ${hexToRgba(circleColor, 0.45)})
-  drop-shadow(0 0 12px ${hexToRgba(circleColor, 0.25)})
-`;
+    drop-shadow(0 0 6px ${hexToRgba(circleColor, 0.45)})
+    drop-shadow(0 0 12px ${hexToRgba(circleColor, 0.25)})
+  `;
 
   return (
     <Box
@@ -62,6 +58,12 @@ export default function VisualCircles({
           "0%": { scale: 1 },
           "50%": { scale: 1.03 },
           "100%": { scale: 1 },
+        },
+
+        // 🔥 NUEVO: animación logo
+        "@keyframes fadeInLogo": {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
         },
 
         ...Object.fromEntries(
@@ -95,7 +97,8 @@ export default function VisualCircles({
                 cx={800}
                 cy={300}
                 r={180}
-                fill={isActive ? circleColor : "none"}
+                fill={circleColor}
+                fillOpacity={isActive ? 1 : 0}
                 stroke={circleColor}
                 strokeWidth={1}
                 style={{
@@ -110,7 +113,7 @@ export default function VisualCircles({
                       `,
 
                   transition:
-                    "fill 0.4s ease, opacity 0.4s ease, filter 0.4s ease",
+                   "fill-opacity 0.5 cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease",
 
                   filter: isActive ? glow : "none",
                 }}
@@ -124,6 +127,10 @@ export default function VisualCircles({
                       scale(2)
                     `,
                     transformOrigin: "800px 300px",
+
+                    // 🔥 NUEVO: fade-in suave
+                    opacity: 0,
+                    animation: "fadeInLogo 0.6s ease-in forwards",
                   }}
                 >
                   <Logo
