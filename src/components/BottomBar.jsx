@@ -23,8 +23,6 @@ export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isRea
           icon={<BottomMenuIcon isOpen={isOpen} />}
         />
 
-       
-
         <Box
           sx={{
             opacity: isOpen ? 1 : 0,

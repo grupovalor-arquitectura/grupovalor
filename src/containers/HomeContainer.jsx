@@ -10,6 +10,7 @@ import BottomBar from "../components/BottomBar";
 import VisualCircles from "../components/VisualCircles";
 import Footer from "../components/Footer";
 import HomeContentPanel from "../components/HomeContentPanel";
+import FeaturedProjects from "../components/FeaturedProjects";
 
 import useMenu from "../hooks/useMenu";
 
@@ -75,7 +76,7 @@ export default function HomeContainer() {
         }
       />
 
-      {/* 🔥 CAPA SUPERIOR CORRECTA */}
+    
       <Box
         sx={{
           position: "absolute",
@@ -91,6 +92,8 @@ export default function HomeContainer() {
           content={homeContentMap[activeSection]}
         />
       </Box>
+
+      <FeaturedProjects />
 
       <Footer />
     </Box>

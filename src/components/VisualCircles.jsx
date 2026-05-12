@@ -19,6 +19,7 @@ export default function VisualCircles({
   color = "#b9afaf",
   textColor = "#421b1e",
 }) {
+  
   const circleColor = color;
 
   const circles = [
@@ -60,7 +61,6 @@ export default function VisualCircles({
           "100%": { scale: 1 },
         },
 
-        // 🔥 NUEVO: animación logo
         "@keyframes fadeInLogo": {
           from: { opacity: 0 },
           to: { opacity: 1 },

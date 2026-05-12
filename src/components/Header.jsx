@@ -29,7 +29,7 @@ export default function Header({ onMenuClick, isOpen }) {
         }}
       />
 
-      {/* DERECHA: menú + icono */}
+      {/* DERECHA */}
       <Box
         sx={{
           display: "flex",
@@ -37,12 +37,30 @@ export default function Header({ onMenuClick, isOpen }) {
           gap: "24px",
         }}
       >
-        {/* 🔥 MENÚ CONTROLADO POR isOpen */}
+        {/* MENÚ DESKTOP */}
         <Box
           sx={{
+            display: { xs: "none", md: "block" },
+          }}
+        >
+          <HeaderMenuItems
+            active={active}
+            onSelect={setActive}
+          />
+        </Box>
+
+        {/* MENÚ MOBILE */}
+        <Box
+          sx={{
+            display: { xs: "block", md: "none" },
+
             opacity: isOpen ? 1 : 0,
-            transform: isOpen ? "translateY(0)" : "translateY(-16px)",
+            transform: isOpen
+              ? "translateY(0)"
+              : "translateY(-16px)",
+
             pointerEvents: isOpen ? "auto" : "none",
+
             transition: "all 0.3s ease",
           }}
         >
@@ -52,11 +70,17 @@ export default function Header({ onMenuClick, isOpen }) {
           />
         </Box>
 
-        {/* ICONO */}
-        <MenuIcon
-          isOpen={isOpen}
-          onClick={onMenuClick}
-        />
+        {/* ICONO SOLO MOBILE */}
+        <Box
+          sx={{
+            display: { xs: "block", md: "none" },
+          }}
+        >
+          <MenuIcon
+            isOpen={isOpen}
+            onClick={onMenuClick}
+          />
+        </Box>
       </Box>
     </Box>
   );

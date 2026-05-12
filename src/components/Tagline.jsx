@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 const TAGLINES = {
   default: ["valor", "más allá", "del espacio"],
-  arquitectura: ["valor", "más allá", "de la rentabilidad"],
+  arquitectura: ["valor", "más allá", "del diseño"],
   constructora: ["valor", "más allá", "de la obra"],
   promotora: ["valor", "más allá", "de la rentabilidad"],
   estrategia: ["valor", "más allá", "de las ventas"],
