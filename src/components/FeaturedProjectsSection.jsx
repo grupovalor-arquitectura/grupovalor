@@ -4,19 +4,19 @@ import FeaturedProjectsTrack from "./FeaturedProjectsTrack";
 import FeaturedProjectInfo from "./FeaturedProjectInfo";
 
 export default function FeaturedProjectsSection({
-  stickyRef,
-  x,
+  sectionRef,
+  currentIndex,
 }) {
   return (
     <Box
+      ref={sectionRef}
       sx={{
         position: "relative",
         height: "320vh",
       }}
     >
-      {/* VIEWPORT */}
+      {/* STICKY VIEWPORT */}
       <Box
-        ref={stickyRef}
         sx={{
           position: "sticky",
           top: 0,
@@ -32,22 +32,41 @@ export default function FeaturedProjectsSection({
           alignItems: "center",
         }}
       >
-        {/* LAYOUT */}
+        {/* GRID LAYOUT */}
         <Box
           sx={{
             width: "100%",
 
             display: "grid",
+
             gridTemplateColumns: "28vw 1fr",
 
             alignItems: "center",
           }}
         >
-          {/* INFO FIJA */}
+          {/* FIXED PANEL */}
           <FeaturedProjectInfo />
 
-          {/* TRACK */}
-          <FeaturedProjectsTrack x={x} />
+          {/* TRACK VIEWPORT */}
+          <Box
+            sx={{
+              position: "relative",
+
+              width: "100%",
+              minWidth: 0,
+
+              height: "100%",
+
+              overflow: "hidden",
+
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FeaturedProjectsTrack
+              currentIndex={currentIndex}
+            />
+          </Box>
         </Box>
       </Box>
     </Box>

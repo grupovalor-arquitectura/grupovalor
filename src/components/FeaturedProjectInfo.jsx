@@ -4,11 +4,12 @@ export default function FeaturedProjectInfo() {
   return (
     <Box
       sx={{
-        px: "4vw",
+        px: { xs: 2, md: 4 },
 
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        
 
         height: "90vh",
       }}
@@ -17,14 +18,14 @@ export default function FeaturedProjectInfo() {
       <Box>
         <Typography
           sx={{
-            fontSize: "4rem",
+            fontSize: "48px",
             lineHeight: 1,
 
             color: "#421b1e",
             fontWeight: 700,
           }}
         >
-          LLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
         </Typography>
       </Box>
 
@@ -33,7 +34,7 @@ export default function FeaturedProjectInfo() {
         <Typography
           sx={{
             color: "#421b1e",
-            fontSize: "0.9rem",
+            fontSize: "14px",
             lineHeight: 1.7,
             maxWidth: "320px",
           }}

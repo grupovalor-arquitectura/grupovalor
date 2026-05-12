@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export default function FeaturedProjectImage({ project }) {
+export default function FeaturedProjectImage({ project,  projectRef, }) {
   return (
     <Box
       sx={{
@@ -10,20 +10,25 @@ export default function FeaturedProjectImage({ project }) {
         gap: "1.5vw",
 
         flexShrink: 0,
+
+        // 🔥 ancho real del proyecto
+        width: "calc(58vw + 56px + 1.5vw)",
       }}
     >
-      {/* COLUMN */}
+      {/* META COLUMN */}
       <Box
         sx={{
-          width: "8px",
+          width: "56px",
 
           display: "flex",
           flexDirection: "column",
-         
+
           justifyContent: "space-between",
           alignItems: "flex-end",
 
           height: "90vh",
+
+          flexShrink: 0,
         }}
       >
         {/* NUMBER */}
@@ -39,13 +44,13 @@ export default function FeaturedProjectImage({ project }) {
           {project.number}
         </Typography>
 
-        {/* VERTICAL LABEL */}
+        {/* LABEL */}
         <Typography
           sx={{
             writingMode: "vertical-rl",
             transform: "rotate(180deg)",
 
-            fontSize: "1rem",
+            fontSize: "18px",
             lineHeight: 1,
 
             color: "#421b1e",
@@ -57,7 +62,7 @@ export default function FeaturedProjectImage({ project }) {
         </Typography>
       </Box>
 
-      {/* 🔥 IMAGE */}
+      {/* IMAGE */}
       <Box
         sx={{
           width: "58vw",
@@ -65,12 +70,24 @@ export default function FeaturedProjectImage({ project }) {
 
           overflow: "hidden",
 
-          backgroundColor: project.color,
-
           flexShrink: 0,
+
+          position: "relative",
         }}
       >
-        {/* image later */}
+        <Box
+          component="img"
+          src={project.image}
+          alt={project.label}
+          sx={{
+            width: "100%",
+            height: "100%",
+
+            objectFit: "cover",
+
+            display: "block",
+          }}
+        />
       </Box>
     </Box>
   );

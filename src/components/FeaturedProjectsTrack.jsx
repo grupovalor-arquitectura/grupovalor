@@ -4,21 +4,38 @@ import FeaturedProjectImage from "./FeaturedProjectImage";
 
 import { featuredProjects } from "../data/featuredProjects";
 
-export default function FeaturedProjectsTrack({ x }) {
+export default function FeaturedProjectsTrack({
+  currentIndex,
+}) {
+  // 🔥 ancho aproximado total de cada proyecto
+const CARD_WIDTH =
+  (window.innerWidth * 0.58) +  // image
+  56 +                          // meta
+  (window.innerWidth * 0.015) + // internal gap
+  (window.innerWidth * 0.015) + // track gap
+  30;                            // visual correction
+
   return (
     <motion.div
+      animate={{
+        x: -(CARD_WIDTH * currentIndex),
+      }}
+      transition={{
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       style={{
-        x,
-
         display: "flex",
         alignItems: "center",
 
-        gap: "4vw",
+        gap: "1.5vw",
 
-        paddingLeft: "4vw",
+        paddingLeft: "3vw",
         paddingRight: "20vw",
 
-        width: "fit-content",
+        flexShrink: 0,
+
+        width: "max-content",
 
         willChange: "transform",
       }}
