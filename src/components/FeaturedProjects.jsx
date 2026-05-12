@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import FeaturedProjectsSection from "./FeaturedProjectsSection";
+import { featuredProjects } from "../data/featuredProjects";
 
 export default function FeaturedProjects() {
   const [currentIndex, setCurrentIndex] =
@@ -24,7 +25,10 @@ export default function FeaturedProjects() {
       // DOWN
       if (e.deltaY > 0) {
         setCurrentIndex((prev) =>
-          Math.min(prev + 1, 2)
+         Math.min(
+            prev + 1,
+            featuredProjects.length - 1
+          )
         );
       }
 
