@@ -19,6 +19,7 @@ export default function FeaturedProjectsSection({
       <Box
         sx={{
           position: "sticky",
+          pl: "3vw",
           top: 0,
 
           width: "100%",

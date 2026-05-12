@@ -1,8 +1,12 @@
 import { Box, Typography } from "@mui/material";
 
-export default function FeaturedProjectImage({ project,  projectRef, }) {
+export default function FeaturedProjectImage({
+  project,
+  projectRef,
+}) {
   return (
     <Box
+      ref={projectRef}
       sx={{
         display: "flex",
         alignItems: "stretch",
@@ -11,7 +15,7 @@ export default function FeaturedProjectImage({ project,  projectRef, }) {
 
         flexShrink: 0,
 
-        // 🔥 ancho real del proyecto
+        // 🔥 ancho consistente
         width: "calc(58vw + 56px + 1.5vw)",
       }}
     >
