@@ -15,7 +15,7 @@ export default function FeaturedProjectImage({ project }) {
       {/* COLUMN */}
       <Box
         sx={{
-          width: "48px",
+          width: "8px",
 
           display: "flex",
           flexDirection: "column",
@@ -60,7 +60,7 @@ export default function FeaturedProjectImage({ project }) {
       {/* 🔥 IMAGE */}
       <Box
         sx={{
-          width: "50vw",
+          width: "58vw",
           height: "90vh",
 
           overflow: "hidden",
