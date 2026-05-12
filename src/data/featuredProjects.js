@@ -9,6 +9,8 @@ export const featuredProjects = [
     label: "Lorem ipsum",
     color: "#421b1e",
     image: Proyecto1,
+    title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
   },
 
   {
@@ -17,6 +19,8 @@ export const featuredProjects = [
     label: "Dolor sit",
     color: "#8a6a52",
     image: Proyecto2,
+    title: "Lorem ipsum dolor.",
+    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
   },
 
   {
@@ -25,6 +29,8 @@ export const featuredProjects = [
     label: "Amet elit",
     color: "#2d2d2d",
     image: Proyecto3,
+    title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
   },
 
   {
@@ -33,5 +39,7 @@ export const featuredProjects = [
     label: "Amet elit",
     color: "#2d2d2d",
     image: Proyecto3,
+    title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh.",
+    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
   },
 ];

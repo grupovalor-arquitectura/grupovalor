@@ -9,6 +9,10 @@ export default function FeaturedProjects() {
 
   const sectionRef = useRef(null);
 
+  // 🔥 proyecto activo
+  const activeProject =
+    featuredProjects[currentIndex];
+
   useEffect(() => {
     const handleWheel = (e) => {
       if (!sectionRef.current) return;
@@ -25,7 +29,7 @@ export default function FeaturedProjects() {
       // DOWN
       if (e.deltaY > 0) {
         setCurrentIndex((prev) =>
-         Math.min(
+          Math.min(
             prev + 1,
             featuredProjects.length - 1
           )
@@ -54,6 +58,7 @@ export default function FeaturedProjects() {
     <FeaturedProjectsSection
       sectionRef={sectionRef}
       currentIndex={currentIndex}
+      activeProject={activeProject}
     />
   );
 }

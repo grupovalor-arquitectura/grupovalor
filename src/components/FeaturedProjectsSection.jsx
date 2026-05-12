@@ -6,6 +6,7 @@ import FeaturedProjectInfo from "./FeaturedProjectInfo";
 export default function FeaturedProjectsSection({
   sectionRef,
   currentIndex,
+  activeProject,
 }) {
   return (
     <Box
@@ -19,7 +20,7 @@ export default function FeaturedProjectsSection({
       <Box
         sx={{
           position: "sticky",
-          pl: "3vw",
+          
           top: 0,
 
           width: "100%",
@@ -46,7 +47,9 @@ export default function FeaturedProjectsSection({
           }}
         >
           {/* FIXED PANEL */}
-          <FeaturedProjectInfo />
+          <FeaturedProjectInfo
+            project={activeProject}
+          />
 
           {/* TRACK VIEWPORT */}
           <Box
