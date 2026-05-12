@@ -1,22 +1,26 @@
-import { Box } from "@mui/material";
+import { motion } from "framer-motion";
 
 import FeaturedProjectImage from "./FeaturedProjectImage";
 
 import { featuredProjects } from "../data/featuredProjects";
 
-export default function FeaturedProjectsTrack() {
+export default function FeaturedProjectsTrack({ x }) {
   return (
-    <Box
-      sx={{
+    <motion.div
+      style={{
+        x,
+
         display: "flex",
         alignItems: "center",
 
         gap: "4vw",
 
-        pl: "4vw",
-        pr: "20vw",
+        paddingLeft: "4vw",
+        paddingRight: "20vw",
 
         width: "fit-content",
+
+        willChange: "transform",
       }}
     >
       {featuredProjects.map((project) => (
@@ -25,6 +29,6 @@ export default function FeaturedProjectsTrack() {
           project={project}
         />
       ))}
-    </Box>
+    </motion.div>
   );
 }

@@ -6,16 +6,14 @@ import {
 } from "framer-motion";
 
 export default function useFeaturedProjectsScroll() {
-  const sectionRef = useRef(null);
+  const stickyRef = useRef(null);
 
-  //  progreso de scroll
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: stickyRef,
 
     offset: ["start start", "end end"],
   });
 
-  // translate horizontal
   const x = useTransform(
     scrollYProgress,
     [0, 1],
@@ -23,8 +21,7 @@ export default function useFeaturedProjectsScroll() {
   );
 
   return {
-    sectionRef,
-    scrollYProgress,
+    stickyRef,
     x,
   };
 }

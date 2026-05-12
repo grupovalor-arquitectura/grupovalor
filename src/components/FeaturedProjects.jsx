@@ -4,13 +4,13 @@ import useFeaturedProjectsScroll from "../hooks/useFeaturedProjectsScroll";
 
 export default function FeaturedProjects() {
   const {
-    sectionRef,
+    stickyRef,
     x,
   } = useFeaturedProjectsScroll();
 
   return (
     <FeaturedProjectsSection
-      sectionRef={sectionRef}
+      stickyRef={stickyRef}
       x={x}
     />
   );

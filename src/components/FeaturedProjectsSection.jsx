@@ -3,7 +3,10 @@ import { Box } from "@mui/material";
 import FeaturedProjectsTrack from "./FeaturedProjectsTrack";
 import FeaturedProjectInfo from "./FeaturedProjectInfo";
 
-export default function FeaturedProjectsSection() {
+export default function FeaturedProjectsSection({
+  stickyRef,
+  x,
+}) {
   return (
     <Box
       sx={{
@@ -13,6 +16,7 @@ export default function FeaturedProjectsSection() {
     >
       {/* VIEWPORT */}
       <Box
+        ref={stickyRef}
         sx={{
           position: "sticky",
           top: 0,
@@ -28,7 +32,7 @@ export default function FeaturedProjectsSection() {
           alignItems: "center",
         }}
       >
-        {/* 🔥 LAYOUT */}
+        {/* LAYOUT */}
         <Box
           sx={{
             width: "100%",
@@ -43,7 +47,7 @@ export default function FeaturedProjectsSection() {
           <FeaturedProjectInfo />
 
           {/* TRACK */}
-          <FeaturedProjectsTrack />
+          <FeaturedProjectsTrack x={x} />
         </Box>
       </Box>
     </Box>
