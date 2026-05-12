@@ -38,7 +38,7 @@ export default function FeaturedProjectImage({
         {/* NUMBER */}
         <Typography
           sx={{
-            fontSize: "2rem",
+            fontSize: "18px",
             lineHeight: 1,
 
             color: "#421b1e",
@@ -56,6 +56,7 @@ export default function FeaturedProjectImage({
 
             fontSize: "18px",
             lineHeight: 1,
+            fontWeight: 500,
 
             color: "#421b1e",
 
@@ -90,6 +91,17 @@ export default function FeaturedProjectImage({
             objectFit: "cover",
 
             display: "block",
+
+            transition:
+              "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+
+            transform: "scale(1)",
+
+            willChange: "transform",
+
+            "&:hover": {
+              transform: "scale(1.1)",
+            },
           }}
         />
       </Box>
