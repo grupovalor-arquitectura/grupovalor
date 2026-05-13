@@ -49,6 +49,7 @@ export default function FeaturedProjectsSection({
           {/* FIXED PANEL */}
           <FeaturedProjectInfo
             project={activeProject}
+            currentIndex={currentIndex}
           />
 
           {/* TRACK VIEWPORT */}
