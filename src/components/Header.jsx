@@ -2,6 +2,7 @@ import GVIcon from "../assets/GVIcon.svg?react";
 import MenuIcon from "./MenuIcon";
 import HeaderMenuItems from "./HeaderMenuItems";
 
+import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
@@ -20,14 +21,29 @@ export default function Header({ onMenuClick, isOpen }) {
       }}
     >
       {/* LOGO */}
-      <GVIcon
-        style={{
-          height: 40,
-          width: "auto",
-          color: theme.palette.primary.main,
-          stroke: "none",
-        }}
-      />
+      <Box
+  component={Link}
+  to="/"
+
+  sx={{
+    display: "flex",
+    alignItems: "center",
+
+    textDecoration: "none",
+
+    cursor: "none",
+  }}
+>
+  <GVIcon
+    style={{
+      height: 40,
+      width: "auto",
+      color: theme.palette.primary.main,
+      stroke: "none",
+      cursor: "pointer",
+    }}
+  />
+</Box>
 
       {/* DERECHA */}
       <Box

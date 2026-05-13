@@ -8,9 +8,11 @@ export default function Footer() {
         width: "100%",
         backgroundColor: "#421b1e",
         color: "#d6cfc9",
-        px: { xs: 3, md: 6 },
-        py: { xs: 5, md: 6 },
+        px: { xs: 2, md: 4 },
+        pt: { xs: 5, md: 12 },
+        pb: { xs: 2, md: 4 },
       }}
+      
     >
       <Box
         sx={{
