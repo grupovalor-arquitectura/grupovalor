@@ -57,7 +57,7 @@ export default function FeaturedProjectInfo({
             sx={{
               color: "#421b1e",
 
-              fontSize: "14px",
+              fontSize: "16px",
 
               lineHeight: 1.7,
 
