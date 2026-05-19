@@ -8,7 +8,7 @@ export const brandTheme = {
   },
 
   arquitectura: {
-    bg: "#155249",
+    bg: "#13473f",
     circle: "#a4ccc8",
     text: "#a4ccc8",
   },

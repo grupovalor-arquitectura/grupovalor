@@ -14,8 +14,7 @@ export default function HomeContentPanel({ active, content, ctaButton }) {
         left: 0,
         right: 0,
 
-        px: { xs: 2, md: 4 }, // 🔥 EXACTAMENTE IGUAL a LayoutBase
-
+        px: { xs: 2, md: 4 }, 
         display: "flex",
         justifyContent: "flex-end",
 
@@ -29,7 +28,7 @@ export default function HomeContentPanel({ active, content, ctaButton }) {
       {/* 🔹 BLOQUE DERECHO (texto + botón) */}
       <Box
         sx={{
-          maxWidth: 200,
+          maxWidth: 250,
           textAlign: "right",
           pointerEvents: "auto",
         }}
@@ -39,6 +38,7 @@ export default function HomeContentPanel({ active, content, ctaButton }) {
             color: "primary.main",
             fontSize: { xs: 14, md: 16 },
             lineHeight: 1.6,
+            whiteSpace: "pre-line",
             mb: 2,
           }}
         >
