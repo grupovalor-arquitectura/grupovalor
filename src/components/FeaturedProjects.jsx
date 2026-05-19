@@ -9,11 +9,18 @@ export default function FeaturedProjects() {
 
   const sectionRef = useRef(null);
 
-  // 🔥 proyecto activo
+  // 🔥 acumulador de scroll
+  const wheelAccumulator = useRef(0);
+
+  // 🔥 lock para evitar spam
+  const isAnimating = useRef(false);
+
   const activeProject =
     featuredProjects[currentIndex];
 
   useEffect(() => {
+    const THRESHOLD = 220;
+
     const handleWheel = (e) => {
       if (!sectionRef.current) return;
 
@@ -26,25 +33,57 @@ export default function FeaturedProjects() {
 
       if (!isInView) return;
 
+      // 🔥 evita múltiples cambios seguidos
+      if (isAnimating.current) return;
+
+      // 🔥 acumular scroll
+      wheelAccumulator.current += e.deltaY;
+
       // DOWN
-      if (e.deltaY > 0) {
+      if (
+        wheelAccumulator.current >
+        THRESHOLD
+      ) {
+        isAnimating.current = true;
+
         setCurrentIndex((prev) =>
           Math.min(
             prev + 1,
             featuredProjects.length - 1
           )
         );
+
+        wheelAccumulator.current = 0;
+
+        setTimeout(() => {
+          isAnimating.current = false;
+        }, 900);
       }
 
       // UP
-      if (e.deltaY < 0) {
+      if (
+        wheelAccumulator.current <
+        -THRESHOLD
+      ) {
+        isAnimating.current = true;
+
         setCurrentIndex((prev) =>
           Math.max(prev - 1, 0)
         );
+
+        wheelAccumulator.current = 0;
+
+        setTimeout(() => {
+          isAnimating.current = false;
+        }, 900);
       }
     };
 
-    window.addEventListener("wheel", handleWheel);
+    window.addEventListener(
+      "wheel",
+      handleWheel,
+      { passive: true }
+    );
 
     return () => {
       window.removeEventListener(
