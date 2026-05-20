@@ -57,7 +57,7 @@ export default function HeaderMenuItems() {
 
             textDecoration: "none",
 
-            border: "1px solid rgba(255,255,255,0.4)",
+            border: "1px solid #b9afaf",
 
             transition: "all 0.25s ease",
 
@@ -81,7 +81,7 @@ export default function HeaderMenuItems() {
                   ? "#0f0f0f"
                   : hovered === item.path
                   ? "#c16242"
-                  : "#ffffff",
+                  : "#b9afaf",
 
                 transition:
                   "color 0.25s ease",
