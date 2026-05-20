@@ -61,15 +61,27 @@ export default function BottomMenuItems({
           if (item.key === "default") {
             setIsExpanded((prev) => !prev);
 
+            // limpia submarca seleccionada
+            setSelected(null);
+
             onSelect?.("default");
 
             return;
-}
+          }
 
           // 🔥 submarcas
+         if (selected === item.key) {
+            setSelected(null);
+
+            onSelect?.("default");
+
+            return;
+          }
+
           setSelected(item.key);
 
           onSelect?.(item.key);
+          
         }}
         sx={{
           borderRadius: "999px",
