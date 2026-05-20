@@ -25,23 +25,26 @@ export default function BottomMenuItems({
   isReady,
 }) {
   const [selected, setSelected] =
-  useState(null);
+    useState(null);
 
-  // 🔥 controla submarcas
+  // 🔥 controla apertura submenu
   const [isExpanded, setIsExpanded] =
     useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-  if (isReady) {
-    onSelect?.("default");
-  }
-}, [isReady]);
+    if (isReady) {
+      onSelect?.("default");
+    }
+  }, [isReady]);
 
   const renderChip = (item) => {
+    // 🔥 Grupo Valor depende del menu abierto
     const isSelected =
-      selected === item.key;
+      item.key === "default"
+        ? isExpanded
+        : selected === item.key;
 
     return (
       <Box
@@ -55,13 +58,25 @@ export default function BottomMenuItems({
             return;
           }
 
-          // 🔥 Grupo Valor:
-          // solo expande/cierra submenu
-          // PERO mantiene el estado default
+          // 🔥 Grupo Valor
           if (item.key === "default") {
-            setIsExpanded((prev) => !prev);
+            const nextExpanded =
+              !isExpanded;
 
-            // limpia submarca seleccionada
+            setIsExpanded(nextExpanded);
+
+            // 🔥 cerrar menu
+            if (!nextExpanded) {
+              setSelected(null);
+
+              onSelect?.("default");
+            }
+
+            return;
+          }
+
+          // 🔥 toggle submarcas
+          if (selected === item.key) {
             setSelected(null);
 
             onSelect?.("default");
@@ -69,19 +84,10 @@ export default function BottomMenuItems({
             return;
           }
 
-          // 🔥 submarcas
-         if (selected === item.key) {
-            setSelected(null);
-
-            onSelect?.("default");
-
-            return;
-          }
-
+          // 🔥 nueva selección
           setSelected(item.key);
 
           onSelect?.(item.key);
-          
         }}
         sx={{
           borderRadius: "999px",
@@ -150,7 +156,6 @@ export default function BottomMenuItems({
     >
       {/* 🔹 PROYECTOS */}
       {renderChip(items[1])}
-
 
       {/* 🔹 GRUPO VALOR */}
       {renderChip(items[0])}
