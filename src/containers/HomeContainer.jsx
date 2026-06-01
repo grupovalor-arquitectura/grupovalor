@@ -13,21 +13,26 @@ import HomeContentPanel from "../components/HomeContentPanel";
 import FeaturedProjects from "../components/FeaturedProjects";
 
 import Fondo1 from "../assets/33DC-AEREAGENERAL.png";
+import Fondo2 from "../assets/wacari.png"
+import Fondo3 from "../assets/escritorio.png"
 
 import useMenu from "../hooks/useMenu";
 
-export default function HomeContainer() {
-  const {
-    isOpen: isHeaderOpen,
-    toggleMenu: toggleHeader,
-  } = useMenu(false);
+const heroBackgrounds = [
+  Fondo1,
+  Fondo2,
+  Fondo3,
+];
 
-  const {
-    isOpen: isBottomOpen,
-    toggleMenu: toggleBottom,
-  } = useMenu(true);
+export default function HomeContainer() {
+
+  const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false);
+
+  const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);
 
   const [activeSection, setActiveSection] = useState(null);
+
+  const [heroImage, setHeroImage] = useState(Fondo1);
 
   const muiTheme = useTheme();
 
@@ -38,6 +43,16 @@ export default function HomeContainer() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+
+    const randomImage =
+      heroBackgrounds[
+        Math.floor(
+          Math.random() * heroBackgrounds.length
+        )
+      ];
+
+    setHeroImage(randomImage);
+
     const timer = setTimeout(() => {
       setIsReady(true);
       setActiveSection("default");
@@ -63,15 +78,15 @@ export default function HomeContainer() {
           width: "100%",
           height: "100vh",
 
-          backgroundImage: `url(${Fondo1})`,
+          backgroundImage: `url(${heroImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
 
-          opacity: 0.35,
+          opacity: 0.5,
 
           filter: `
-            grayscale(100%)
-            sepia(20%)
+            
+            
             brightness(0.75)
           `,
 
@@ -90,7 +105,8 @@ export default function HomeContainer() {
           height: "100vh",
 
           backgroundColor: theme.bg,
-          opacity: 0.25,
+          opacity: 0.5,
+          mixBlendMode: "hue",
 
           zIndex: 1,
           pointerEvents: "none",

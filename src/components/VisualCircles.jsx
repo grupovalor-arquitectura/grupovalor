@@ -55,6 +55,9 @@ export default function VisualCircles({
         alignItems: "center",
         justifyContent: "center",
 
+        transform: "scale(0.9)",
+        transformOrigin: "center center",
+
         "@keyframes breath": {
           "0%": { scale: 1 },
           "50%": { scale: 1.03 },
