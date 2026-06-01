@@ -105,7 +105,7 @@ export default function HomeContainer() {
           height: "100vh",
 
           backgroundColor: theme.bg,
-          opacity: 0.5,
+          opacity: 1,
           mixBlendMode: "hue",
 
           zIndex: 1,
