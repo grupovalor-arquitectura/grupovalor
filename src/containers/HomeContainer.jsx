@@ -12,16 +12,23 @@ import Footer from "../components/Footer";
 import HomeContentPanel from "../components/HomeContentPanel";
 import FeaturedProjects from "../components/FeaturedProjects";
 
+import Fondo1 from "../assets/33DC-AEREAGENERAL.png";
+
 import useMenu from "../hooks/useMenu";
 
-
-
 export default function HomeContainer() {
+  const {
+    isOpen: isHeaderOpen,
+    toggleMenu: toggleHeader,
+  } = useMenu(false);
 
-  const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false);
-  const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);
+  const {
+    isOpen: isBottomOpen,
+    toggleMenu: toggleBottom,
+  } = useMenu(true);
 
   const [activeSection, setActiveSection] = useState(null);
+
   const muiTheme = useTheme();
 
   const theme =
@@ -40,51 +47,106 @@ export default function HomeContainer() {
   }, []);
 
   return (
-    <Box sx={{ 
-      position: "relative", 
-      backgroundColor: theme.bg,
-      transition: "background-color 0.6s ease",
-    }}>
-
-      <LayoutBase
-        header={
-          <Header
-            onMenuClick={toggleHeader}
-            isOpen={isHeaderOpen}
-          />
-        }
-
-        visual={
-          <VisualCircles 
-          active={activeSection}
-          color={theme.circle}
-          textColor={theme.text} /> // 🔥 SIN wrapper
-        }
-
-        bottom={
-          <BottomBar
-            active={activeSection}
-            onSelect={(key) =>
-              setActiveSection((prev) =>
-                prev === key ? "default" : key
-              )
-            }
-            isOpen={isBottomOpen}
-            onMenuClick={toggleBottom}
-            isReady={isReady}
-          />
-        }
-      />
-
-    
+    <Box
+      sx={{
+        position: "relative",
+        backgroundColor: theme.bg,
+        transition: "background-color 0.6s ease",
+      }}
+    >
+      {/* IMAGEN DE FONDO */}
       <Box
         sx={{
           position: "absolute",
           top: 0,
           left: 0,
           width: "100%",
-          height: "100vh", // 🔥 viewport real
+          height: "100vh",
+
+          backgroundImage: `url(${Fondo1})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+
+          opacity: 0.35,
+
+          filter: `
+            grayscale(100%)
+            sepia(20%)
+            brightness(0.75)
+          `,
+
+          zIndex: 0,
           pointerEvents: "none",
+        }}
+      />
+
+      {/* TINTE CORPORATIVO */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100vh",
+
+          backgroundColor: theme.bg,
+          opacity: 0.25,
+
+          zIndex: 1,
+          pointerEvents: "none",
+
+          transition:
+            "background-color 0.6s ease, opacity 0.6s ease",
+        }}
+      />
+
+      {/* HERO */}
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        <LayoutBase
+          header={
+            <Header
+              onMenuClick={toggleHeader}
+              isOpen={isHeaderOpen}
+            />
+          }
+          visual={
+            <VisualCircles
+              active={activeSection}
+              color={theme.circle}
+              textColor={theme.text}
+            />
+          }
+          bottom={
+            <BottomBar
+              active={activeSection}
+              onSelect={(key) =>
+                setActiveSection((prev) =>
+                  prev === key ? "default" : key
+                )
+              }
+              isOpen={isBottomOpen}
+              onMenuClick={toggleBottom}
+              isReady={isReady}
+            />
+          }
+        />
+      </Box>
+
+      {/* PANEL DERECHO */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          pointerEvents: "none",
+          zIndex: 3,
         }}
       >
         <HomeContentPanel
