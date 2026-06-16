@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 import LogoGV from "../assets/LogoGV.svg?react";
 import LogoAV from "../assets/LogoAV.svg?react";
 import LogoCV from "../assets/LogoCV.svg?react";
@@ -19,6 +21,8 @@ export default function VisualCircles({
   color = "#b9afaf",
   textColor = "#421b1e",
 }) {
+
+  const navigate = useNavigate();
   
   const circleColor = color;
 
@@ -39,6 +43,14 @@ export default function VisualCircles({
     promotora: LogoPV,
     estrategia: LogoEV,
     banca: LogoBV,
+  };
+
+  const companySlugs = {
+    arquitectura: "arquitectura-valor",
+    constructora: "constructora-valor",
+    promotora: "promotora-valor",
+    estrategia: "estrategia-valor",
+    banca: "banca-valor",
   };
 
   const glow = `
@@ -159,7 +171,15 @@ export default function VisualCircles({
             const translateX = c.pos * 120;
 
             return (
-              <g>
+             <g
+                onClick={() => {
+                  const slug = companySlugs[active];
+
+                  if (slug) {
+                    navigate(`/empresas/${slug}`);
+                  }
+                }}
+              >
                 <circle
                   cx={800}
                   cy={300}

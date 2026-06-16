@@ -111,8 +111,7 @@ export default function HomeContainer() {
           zIndex: 1,
           pointerEvents: "none",
 
-          transition:
-            "background-color 0.6s ease, opacity 0.6s ease",
+          transition: "background-color 0.6s ease, opacity 0.6s ease",
         }}
       />
 

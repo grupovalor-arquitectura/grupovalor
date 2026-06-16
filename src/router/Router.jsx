@@ -8,44 +8,32 @@ import ProjectDetail from "../pages/ProjectDetail";
 import History from "../pages/History";
 import Contact from "../pages/Contact";
 
+import CompanyPage from "../pages/CompanyPage";
+
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         {/* SITIO */}
-        <Route
-          path="/"
-          element={<SiteLayout />}
-        >
+        <Route path="/" element={<SiteLayout />}>
+
           {/* HOME */}
-          <Route
-            index
-            element={<Home />}
-          />
+          <Route index element={<Home />}/>
 
           {/* PROYECTOS */}
-          <Route
-            path="proyectos"
-            element={<Projects />}
-          />
+          <Route path="proyectos" element={<Projects />}/>
 
           {/* DETALLE */}
-          <Route
-            path="proyectos/:slug"
-            element={<ProjectDetail />}
-          />
+          <Route path="proyectos/:slug" element={<ProjectDetail />}/>
+
+            {/* EMPRESAS */}
+          <Route path="empresas/:slug" element={<CompanyPage />}/>
 
           {/* HISTORIA */}
-          <Route
-            path="historia"
-            element={<History />}
-          />
+          <Route path="historia" element={<History />}/>
 
           {/* CONTACTO */}
-          <Route
-            path="contacto"
-            element={<Contact />}
-          />
+          <Route path="contacto" element={<Contact />}/>
         </Route>
       </Routes>
     </BrowserRouter>
