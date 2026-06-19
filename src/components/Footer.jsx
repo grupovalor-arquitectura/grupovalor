@@ -1,60 +1,92 @@
-import { Box, Typography, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+} from "@mui/material";
+
 import GVMono from "../assets/GVMono.svg?react";
 
-export default function Footer() {
+const defaultBranding = {
+  background: "#421b1e",
+  text: "#d6cfc9",
+};
+
+export default function Footer({
+  branding,
+}) {
+  const colors =
+    branding || defaultBranding;
+
   return (
     <Box
       sx={{
         width: "100%",
-        backgroundColor: "#421b1e",
-        color: "#d6cfc9",
-        px: { xs: 2, md: 4 },
+        backgroundColor: colors.secondary,
+        color: colors.primary,
+        px: { xs: 2, md: 7 },
         pt: { xs: 5, md: 12 },
         pb: { xs: 2, md: 4 },
       }}
-      
     >
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent:
+            "space-between",
           flexWrap: "wrap",
           gap: 4,
           alignItems: "stretch",
         }}
       >
         {/* LOGO + DIVIDER + DIRECCIÓN */}
-        <Box sx={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
-          
-          {/* LOGO */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 3,
+          }}
+        >
           <GVMono
             style={{
               height: 90,
               width: "auto",
-              color: "#d6cfc9",
+              color: colors.primary,
             }}
           />
 
-          {/* DIVIDER */}
           <Box
             sx={{
               width: "2px",
               height: "auto",
               alignSelf: "stretch",
-              backgroundColor: "rgba(214,207,201,0.3)",
+              backgroundColor:
+                colors.text,
+              opacity: 0.3,
               mx: "20px",
             }}
           />
 
-          {/* TEXTO */}
           <Box>
-            <Typography sx={{ fontSize: 20, fontWeight: 800, mb: 1 }}>
+            <Typography
+              sx={{
+                fontSize: 20,
+                fontWeight: 800,
+                mb: 1,
+              }}
+            >
               Oficina Principal
             </Typography>
 
-            <Typography sx={{ fontSize: 14, lineHeight: 1.6 }}>
+            <Typography
+              sx={{
+                fontSize: 14,
+                lineHeight: 1.6,
+              }}
+            >
               Edificio Monserrate <br />
-              Calle 3 Sur # 43 A - 52. <br />
+              Calle 3 Sur # 43 A - 52.{" "}
+              <br />
               Oficina 1122 <br />
               Bogotá, Colombia.
             </Typography>
@@ -63,7 +95,12 @@ export default function Footer() {
 
         {/* LINKS */}
         <Box>
-          <Typography sx={{ fontSize: 14, lineHeight: 2 }}>
+          <Typography
+            sx={{
+              fontSize: 14,
+              lineHeight: 2,
+            }}
+          >
             Términos y condiciones <br />
             Políticas de privacidad <br />
             Manifiesto <br />
@@ -73,65 +110,105 @@ export default function Footer() {
 
         {/* CONTACTO */}
         <Box>
-          <Typography sx={{ fontSize: 20, fontWeight: 800, mb: 1 }}>
+          <Typography
+            sx={{
+              fontSize: 20,
+              fontWeight: 800,
+              mb: 1,
+            }}
+          >
             ¿Quieres invertir o <br />
             tienes alguna consulta?
           </Typography>
         </Box>
 
         {/* FORMULARIO */}
-        <Box sx={{  minWidth: 280,
-            textAlign: "right",      
+        <Box
+          sx={{
+            minWidth: 280,
+            textAlign: "right",
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-end", }}>
+            alignItems: "flex-end",
+          }}
+        >
+          <Typography
+            sx={{
+              mb: 2,
+              fontSize: 20,
+              fontWeight: 800,
+            }}
+          >
+            Suscríbete a nuestro boletín{" "}
+            <br />
+            y entérate de nuestros
+            proyectos
+          </Typography>
 
-                <Typography sx={{ mb: 2, fontSize: 20, fontWeight: 800, }}>
-                    Suscríbete a nuestro boletín <br />
-                    y entérate de nuestros proyectos
-                </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+            }}
+          >
+            <TextField
+              placeholder="example@email.com"
+              size="small"
+              variant="outlined"
+              fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root":
+                  {
+                    borderRadius:
+                      "999px",
 
-                <Box sx={{ display: "flex", gap: 1 }}>
-                    <TextField
-                    placeholder="example@email.com"
-                    size="small"
-                    variant="outlined"
-                    fullWidth
-                    sx={{
-                        "& .MuiOutlinedInput-root": {
-                        borderRadius: "999px",
-                        color: "#fff",
+                    color:
+                      colors.text,
 
-                        "& fieldset": {
-                            borderColor: "rgba(255,255,255,0.4)",
-                        },
+                    "& fieldset": {
+                      borderColor:
+                        `${colors.text}66`,
+                    },
 
-                        "&:hover fieldset": {
-                            borderColor: "#c16242",
-                        },
+                    "&:hover fieldset":
+                      {
+                        borderColor:
+                          colors.text,
+                      },
 
-                        "&.Mui-focused fieldset": {
-                            borderColor: "#c16242",
-                        },
-                        },
+                    "&.Mui-focused fieldset":
+                      {
+                        borderColor:
+                          colors.text,
+                      },
+                  },
 
-                        "& input::placeholder": {
-                        color: "rgba(255,255,255,0.5)",
-                        },
-                    }}
-                    />
+                "& input::placeholder":
+                  {
+                    color:
+                      colors.text,
+                    opacity: 0.5,
+                  },
+              }}
+            />
 
             <Button
               variant="outlined"
               sx={{
-                borderRadius: "999px",
+                borderRadius:
+                  "999px",
                 px: 3,
-                color: "#fff",
-                borderColor: "rgba(255,255,255,0.4)",
+
+                color: colors.text,
+
+                borderColor:
+                  `${colors.text}66`,
 
                 "&:hover": {
-                  borderColor: "#c16242",
-                  color: "#c16242",
+                  borderColor:
+                    colors.text,
+                  color:
+                    colors.text,
                 },
               }}
             >
@@ -143,10 +220,11 @@ export default function Footer() {
             sx={{
               fontSize: 12,
               mt: 1.5,
-              color: "#c16242",
+              color: colors.text,
             }}
           >
-            Formulario enviado. Revisa tu bandeja.
+            Formulario enviado.
+            Revisa tu bandeja.
           </Typography>
         </Box>
       </Box>

@@ -9,8 +9,8 @@ export default function LayoutBase({ header, visual, bottom, footer}) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        px: { xs: 2, md: 4 },
-        pt: { xs: 2, md: 4 },
+        px: { xs: 2, md: 7 },
+        pt: { xs: 2, md: 5 },
       }}
     >
       {header}

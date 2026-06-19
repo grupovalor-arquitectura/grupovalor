@@ -21,9 +21,19 @@ const items = [
   },
 ];
 
-export default function HeaderMenuItems() {
+const defaultBranding = {
+  text: "#b9afaf",
+  background: "#0f0f0f",
+};
+
+export default function HeaderMenuItems({
+  branding,
+}) {
   const [hovered, setHovered] =
     useState(null);
+
+  const colors =
+    branding || defaultBranding;
 
   return (
     <Box
@@ -36,19 +46,14 @@ export default function HeaderMenuItems() {
       {items.map((item) => (
         <Box
           key={item.path}
-
           component={NavLink}
-
           to={item.path}
-
           onMouseEnter={() =>
             setHovered(item.path)
           }
-
           onMouseLeave={() =>
             setHovered(null)
           }
-
           sx={{
             borderRadius: "999px",
 
@@ -57,18 +62,24 @@ export default function HeaderMenuItems() {
 
             textDecoration: "none",
 
-            border: "1px solid #b9afaf",
+            border: `1px solid ${colors.text}`,
 
             transition: "all 0.25s ease",
 
             "&.active": {
-              backgroundColor: "#c16242",
+              backgroundColor:
+                colors.text,
 
-              borderColor: "#c16242",
+              borderColor:
+                colors.text,
             },
 
             "&:hover": {
-              borderColor: "#c16242",
+              backgroundColor:
+                colors.text,
+
+              borderColor:
+                colors.text,
             },
           }}
         >
@@ -78,10 +89,11 @@ export default function HeaderMenuItems() {
                 fontSize: "14px",
 
                 color: isActive
-                  ? "#0f0f0f"
-                  : hovered === item.path
-                  ? "#c16242"
-                  : "#b9afaf",
+                  ? colors.background
+                  : hovered ===
+                    item.path
+                  ? colors.background
+                  : colors.text,
 
                 transition:
                   "color 0.25s ease",
