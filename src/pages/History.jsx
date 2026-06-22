@@ -1,13 +1,5 @@
-import InnerPageLayout from "../components/InnerPageLayout";
+import HistoryTimeline from "../components/history/HistoryTimeline";
 
 export default function History() {
-  return (
-    <InnerPageLayout
-      content={
-        <div>
-          History page
-        </div>
-      }
-    />
-  );
+  return <HistoryTimeline />;
 }
