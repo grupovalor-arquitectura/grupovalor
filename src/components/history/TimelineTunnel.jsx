@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 export default function TimelineTunnel({
    originRef,
    circles = 70,
+   visibleCircles = circles,
    size = 84,
    step = 8,
 }) {
@@ -23,18 +24,32 @@ export default function TimelineTunnel({
 
         pointerEvents: "none",
 
-        zIndex: 1,
+        zIndex: 2,
       }}
     >
-      {Array.from({ length: circles }).map((_, index) => (
+      {Array.from({ length: visibleCircles }).map((_, index) => (
         <Box
             key={index}
             ref={index === 0 ? originRef : null}
             sx={{
                 position: "absolute",
-
+                
                 top: index * step,
                 left: 0,
+
+                animation:
+                    index === 0
+                    ? "breath 4s ease-in-out infinite"
+                    : "none",
+
+
+                opacity:
+                    index < visibleCircles
+                        ? 1
+                        : 0,
+
+                    transition:
+                    "opacity 0.2s ease-out",
 
                 width: size,
                 height: size,
@@ -52,6 +67,8 @@ export default function TimelineTunnel({
                 index === 0
                     ? "none"
                     : "1px solid #C76A45",
+
+                    
           }}
         />
       ))}

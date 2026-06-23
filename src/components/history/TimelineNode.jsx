@@ -18,9 +18,10 @@ export default function TimelineNode({
 
         border: "1px solid #C76A45",
 
-        backgroundColor: active
-          ? "#C76A45"
-          : "transparent",
+        backgroundColor:
+            active
+                ? "#C76A45"
+                : "#421B1E",
 
         color: active
           ? "#421B1E"
@@ -29,11 +30,15 @@ export default function TimelineNode({
         fontWeight: 700,
 
         position: "relative",
-        zIndex: 2,
-      }}
-    >
+        zIndex:
+            active
+                ? 10
+                : 3,
+                }}
+                >
       <Typography
         sx={{
+          zIndex: 2,
           fontWeight: 700,
         }}
       >
