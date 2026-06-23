@@ -1,3 +1,8 @@
+import image1984 from "../assets/Timeline1.png";
+import image2000 from "../assets/Timeline2.png"
+
+
+
 export const historyData = {
   moments: [
     {
@@ -48,6 +53,7 @@ export const historyData = {
       id: 1,
       year: 1984,
       title: "Nace una visión",
+      image: image1984,
       description:
         "Fundación de la primera empresa del grupo y comienzo de una trayectoria basada en la calidad, el diseño y la creación de valor a largo plazo.",
     },
@@ -55,6 +61,7 @@ export const historyData = {
     {
       id: 2,
       year: 2000,
+      image: image2000,
       title: "Expansión comercial",
       description:
         "Se crea Estrategias Comerciales y de Mercadeo S.A., fortaleciendo la capacidad de comercialización y acompañamiento de proyectos inmobiliarios.",
@@ -64,6 +71,7 @@ export const historyData = {
       id: 3,
       year: 2005,
       title: "Pioneros en vivienda para renta",
+      image: image1984,
       description:
         "Desarrollo del primer proyecto multifamiliar para renta, anticipando una tendencia que transformaría el mercado inmobiliario colombiano.",
     },
@@ -72,6 +80,7 @@ export const historyData = {
       id: 4,
       year: 2013,
       title: "Compromiso con la sostenibilidad",
+      image: image1984,
       description:
         "Ingreso al Consejo Colombiano de Construcción Sostenible, reafirmando una visión responsable del desarrollo urbano.",
     },
@@ -79,6 +88,7 @@ export const historyData = {
     {
       id: 5,
       year: 2013,
+      image: image1984,
       title: "Apertura a capital institucional",
       description:
         "Inicio de inversiones con fondos especializados en real estate, ampliando la capacidad de estructuración y crecimiento del grupo.",
@@ -88,6 +98,7 @@ export const historyData = {
       id: 6,
       year: 2014,
       title: "Continuidad generacional",
+      image: image1984,
       description:
         "Firma del protocolo de familia para asegurar la cohesión estratégica y la continuidad de la visión empresarial.",
     },
@@ -96,6 +107,7 @@ export const historyData = {
       id: 7,
       year: 2015,
       title: "Innovación con metodología BIM",
+      image: image1984,
       description:
         "Incorporación de herramientas avanzadas de diseño y construcción para optimizar la calidad y eficiencia de los proyectos.",
     },
@@ -104,6 +116,7 @@ export const historyData = {
       id: 8,
       year: 2015,
       title: "Gobierno corporativo fortalecido",
+      image: image1984,
       description:
         "Creación de una Junta Directiva externa que impulsa la profesionalización y sostenibilidad del grupo.",
     },
@@ -112,6 +125,7 @@ export const historyData = {
       id: 9,
       year: 2017,
       title: "Liderazgo sectorial",
+      image: image1984,
       description:
         "Participación en la Junta Directiva de la Cámara Colombiana del Acero, contribuyendo al desarrollo de la industria.",
     },
@@ -120,6 +134,7 @@ export const historyData = {
       id: 10,
       year: 2018,
       title: "Consolidación empresarial",
+      image: image1984,
       description:
         "Nacen Arquitectura Valor y Valor Promotora Inmobiliaria, fortaleciendo la capacidad de diseño, estructuración y desarrollo.",
     },
@@ -128,6 +143,7 @@ export const historyData = {
       id: 11,
       year: 2024,
       title: "Reconocimiento a una trayectoria",
+      image: image1984,
       description:
         "La Sociedad Colombiana de Arquitectos distingue a Sergio Mutis Caballero por su aporte a la arquitectura colombiana.",
     },
@@ -136,6 +152,7 @@ export const historyData = {
       id: 12,
       year: 2026,
       title: "Legado para el país",
+      image: image1984,
       description:
         "La Sociedad Colombiana de Ingenieros otorga el Premio Fundadores a Sergio Mutis Caballero por su contribución al desarrollo urbano, la infraestructura y la vivienda.",
     },
@@ -144,6 +161,7 @@ export const historyData = {
       id: 13,
       year: "+2035",
       title: "Visión 10X",
+      image: image1984,
       description:
         "Impulsar un crecimiento exponencial basado en la innovación, la rentabilidad sostenible, la autonomía y la creación de valor duradero para las ciudades y las personas.",
     },

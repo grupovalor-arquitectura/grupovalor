@@ -8,7 +8,8 @@ import {
 import GVMono from "../assets/GVMono.svg?react";
 
 const defaultBranding = {
-  background: "#421b1e",
+  primary: "#d6cfc9",
+  secondary: "#421b1e",
   text: "#d6cfc9",
 };
 

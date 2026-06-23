@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TimelineHeader from "./TimelineHeader";
 import TimelineTrack from "./TimelineTrack";
 import TimelineContent from "./TimelineContent";
+import NavigationButton from "../../components/NavigationButton/NavigationButton";
 
 import { Box } from "@mui/material";
 
@@ -20,10 +21,28 @@ export default function HistoryTimeline() {
   const originRef = useRef(null);
   const nodeRef = useRef(null);
   const sectionRef = useRef(null);
-
+  const timelineRef = useRef(null);
+  
   const [circles, setCircles] = useState(70);
   const [visibleCircles, setVisibleCircles] = useState(1);
   const [activeMilestone, setActiveMilestone] = useState(0);
+
+  const milestone = historyData.milestones[ activeMilestone ];
+
+  const handlePrevious = () => {
+    setActiveMilestone((prev) =>
+      Math.max(prev - 1, 0)
+    );
+  };
+
+  const handleNext = () => {
+    setActiveMilestone((prev) =>
+      Math.min(
+        prev + 1,
+        historyData.milestones.length - 1
+      )
+    );
+  };
 
 
   useLayoutEffect(() => {
@@ -76,6 +95,8 @@ export default function HistoryTimeline() {
 
             setVisibleCircles(amount);
             },
+
+            
         });
 
         return () => trigger.kill();
@@ -86,13 +107,15 @@ export default function HistoryTimeline() {
 
     <Box
         ref={sectionRef}
-        sx={{position: "relative" }}>
+        sx={{position: "relative", overflow: "hidden", minHeight: "210vh", }}>
         <TimelineHeader
             moment={initialMoment}
             originRef={originRef}
             circles={circles}
             visibleCircles={visibleCircles}
         />
+
+       
 
         <TimelineTrack 
             nodeRef={nodeRef}
@@ -103,22 +126,52 @@ export default function HistoryTimeline() {
 
         <TimelineContent
             activeMilestone={activeMilestone}
+            tunnelComplete={ visibleCircles >= circles }
         />
 
+         <Box
+            sx={{
+                position: "absolute",
+                top: "133vh",
+                left: 0,
+                width: "100%",
+                height: "100vh",
+                backgroundImage: `url(${milestone.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                opacity: 0.4,
+                zIndex: 1,
+            }}
+            />
 
-        <button
-            onClick={() =>
-                setActiveMilestone(
-                (prev) =>
-                    Math.min(
-                    prev + 1,
-                    historyData.milestones.length - 1
-                    )
-                )
+
+        <NavigationButton
+            sx={{
+                position: "absolute",
+                left: 50,
+                top: "170vh",
+                zIndex: 30,
+            }}
+            direction="prev"
+            disabled={activeMilestone === 0}
+            onClick={handlePrevious}
+            />
+
+        <NavigationButton
+
+            sx={{
+                position: "absolute",
+                right: 50,
+                top: "170vh",
+                zIndex: 30,
+            }}
+            direction="next"
+            disabled={
+                activeMilestone ===
+                historyData.milestones.length - 1
             }
-            >
-            siguiente
-            </button>
+            onClick={handleNext}
+            />
     </Box>
  
 

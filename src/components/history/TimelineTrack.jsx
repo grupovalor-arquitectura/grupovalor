@@ -90,7 +90,7 @@ export default function TimelineTrack({
               }}
             >
               <TimelineNode
-                milestone={milestone}
+                label={milestone.year}
                 active={
                   index ===
                   activeMilestone
