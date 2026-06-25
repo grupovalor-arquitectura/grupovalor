@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
 
-export default function TimelineContent({
+export default function TimelineContentStart({
   milestone,
   tunnelComplete
 }) {

@@ -5,7 +5,14 @@ import gsap from "gsap";
 
 import TimelineTunnel from "./TimelineTunnel";
 
-export default function TimelineHeader({ moment, originRef, circles, visibleCircles }) {
+export default function TimelineHeader({ 
+  
+  moment, 
+  startRef,
+  circles, 
+  visibleCircles,
+
+}) {
 
     const labelRef = useRef();
     const titleRef = useRef();
@@ -111,7 +118,7 @@ export default function TimelineHeader({ moment, originRef, circles, visibleCirc
             }}
         >
             <TimelineTunnel 
-                originRef={originRef}
+                originRef={startRef}
                 circles={circles}
                 visibleCircles={visibleCircles}
             />

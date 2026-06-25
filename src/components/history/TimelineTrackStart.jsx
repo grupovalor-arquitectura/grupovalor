@@ -6,7 +6,7 @@ import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
 
 export default function TimelineTrack({
-  
+  startAnchorRef,
   endRef,
   activeMilestone,
 }) {
@@ -15,24 +15,19 @@ export default function TimelineTrack({
   const anchorX =
     window.innerWidth * 0.318;
 
-  const trackOffset =
-    anchorX -
-    activeMilestone *
-      NODE_SPACING;
-
-  const timeline2Section =
+  const timeline1Section =
   historyData.sections.find(
-    section => section.id === "timeline-2"
+    section => section.id === "timeline-1"
   );
 
-  const timeline2Milestones =
-    timeline2Section.milestoneIds.map(
-      milestoneId =>
-        historyData.milestones.find(
-          milestone =>
-            milestone.id === milestoneId
-        )
-    );
+ const timeline1Milestones =
+  timeline1Section.milestoneIds.map(
+    milestoneId =>
+      historyData.milestones.find(
+        milestone =>
+          milestone.id === milestoneId
+      )
+  );
 
   return (
     <Box
@@ -48,18 +43,19 @@ export default function TimelineTrack({
       {/* línea */}
 
       <Box
-        sx={{
-          position: "absolute",
+  sx={{
+    position: "absolute",
 
-          top: "33vh",
-          left: 0,
+    top: "33vh",
 
-          width: "100%",
+    left: 0,
+    width: "100vw",
 
-          borderTop:
-            "1px solid #C76A45",
-        }}
-      />
+    borderTop: "1px solid #C76A45",
+
+    zIndex: 1,
+  }}
+/>
 
       {/* track móvil */}
 
@@ -70,21 +66,19 @@ export default function TimelineTrack({
            zIndex: 3,
 
           top: 0,
-          left: 0,
+          left: anchorX,
 
           width:
-            timeline2Milestones.length *
+            timeline1Milestones.length *
             NODE_SPACING,
 
           height: "100%",
-
-          transform: `translateX(${trackOffset}px)`,
-
+          transform: `translateX(-${activeMilestone * NODE_SPACING}px)`,
           transition:
             "transform 0.6s cubic-bezier(.22,.61,.36,1)",
         }}
       >
-        {timeline2Milestones.map(
+        {timeline1Milestones.map(
           (milestone, index) => (
             <Box
               key={milestone.id}
