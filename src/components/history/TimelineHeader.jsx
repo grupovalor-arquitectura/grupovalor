@@ -17,9 +17,7 @@ export default function TimelineHeader({
     const labelRef = useRef();
     const titleRef = useRef();
     const descriptionRef = useRef();
-    const tunnelOriginRef = useRef();
-  
-
+    
     useLayoutEffect(() => {
         if (
             !labelRef.current ||
@@ -110,11 +108,12 @@ export default function TimelineHeader({
         }}
         >
         <Box
+            ref={startRef}
             sx={{
-            position: "relative",
-            width: 84,
-            height: 84,
-            flexShrink: 0,
+              position: "relative",
+              width: 84,
+              height: 84,
+              flexShrink: 0,
             }}
         >
             <TimelineTunnel 

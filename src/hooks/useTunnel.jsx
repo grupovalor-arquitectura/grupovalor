@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function useTunnel({
-  startRef,
+ startRef,
   endRef,
   triggerRef,
 }) {
@@ -90,5 +90,6 @@ export default function useTunnel({
   return {
     circles,
     visibleCircles,
+    tunnelComplete: visibleCircles >= circles,
   };
 }

@@ -83,10 +83,11 @@ export default function TimelineTrack({
             <Box
               key={milestone.id}
               ref={
-                index ===
-                activeMilestone
-                  ? endRef
-                  : null
+                index === 0
+                  ? startAnchorRef
+                  : index === activeMilestone
+                    ? endRef
+                    : null
               }
               sx={{
                 position: "absolute",

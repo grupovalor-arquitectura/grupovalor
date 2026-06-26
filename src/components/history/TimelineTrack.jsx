@@ -6,10 +6,10 @@ import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
 
 export default function TimelineTrack({
-  
   endRef,
   activeMilestone,
 }) {
+
   const NODE_SPACING = 160;
 
   const anchorX =
@@ -89,8 +89,7 @@ export default function TimelineTrack({
             <Box
               key={milestone.id}
               ref={
-                index ===
-                activeMilestone
+                index === activeMilestone
                   ? endRef
                   : null
               }

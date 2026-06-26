@@ -14,6 +14,7 @@ import NavigationButton from "../../components/NavigationButton/NavigationButton
 import TimelineMoment from "./TimelineMoment";
 import TimelineTrackStart from "./TimelineTrackStart"
 import TimelineContentStart from "./TimelineContentStart";
+import TimelineTunnel from "./TimelineTunnel";
 
 import { Box } from "@mui/material";
 
@@ -47,19 +48,31 @@ export default function HistoryTimeline({startRef}) {
       )
   );
   
-  const endRef = useRef(null);
-
   const sectionRef = useRef(null);
-  const timelineRef = useRef(null);
 
-  const startAnchorRef = useRef(null);
-  const startMomentRef = useRef(null);
+  const originMomentRef = useRef(null);
+  const timeline1StartRef = useRef(null);
 
-  const { circles, visibleCircles } = useTunnel({
-    startRef,
-    endRef,
-    triggerRef: sectionRef,
-});
+  const block1Ref = useRef(null);
+  const block2Ref = useRef(null);
+
+  const consolidationMomentRef = useRef(null);
+  const timeline2StartRef = useRef(null);
+
+  const futureMomentRef = useRef(null);
+
+  const tunnel1 = useTunnel({
+    startRef: originMomentRef,
+    endRef: timeline1StartRef,
+    triggerRef: block1Ref,
+  });
+
+  const tunnel2 = useTunnel({
+    startRef: consolidationMomentRef,
+    endRef: timeline2StartRef,
+    triggerRef: block2Ref,
+  });
+
   
   const [activeMilestone, setActiveMilestone] = useState(0);
   const [activeMilestoneStart, setActiveMilestoneStart] = useState(0);
@@ -96,6 +109,9 @@ export default function HistoryTimeline({startRef}) {
     );
   };
 
+  const TUNNEL_SIZE = 84;
+  const anchorX = window.innerWidth * 0.344;
+
  return (
   <Box
     ref={sectionRef}
@@ -108,26 +124,43 @@ export default function HistoryTimeline({startRef}) {
     {/* BLOQUE INICIO + TIMELINE 1 */}
 
     <Box
+    ref={block1Ref}
       sx={{
+      
         position: "relative",
         width: "100%",
         height: "200vh",
       }}
     >
-      <TimelineMoment
+     <TimelineMoment
         moment={startMoment}
-        circleRef={startMomentRef}
+        circleRef={originMomentRef}
       />
 
+    <Box
+        sx={{
+          position: "absolute",
+
+          left: anchorX - TUNNEL_SIZE / 2,
+          top: "15vh",
+
+          zIndex: 2,
+        }}
+      >
+        <TimelineTunnel
+          circles={tunnel1.circles}
+          visibleCircles={tunnel1.visibleCircles}
+        />
+      </Box>
+
       <TimelineTrackStart
+        startAnchorRef={timeline1StartRef}
         activeMilestone={activeMilestoneStart}
       />
 
       <TimelineContentStart
-        milestone={
-          timeline1Milestones[activeMilestoneStart]
-        }
-        tunnelComplete={true}
+        milestone={timeline1Milestones[activeMilestoneStart]}
+        tunnelComplete={tunnel1.tunnelComplete}
       />
 
       {/* Imagen Timeline 1 */}
@@ -183,29 +216,28 @@ export default function HistoryTimeline({startRef}) {
       {/* BLOQUE CONSOLIDACIÓN + TIMELINE 2 */}
 
     <Box
+        ref={block2Ref}
         sx={{
           position: "relative",
           mt: "0vh",
         }}
       >
+
         <TimelineHeader
           moment={consolidationMoment}
-          startRef={startRef}
-          circles={circles}
-          visibleCircles={visibleCircles}
+          startRef={consolidationMomentRef}
+          circles={tunnel2.circles}
+          visibleCircles={tunnel2.visibleCircles}
         />
 
         <TimelineTrack
-          startAnchorRef={startAnchorRef}
-          endRef={endRef}
-          circles={circles}
-          visibleCircles={visibleCircles}
+          endRef={timeline2StartRef}
           activeMilestone={activeMilestone}
         />
 
         <TimelineContent
           milestone={milestone}
-          tunnelComplete={visibleCircles >= circles}
+          tunnelComplete={tunnel1.tunnelComplete}
         />
 
         <Box
@@ -255,6 +287,7 @@ export default function HistoryTimeline({startRef}) {
 
     <TimelineMoment
       moment={futureMoment}
+      circleRef={futureMomentRef}
     />
   </Box>
 );

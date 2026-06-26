@@ -19,7 +19,6 @@ export const historyData = {
         3, // 2005
         4, // 2012
         5, // 2013
-        6, // ref
       ],
     },
 
@@ -137,16 +136,7 @@ export const historyData = {
         "Inicio de inversiones con fondos de capital privado especializados en real estate. Consolidación de la capacidad de estructuración y atracción de capital institucional.",
     },
 
-    {
-      id: 6,
-      year: "",
-      refId: "inicio",
-      title: "",
-      type: "anchor",
-      isAnchor: true,
-      image: image1984,  
-      description: "",
-    },
+ 
 
     {
       id: 7,
@@ -211,19 +201,10 @@ export const historyData = {
         "La Sociedad Colombiana de Ingenieros (SCI) concede a Sergio Mutis Caballero la condecoración Premio Fundadores por sus aportes a las políticas públicas de desarrollo urbano, infraestructura y vivienda.",
     },
 
-    {
-      id: 14,
-      year: "",
-      title: "",
-      refId: "consolidacion",
-      type: "anchor",
-      isAnchor: true,
-      image: image1984,
-      description: "",
-    },
+   
 
     {
-      id: 15,
+      id: 14,
       year: "+2035",
       title: "Visión 10X",
       image: image1984,
