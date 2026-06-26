@@ -76,6 +76,7 @@ export default function HistoryTimeline({startRef}) {
   
   const [activeMilestone, setActiveMilestone] = useState(0);
   const [activeMilestoneStart, setActiveMilestoneStart] = useState(0);
+  const [tunnelTop, setTunnelTop] = useState(0);
 
   const milestone = timeline2Milestones[activeMilestone];
 
@@ -110,7 +111,31 @@ export default function HistoryTimeline({startRef}) {
   };
 
   const TUNNEL_SIZE = 84;
-  const anchorX = window.innerWidth * 0.344;
+  const anchorX = window.innerWidth * 0.318;
+
+  useLayoutEffect(() => {
+    if (!originMomentRef.current) return;
+
+    const updatePosition = () => {
+      const rect =
+        originMomentRef.current.getBoundingClientRect();
+
+      const parentRect =
+        block1Ref.current.getBoundingClientRect();
+
+      setTunnelTop(rect.top - parentRect.top);
+    };
+
+    updatePosition();
+
+    window.addEventListener("resize", updatePosition);
+
+    return () =>
+      window.removeEventListener(
+        "resize",
+        updatePosition
+      );
+  }, []);
 
  return (
   <Box
@@ -141,8 +166,8 @@ export default function HistoryTimeline({startRef}) {
         sx={{
           position: "absolute",
 
-          left: anchorX - TUNNEL_SIZE / 2,
-          top: "15vh",
+          left: anchorX ,
+          top: tunnelTop,
 
           zIndex: 2,
         }}
