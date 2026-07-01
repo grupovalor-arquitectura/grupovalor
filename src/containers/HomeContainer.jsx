@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 
-import { homeContentMap } from "../data/homeContent";
+import useHomeContent from "../hooks/useHomeContent";
 
 import LayoutBase from "../components/LayoutBase";
 import Header from "../components/Header";
@@ -24,13 +24,31 @@ const heroBackgrounds = [
   Fondo3,
 ];
 
+const homeSectionMap = {
+  default: "default",
+  arquitectura: "arquitecturaValor",
+  constructora: "constructoraValor",
+  promotora: "promotoraValor",
+  estrategia: "estrategiasValor",
+  banca: "bancaValor",
+};
+
 export default function HomeContainer() {
 
   const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false);
 
   const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);
 
+  const { content, loading, error } = useHomeContent();
+
+  console.log("Home Content:", content);
+  console.log("Loading:", loading);
+  console.log("Error:", error);
+  
+
   const [activeSection, setActiveSection] = useState(null);
+
+  console.log("Active Section:", activeSection);
 
   const [heroImage, setHeroImage] = useState(Fondo1);
 
@@ -60,6 +78,15 @@ export default function HomeContainer() {
 
     return () => clearTimeout(timer);
   }, []);
+
+
+  if (loading) {
+    return null;
+  }
+
+  if (error) {
+    return <p>Error cargando el Home.</p>;
+  }
 
   return (
     <Box
@@ -166,7 +193,7 @@ export default function HomeContainer() {
       >
         <HomeContentPanel
           active={activeSection}
-          content={homeContentMap[activeSection]}
+          content={content?.[homeSectionMap[activeSection]]}
         />
       </Box>
 

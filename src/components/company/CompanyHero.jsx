@@ -226,7 +226,7 @@ export default function CompanyHero({ company }) {
               whiteSpace: "pre-line",
             }}
           >
-            {company.tagline}
+            {company.header.tagline}
           </Typography>
 
           <Typography
@@ -242,7 +242,7 @@ export default function CompanyHero({ company }) {
               maxWidth: 700,
             }}
           >
-            {company.intro}
+            {company.header.intro}
           </Typography>
 
          <Box

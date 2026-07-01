@@ -1,3 +1,4 @@
+
 import { Box, Typography } from "@mui/material";
 import Comillas from "../../assets/comillas.svg?react";
 
@@ -8,12 +9,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LeadersSection({ company }) {
-  const { leaders, branding: { leadersBackground, leadersText, primary }, } = company;
 
-  const sectionRef = useRef(null);
-  const circleRef = useRef(null);
-  const contentRef = useRef(null);
-  const leadersRef = useRef([]);
+    const leaders = company.leaders;
+
+    const { leadersBackground, leadersText, } = company.branding;
+
+    const sectionRef = useRef(null);
+    const circleRef = useRef(null);
+    const contentRef = useRef(null);
+    const leadersRef = useRef([]);
 
   useEffect(() => {
     if (!circleRef.current) return;
@@ -92,6 +96,8 @@ export default function LeadersSection({ company }) {
     });
     }, []);
 
+
+
   return (
     <Box
       ref={sectionRef}
@@ -101,7 +107,6 @@ export default function LeadersSection({ company }) {
          zIndex: 10,
 
         backgroundColor: leadersBackground,
-
 
         px: {
           xs: 4,
@@ -218,6 +223,7 @@ export default function LeadersSection({ company }) {
             zIndex: 2,
         }}
         >
+
         {leaders.map((leader, index) => (
         <Box
             ref={(el) => (leadersRef.current[index] = el)}
@@ -255,7 +261,6 @@ export default function LeadersSection({ company }) {
 
                 <Box
                 sx={{
-
 
                     flexShrink: 0,
                 }}
@@ -341,7 +346,7 @@ export default function LeadersSection({ company }) {
 
                     
                 >
-                    {leader.quote}
+                    { leader.quote}
                 </Typography>
                 </Box>
             </Box>

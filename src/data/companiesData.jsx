@@ -29,8 +29,8 @@ export const companiesData = {
 
       heroBackground: "#13473f",
       servicesBackground: "#9fc8c4",
-      leadersBackground: "#13473f",
 
+      leadersBackground: "#13473f",
       leadersText: "#9fc8c4",
 
       accent: "#c16242",
@@ -101,13 +101,12 @@ export const companiesData = {
     branding: {
       primary: "#421b1e",
       secondary: "#c16242",
-
       text: "#c16242",
 
       heroBackground: "#421b1e",
       servicesBackground: "#c16242",
-      leadersBackground: "#421b1e",
 
+      leadersBackground: "#421b1e",
       leadersText: "#c16242",
 
       accent: "#c16242",

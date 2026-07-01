@@ -8,6 +8,8 @@ import ProjectDetail from "../pages/ProjectDetail";
 import History from "../pages/History";
 import Contact from "../pages/Contact";
 
+
+
 import CompanyPage from "../pages/CompanyPage";
 
 export default function Router() {
@@ -28,6 +30,7 @@ export default function Router() {
 
             {/* EMPRESAS */}
           <Route path="empresas/:slug" element={<CompanyPage />}/>
+
 
           {/* HISTORIA */}
           <Route path="historia" element={<History />}/>

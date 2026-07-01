@@ -80,8 +80,7 @@ export default function TimelineTrack({
 
           transform: `translateX(${trackOffset}px)`,
 
-          transition:
-            "transform 0.6s cubic-bezier(.22,.61,.36,1)",
+          transition: "transform 0.6s cubic-bezier(.22,.61,.36,1)",
         }}
       >
         {timeline2Milestones.map(
