@@ -1,9 +1,6 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
+import { Box, Typography, TextField, Button, ButtonBase } from "@mui/material";
+
+import { useNavigate } from "react-router-dom";
 
 import GVMono from "../assets/GVMono.svg?react";
 
@@ -13,11 +10,25 @@ const defaultBranding = {
   text: "#d6cfc9",
 };
 
-export default function Footer({
-  branding,
-}) {
-  const colors =
-    branding || defaultBranding;
+export default function Footer({ branding }) {
+
+  const navigate = useNavigate();
+  const colors = branding || defaultBranding;
+
+  const footerLinks = [
+    {
+      label: "Términos y condiciones",
+      path: "/terminos",
+    },
+    {
+      label: "Políticas de privacidad",
+      path: "/privacidad",
+    },
+    {
+      label: "Manifiesto",
+      path: "/nosotros",
+    },
+  ];
 
   return (
     <Box
@@ -85,43 +96,79 @@ export default function Footer({
                 lineHeight: 1.6,
               }}
             >
-              Edificio Monserrate <br />
-              Calle 3 Sur # 43 A - 52.{" "}
+              
+              Carrera 16 Nº 97 - 37{" "}
               <br />
-              Oficina 1122 <br />
               Bogotá, Colombia.
+              <br />
+              (+57) 601 404 09 84
             </Typography>
           </Box>
         </Box>
 
         {/* LINKS */}
-        <Box>
-          <Typography
-            sx={{
-              fontSize: 14,
-              lineHeight: 2,
-            }}
-          >
-            Términos y condiciones <br />
-            Políticas de privacidad <br />
-            Manifiesto <br />
-            Línea ética
-          </Typography>
+     
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
+          {footerLinks.map((item) => (
+            <ButtonBase
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              sx={{
+                justifyContent: "flex-start",
+                py: 0.4,
+
+                "&:hover .footer-link": {
+                  opacity: 0.7,
+                },
+              }}
+            >
+              <Typography
+                className="footer-link"
+                sx={{
+                  fontSize: 14,
+                  color: colors.text,
+                  transition: "opacity .2s ease",
+                }}
+              >
+                {item.label}
+              </Typography>
+            </ButtonBase>
+          ))}
         </Box>
 
         {/* CONTACTO */}
-        <Box>
+        <ButtonBase
+          onClick={() => navigate("/contacto")}
+          sx={{
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            textAlign: "left",
+
+            "&:hover .contact-title": {
+              opacity: 0.7,
+            },
+          }}
+        >
           <Typography
+            className="contact-title"
             sx={{
               fontSize: 20,
               fontWeight: 800,
               mb: 1,
+              color: colors.text,
+              transition: "opacity .2s ease",
             }}
           >
             ¿Quieres invertir o <br />
             tienes alguna consulta?
           </Typography>
-        </Box>
+        </ButtonBase>
 
         {/* FORMULARIO */}
         <Box
