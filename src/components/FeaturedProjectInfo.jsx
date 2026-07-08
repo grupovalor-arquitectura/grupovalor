@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 export default function FeaturedProjectInfo({
   project,
-  currentIndex,
 }) {
   return (
     <motion.div
@@ -23,31 +22,34 @@ export default function FeaturedProjectInfo({
         duration: 1.2,
         ease: [0.22, 1, 0.36, 1],
       }}
+      style={{
+        height: "100%",
+      }}
     >
       <Box
         sx={{
-        
           px: { xs: 2, md: 7 },
 
+          height: "90vh",
 
           display: "flex",
           flexDirection: "column",
-
           justifyContent: "space-between",
-
-          height: "90vh",
         }}
       >
         {/* TOP */}
         <Box>
           <Typography
             sx={{
-              fontSize: "48px",
+              fontSize: {
+                xs: "40px",
+                md: "48px",
+              },
+
               lineHeight: 1,
               fontWeight: 700,
 
-              color: "#421b1e",
-              
+              color: "background.default",
             }}
           >
             {project.title}
@@ -58,16 +60,16 @@ export default function FeaturedProjectInfo({
         <Box>
           <Typography
             sx={{
-              color: "#421b1e",
+              maxWidth: 340,
 
               fontSize: "16px",
 
               lineHeight: 1.7,
 
-              maxWidth: "320px",
+              color: "background.default",
             }}
           >
-            {project.description}
+            {project.shortDescription}
           </Typography>
         </Box>
       </Box>

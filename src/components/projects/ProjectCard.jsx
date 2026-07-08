@@ -20,6 +20,7 @@ export default function ProjectCard({ project }) {
         height: "100%",
         display: "flex",
         flexDirection: "column",
+
       }}
     >
       {/* HEADER */}
@@ -68,7 +69,7 @@ export default function ProjectCard({ project }) {
       <Box
         sx={{
           width: "100%",
-
+          
           ...(isMobile
             ? {
                 aspectRatio: "1 / 1",

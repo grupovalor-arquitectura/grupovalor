@@ -15,7 +15,6 @@ export default function FeaturedProjectImage({
 
         flexShrink: 0,
 
-        // 🔥 ancho consistente
         width: "calc(58vw + 56px + 1.5vw)",
       }}
     >
@@ -45,10 +44,10 @@ export default function FeaturedProjectImage({
             fontWeight: 500,
           }}
         >
-          {project.number}
+          {String(project.id).padStart(2, "0")}
         </Typography>
 
-        {/* LABEL */}
+        {/* LOCATION */}
         <Typography
           sx={{
             writingMode: "vertical-rl",
@@ -63,7 +62,7 @@ export default function FeaturedProjectImage({
             letterSpacing: "0.02em",
           }}
         >
-          {project.label}
+          {project.location}
         </Typography>
       </Box>
 
@@ -78,32 +77,36 @@ export default function FeaturedProjectImage({
           flexShrink: 0,
 
           position: "relative",
+
+          bgcolor: "#c8beb8",
         }}
       >
-        <Box
-          component="img"
-          src={project.image}
-          alt={project.label}
-          sx={{
-            width: "100%",
-            height: "100%",
+        {project.coverImage && (
+          <Box
+            component="img"
+            src={project.coverImage}
+            alt={project.title}
+            sx={{
+              width: "100%",
+              height: "100%",
 
-            objectFit: "cover",
+              objectFit: "cover",
 
-            display: "block",
+              display: "block",
 
-            transition:
-              "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+              transition:
+                "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
 
-            transform: "scale(1)",
+              transform: "scale(1)",
 
-            willChange: "transform",
+              willChange: "transform",
 
-            "&:hover": {
-              transform: "scale(1.1)",
-            },
-          }}
-        />
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
+          />
+        )}
       </Box>
     </Box>
   );

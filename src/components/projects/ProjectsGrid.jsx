@@ -8,7 +8,9 @@ import { useRef } from "react";
 
 const ROW_HEIGHT = {
   xs: "auto",
-  md: "clamp(320px, 36vw, 620px)",
+  md: "clamp(420px, 42vw, 700px)",
+  lg: "clamp(520px, 44vw, 820px)",
+  xl: "clamp(620px, 46vw, 920px)",
 };
 
 export default function ProjectsGrid({

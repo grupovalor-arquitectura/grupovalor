@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 import FeaturedProjectsSection from "./FeaturedProjectsSection";
-import { featuredProjects } from "../data/featuredProjects";
+import { useProjects } from "../context/ProjectsContext";
+
 
 export default function FeaturedProjects() {
   const [currentIndex, setCurrentIndex] =
     useState(0);
+
+  const { featuredProjects, loading } = useProjects();
 
   const sectionRef = useRef(null);
 
@@ -15,8 +18,11 @@ export default function FeaturedProjects() {
   // 🔥 lock para evitar spam
   const isAnimating = useRef(false);
 
-  const activeProject =
-    featuredProjects[currentIndex];
+  if (loading || featuredProjects.length === 0) {
+  return null;
+}
+
+  const activeProject = featuredProjects[currentIndex];
 
   useEffect(() => {
     const THRESHOLD = 220;
@@ -33,17 +39,12 @@ export default function FeaturedProjects() {
 
       if (!isInView) return;
 
-      // 🔥 evita múltiples cambios seguidos
       if (isAnimating.current) return;
 
-      // 🔥 acumular scroll
       wheelAccumulator.current += e.deltaY;
 
       // DOWN
-      if (
-        wheelAccumulator.current >
-        THRESHOLD
-      ) {
+      if (wheelAccumulator.current > THRESHOLD) {
         isAnimating.current = true;
 
         setCurrentIndex((prev) =>
@@ -61,10 +62,7 @@ export default function FeaturedProjects() {
       }
 
       // UP
-      if (
-        wheelAccumulator.current <
-        -THRESHOLD
-      ) {
+      if (wheelAccumulator.current < -THRESHOLD) {
         isAnimating.current = true;
 
         setCurrentIndex((prev) =>
@@ -91,13 +89,25 @@ export default function FeaturedProjects() {
         handleWheel
       );
     };
-  }, []);
+  }, [featuredProjects.length]);
+
+  useEffect(() => {
+    if (
+      currentIndex >
+      featuredProjects.length - 1
+    ) {
+      setCurrentIndex(
+        Math.max(0, featuredProjects.length - 1)
+      );
+    }
+  }, [featuredProjects, currentIndex]);
 
   return (
     <FeaturedProjectsSection
       sectionRef={sectionRef}
       currentIndex={currentIndex}
       activeProject={activeProject}
+      featuredProjects={featuredProjects}
     />
   );
 }
