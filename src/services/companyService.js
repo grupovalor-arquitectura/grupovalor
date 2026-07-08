@@ -5,7 +5,7 @@ const firestoreIdMap = {
   "arquitectura-valor": "arquitecturaValor",
   "constructora-valor": "constructoraValor",
   "promotora-valor": "promotoraValor",
-  "estrategias-valor": "estrategiasValor",
+  "estrategia-valor": "estrategiaValor",
   "banca-valor": "bancaValor",
 };
 

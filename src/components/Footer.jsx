@@ -51,125 +51,197 @@ export default function Footer({ branding }) {
     },
   ];
 
+  if (!footer) return null;
+
   return (
+  <Box
+    sx={{
+      width: "100%",
+      backgroundColor: colors.secondary,
+      color: colors.primary,
+      px: { xs: 4, md: 6, lg: 8 },
+      py: { xs: 6, lg: 8 },
+    }}
+  >
+    {/* =======================
+        CONTENIDO SUPERIOR
+    ======================== */}
+
     <Box
       sx={{
-        width: "100%",
-        backgroundColor: colors.secondary,
-        color: colors.primary,
-        px: { xs: 2, md: 7 },
-        pt: { xs: 5, md: 12 },
-        pb: { xs: 2, md: 4 },
+        display: {
+          xs: "flex",
+          lg: "grid",
+        },
+
+        flexDirection: "column",
+
+        gridTemplateColumns: {
+          lg: "180px 340px 1fr 320px",
+        },
+
+        rowGap: {
+          xs: 5,
+          lg: 0,
+        },
+
+        columnGap: {
+          lg: 6,
+        },
+
+        alignItems: "start",
       }}
     >
+      {/* LOGO */}
+
       <Box
         sx={{
           display: "flex",
-          justifyContent:
-            "space-between",
-          flexWrap: "wrap",
-          gap: 4,
-          alignItems: "stretch",
+          justifyContent: "flex-start",
+            mb: {
+              xs: 1,
+              lg: 0,
+            },
         }}
       >
-        {/* LOGO + DIVIDER + DIRECCIÓN */}
+        <GVMono
+          style={{
+            width: 80,
+            height: "auto",
+            color: colors.primary,
+          }}
+        />
+      </Box>
+
+      {/* OFICINA */}
+
+      <Box
+        sx={{
+          textAlign: {
+            xs: "left",
+            lg: "left",
+          },
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: 700,
+            mb: 2,
+          }}
+        >
+          Oficina Principal
+        </Typography>
+
+        <Typography
+          sx={{
+            fontSize: 16,
+            lineHeight: 1.8,
+          }}
+        >
+          {footer.office.address}
+          <br />
+          {footer.office.city}
+          <br />
+          {footer.office.phone}
+        </Typography>
+
         <Box
           sx={{
             display: "flex",
-            alignItems: "flex-start",
-            gap: 3,
+            justifyContent: {
+              xs: "left",
+              lg: "flex-start",
+            },
+            gap: 2,
+            mt: 3,
           }}
         >
-          <GVMono
-            style={{
-              height: 90,
-              width: "auto",
-              color: colors.primary,
-            }}
-          />
-
-          <Box
-            sx={{
-              width: "2px",
-              height: "auto",
-              alignSelf: "stretch",
-              backgroundColor:
-                colors.text,
-              opacity: 0.3,
-              mx: "20px",
-            }}
-          />
-
-          <Box>
-            <Typography
-              sx={{
-                fontSize: 20,
-                fontWeight: 800,
-                mb: 1,
-              }}
-            >
-              Oficina Principal
-            </Typography>
-
-            <Typography
-              sx={{
-                fontSize: 14,
-                lineHeight: 1.6,
-              }}
-            >
-              
-              Carrera 16 Nº 97 - 37{" "}
-              <br />
-              Bogotá, Colombia.
-              <br />
-              (+57) 601 404 09 84
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* LINKS */}
-     
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
-          {footerLinks.map((item) => (
+          {Object.entries(footer.social).map(([key, social]) => (
             <ButtonBase
-              key={item.path}
-              onClick={() => navigate(item.path)}
-              sx={{
-                justifyContent: "flex-start",
-                py: 0.4,
-
-                "&:hover .footer-link": {
-                  opacity: 0.7,
-                },
-              }}
+              key={key}
+              component="a"
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Typography
-                className="footer-link"
                 sx={{
-                  fontSize: 14,
-                  color: colors.text,
-                  transition: "opacity .2s ease",
+                  color: colors.primary,
                 }}
               >
-                {item.label}
+                {social.label}
               </Typography>
             </ButtonBase>
           ))}
         </Box>
+      </Box>
 
-        {/* CONTACTO */}
+      {/* NAVEGACIÓN */}
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: {
+            xs: "flex-start",
+            lg: "flex-end",
+          },
+          textAlign: {
+            xs: "left",
+            lg: "right",
+          },
+          gap: 1,
+        }}
+      >
+        {footerLinks.map((item) => (
+          <ButtonBase
+            key={item.path}
+             sx={{
+              justifyContent: {
+                xs: "flex-start",
+                lg: "flex-end",
+              },
+            }}
+            onClick={() => navigate(item.path)}
+          >
+            <Typography
+              sx={{
+                color: colors.primary,
+              }}
+            >
+              {item.label}
+            </Typography>
+          </ButtonBase>
+        ))}
+      </Box>
+
+      {/* CTA */}
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: {
+            xs: "flex-start",
+            lg: "flex-end",
+          },
+          textAlign: {
+            xs: "left",
+            lg: "right",
+          },
+        }}
+      >
         <ButtonBase
           onClick={() => navigate("/contacto")}
           sx={{
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            textAlign: "left",
+            justifyContent: {
+              xs: "flex-start",
+              lg: "flex-end",
+            },
+            textAlign: {
+              xs: "left",
+              lg: "right",
+            },
 
             "&:hover .contact-title": {
               opacity: 0.7,
@@ -177,126 +249,96 @@ export default function Footer({ branding }) {
           }}
         >
           <Typography
-            className="contact-title"
             sx={{
-              fontSize: 20,
-              fontWeight: 800,
-              mb: 1,
-              color: colors.text,
-              transition: "opacity .2s ease",
+              fontSize: {
+                xs: 20,
+                lg: 30,
+              },
+              lineHeight: 1.2,
+              fontWeight: 700,
+              color: colors.primary,
+               whiteSpace: "pre-line",
             }}
           >
-            ¿Quieres invertir o <br />
-            tienes alguna consulta?
+            {footer.contact.title}
+          </Typography>
+        </ButtonBase>
+      </Box>
+    </Box>
+
+    {/* =======================
+        DIVIDER
+    ======================== */}
+
+    <Box
+      sx={{
+        mt: {
+          xs: 6,
+          lg: 7,
+        },
+        mb: {
+          xs: 4,
+          lg: 3,
+        },
+        borderBottom: `1px solid ${colors.primary}66`,
+      }}
+    />
+
+    {/* =======================
+        FOOTER INFERIOR
+    ======================== */}
+
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+        justifyContent: "space-between",
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+        gap: 2,
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: 14,
+        }}
+      >
+        © 2025 Grupo Valor. Todos los derechos reservados.
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+          gap: {
+            xs: 1,
+            md: 4,
+          },
+        }}
+      >
+        <ButtonBase onClick={() => navigate("/privacidad")}>
+          <Typography color={colors.text}>
+            Políticas de privacidad
           </Typography>
         </ButtonBase>
 
-        {/* FORMULARIO */}
-        <Box
-          sx={{
-            minWidth: 280,
-            textAlign: "right",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-        >
-          <Typography
-            sx={{
-              mb: 2,
-              fontSize: 20,
-              fontWeight: 800,
-            }}
-          >
-            Suscríbete a nuestro boletín{" "}
-            <br />
-            y entérate de nuestros
-            proyectos
+        <ButtonBase onClick={() => navigate("/terminos")}>
+          <Typography color={colors.text}>
+            Términos y condiciones
           </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              gap: 1,
-            }}
-          >
-            <TextField
-              placeholder="example@email.com"
-              size="small"
-              variant="outlined"
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root":
-                  {
-                    borderRadius:
-                      "999px",
-
-                    color:
-                      colors.text,
-
-                    "& fieldset": {
-                      borderColor:
-                        `${colors.text}66`,
-                    },
-
-                    "&:hover fieldset":
-                      {
-                        borderColor:
-                          colors.text,
-                      },
-
-                    "&.Mui-focused fieldset":
-                      {
-                        borderColor:
-                          colors.text,
-                      },
-                  },
-
-                "& input::placeholder":
-                  {
-                    color:
-                      colors.text,
-                    opacity: 0.5,
-                  },
-              }}
-            />
-
-            <Button
-              variant="outlined"
-              sx={{
-                borderRadius:
-                  "999px",
-                px: 3,
-
-                color: colors.text,
-
-                borderColor:
-                  `${colors.text}66`,
-
-                "&:hover": {
-                  borderColor:
-                    colors.text,
-                  color:
-                    colors.text,
-                },
-              }}
-            >
-              enviar
-            </Button>
-          </Box>
-
-          <Typography
-            sx={{
-              fontSize: 12,
-              mt: 1.5,
-              color: colors.text,
-            }}
-          >
-            Formulario enviado.
-            Revisa tu bandeja.
-          </Typography>
-        </Box>
+        </ButtonBase>
       </Box>
     </Box>
-  );
-}
+  </Box>
+);
+
+
+ }

@@ -106,25 +106,40 @@ export default function ProjectsHistorical() {
             <Box key={project.id}>
               <Box
                 sx={{
-                  display: "flex",
+                    display: "flex",
+                    flexDirection: {
+                        xs: "column",
+                        md: "row",
+                        },
 
-                  alignItems: "baseline",
+                    alignItems: {
+                        xs: "flex-start",
+                        md: "baseline",
+                        },
 
-                  gap: 6,
+                    gap: {
+                        xs: 1,
+                        md: 6,
+                        },
 
-                  py: 3,
+                    py: 3,
                 }}
               >
                 {/* Número */}
 
                 <Typography
                   sx={{
-                    width: 60,
+                    width: {
+                        xs: "auto",
+                        md: 60,
+                    },
+
+                    fontSize: {
+                        xs: "1.2rem",
+                        md: "1.5rem",
+                    },
 
                     flexShrink: 0,
-
-                    fontSize: "1.5rem",
-
                     fontWeight: 600,
 
                     color: "background.default",
@@ -138,13 +153,25 @@ export default function ProjectsHistorical() {
                 <Box
                   sx={{
                     flex: 2,
+                    flex: {
+                        xs: "unset",
+                        md: 2,
+                    },
+
+                    width: {
+                        xs: "100%",
+                        md: "auto",
+                    },
 
                     minWidth: 0,
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: "2rem",
+                     fontSize: {
+                        xs: "1.5rem",
+                        md: "2rem",
+                    },
 
                       fontWeight: 600,
 
@@ -229,7 +256,7 @@ export default function ProjectsHistorical() {
                 sx={{
                     mt: 3,
                     width: "100%",
-                    height: "2px",
+                    height: "1px",
                 }}
                 >
                 <svg
@@ -247,7 +274,7 @@ export default function ProjectsHistorical() {
                     x2="100%"
                     y2="1"
                     stroke={theme.palette.background.default}
-                    strokeWidth="2"
+                    strokeWidth="0.25"
                     />
                 </svg>
                 </Box>

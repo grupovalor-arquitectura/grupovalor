@@ -51,9 +51,22 @@ export default function ProjectsFilters({
         }}
         onMouseEnter={() => setHovered(filter.id)}
         onMouseLeave={() => setHovered(null)}
+
         sx={{
-          px: "18px",
-          py: "6px",
+          px: {
+            xs: 2,
+            md: "18px",
+          },
+
+          py: {
+            xs: 1.5,
+            md: "6px",
+          },
+
+          width: {
+            xs: "100%",
+            md: "auto",
+          },
 
           display: "flex",
           alignItems: "center",
@@ -101,17 +114,25 @@ export default function ProjectsFilters({
 
   return (
     <Box
-      sx={{
-        px: { xs: 2, md: 7 },
-        pb: { xs: 6, md: 8 },
+        sx={{
+          px: { xs: 2, md: 7 },
+          pb: { xs: 4, md: 8 },
 
-        display: "flex",
-        alignItems: "center",
-        flexWrap: "wrap",
+          display: "flex",
 
-        gap: 2,
-      }}
-    >
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+
+          alignItems: {
+            xs: "stretch",
+            md: "center",
+          },
+
+          gap: 2,
+        }}
+      >
       {renderChip(
         {
           id: "filters",
@@ -123,9 +144,24 @@ export default function ProjectsFilters({
       {isExpanded && (
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
+             display: "flex",
+
+            flexDirection: {
+              xs: "column",
+              md: "row",
+            },
+
+            alignItems: {
+              xs: "stretch",
+              md: "center",
+            },
+
             gap: 2,
+
+            width: {
+              xs: "100%",
+              md: "auto",
+            },
 
             animation: "fadeIn .3s ease",
 
