@@ -7,61 +7,72 @@ import {
 } from "react";
 
 import { getProjects } from "../services/projectsService";
+import { getArchive } from "../services/archiveService";
+
 
 const ProjectsContext = createContext();
 
 export function ProjectsProvider({ children }) {
   const [projects, setProjects] = useState([]);
+  const [archiveProjects, setArchiveProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+    useEffect(() => {
     async function loadProjects() {
-      try {
-        const data = await getProjects();
+        try {
+        const [projectsData, archiveData] = await Promise.all([
+            getProjects(),
+            getArchive(),
+        ]);
 
-        setProjects(data);
-      } catch (error) {
+        setProjects(projectsData);
+        setArchiveProjects(archiveData);
+        } catch (error) {
         console.error(error);
-      } finally {
+        } finally {
         setLoading(false);
-      }
+        }
     }
 
     loadProjects();
-  }, []);
+    }, []);
 
   const featuredProjects = useMemo(
     () => projects.filter((project) => project.featured),
     [projects]
   );
 
-  const value = {
-    projects,
-    featuredProjects,
-    loading,
-  };
-
   const reloadProjects = async () => {
     setLoading(true);
 
-    const data = await getProjects();
+    try {
+        const [projectsData, archiveData] = await Promise.all([
+        getProjects(),
+        getArchive(),
+        ]);
 
-    setProjects(data);
-
-    setLoading(false);
+        setProjects(projectsData);
+        setArchiveProjects(archiveData);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setLoading(false);
+    }
     };
 
+
+  const value = {
+    projects,
+    archiveProjects,
+    featuredProjects,
+    loading,
+    reloadProjects,
+  };
+
+  
   return (
-    <ProjectsContext.Provider 
-    
-    value={{
-        projects,
-        featuredProjects,
-        loading,
-        reloadProjects,
-      }}>
-        
-      {children}
+    <ProjectsContext.Provider value={value}>
+        {children}
     </ProjectsContext.Provider>
   );
 }

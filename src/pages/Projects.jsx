@@ -7,6 +7,7 @@ import InnerPageLayout from "../components/InnerPageLayout";
 import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsFilters from "../components/projects/ProjectsFilters";
 import ProjectsGrid from "../components/projects/ProjectsGrid";
+import ProjectsHistorical from "../components/projects/ProjectsHistorical";
 
 import { getProjects } from "../services/projectsService";
 
@@ -51,6 +52,12 @@ export default function Projects() {
         <ProjectsGrid
           projects={filteredProjects}
         />
+
+        {filter === "history" && (
+          <ProjectsHistorical />
+        )}
+
+        
       </Box>
     </InnerPageLayout>
   );

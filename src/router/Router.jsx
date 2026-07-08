@@ -50,6 +50,8 @@ export default function Router() {
 
           <Route path="privacidad" element={<Privacy />}/>
 
+
+
    
 
         </Route>
