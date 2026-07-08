@@ -103,8 +103,21 @@ return (
     <Box
       sx={{
         display: "flex",
-        alignItems: "baseline",
-        gap: 8,
+
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+
+        alignItems: {
+          xs: "flex-start",
+          md: "baseline",
+        },
+
+        gap: {
+          xs: 5,
+          md: 8,
+        },
       }}
     >
       {/* Título */}

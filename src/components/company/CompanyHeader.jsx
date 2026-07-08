@@ -1,4 +1,4 @@
-import GVIcon from "../../assets/GVIcon.svg?react"
+import GVIcon from "../../assets/GVIcon.svg?react";
 import HeaderMenuItems from "../HeaderMenuItems";
 
 import { Link } from "react-router-dom";
@@ -7,7 +7,6 @@ import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 
 export default function CompanyHeader({ branding }) {
-
   const theme = useTheme();
   const [active, setActive] = useState(null);
 
@@ -20,8 +19,15 @@ export default function CompanyHeader({ branding }) {
         justifyContent: "space-between",
         alignItems: "center",
 
-        px: { xs: 2, md: 7 },
-        pt: { xs: 2, md: 5 },
+        px: {
+          xs: 3,
+          md: 7,
+        },
+
+        py: {
+          xs: 2,
+          md: 5,
+        },
 
         position: "absolute",
         top: 0,
@@ -43,7 +49,7 @@ export default function CompanyHeader({ branding }) {
       >
         <GVIcon
           style={{
-            height: 42,
+            height: window.innerWidth < 900 ? 30 : 42,
             width: "auto",
             color:
               branding?.text ??
@@ -52,7 +58,7 @@ export default function CompanyHeader({ branding }) {
         />
       </Box>
 
-      {/* MENU */}
+      {/* MENU (solo escritorio) */}
 
       <Box
         sx={{

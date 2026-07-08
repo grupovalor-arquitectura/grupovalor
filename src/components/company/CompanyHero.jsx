@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CompanyHero({ company }) {
@@ -12,6 +15,9 @@ export default function CompanyHero({ company }) {
 
   const Logo = company.logo;
   const Illustration = company.illustration;
+
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
   const heroRef = useRef(null);
   const illustrationRef = useRef(null);
@@ -23,8 +29,9 @@ export default function CompanyHero({ company }) {
   
 
   useEffect(() => {
-    const element = illustrationRef.current;
+    if (!isDesktop) return;
 
+    const element = illustrationRef.current;
     if (!element) return;
 
     const rays = element.querySelectorAll("line");
@@ -35,45 +42,38 @@ export default function CompanyHero({ company }) {
       const length = ray.getTotalLength();
 
       ray.style.strokeDasharray = length;
-
-      // visible aprox. 20% del rayo
       ray.style.strokeDashoffset = length * 0.999;
     });
 
     gsap.to(rays, {
       strokeDashoffset: 0,
-
       ease: "none",
-
       scrollTrigger: {
         trigger: heroRef.current,
-
         start: "top top",
         end: "bottom top",
-
         scrub: true,
       },
     });
-  }, []);
+  }, [isDesktop]);
 
   useEffect(() => {
-    const element = illustrationRef.current;
+      if (!isDesktop) return;
 
-    if (!element) return;
+      const element = illustrationRef.current;
+      if (!element) return;
 
-    gsap.to(element, {
-      y: -80,
-
-      ease: "none",
-
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-  }, []);
+      gsap.to(element, {
+        y: -80,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, [isDesktop]);
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -162,16 +162,19 @@ export default function CompanyHero({ company }) {
     <Box
       ref={heroRef}
       sx={{
-        minHeight: "90vh",
+        minHeight: {
+          xs: "auto",
+          md: "90vh",
+        },
         bgcolor: heroBackground,
 
         position: "relative",
         overflow: "hidden",
         
-        px: { xs: 2, md: 7 },
+        px: { xs: 4, md: 8 },
 
         pt: {
-          xs: 12,
+          xs: 20,
           md: 30,
         },
 
@@ -248,17 +251,35 @@ export default function CompanyHero({ company }) {
          <Box
             ref={logoTitleRef}
             sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              mt: 4,
-             
-              flexWrap: "wrap",
+             display: "flex",
+
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+
+              alignItems: {
+                xs: "flex-start",
+                md: "center",
+              },
+
+              gap: {
+                xs: 2,
+                md: 4,
+              },
+
+              mt: {
+                xs: 3,
+                md: 4,
+              },
             }}
           >
             <Typography
               sx={{
-                fontSize: "22px",
+                fontSize: {
+                  xs: "18px",
+                  md: "22px",
+                },
               
                 whiteSpace: "nowrap",
                 color: text,
@@ -294,46 +315,48 @@ export default function CompanyHero({ company }) {
         </Box>
       </Box>
 
-      <Box
-        ref={illustrationRef}
-        sx={{
-          position: "absolute",
+      {isDesktop && (
+        <Box
+          ref={illustrationRef}
+          sx={{
+            position: "absolute",
 
-          right: {
-            xs: "-150px",
-            md: "-600px",
-          },
+            right: {
+              xs: "-150px",
+              md: "-600px",
+            },
 
-          top: {
-            xs: "120px",
-            md: "120px",
-          },
+            top: {
+              xs: "120px",
+              md: "120px",
+            },
 
-          width: {
-            xs: 600,
-            md: 1200,
-          },
+            width: {
+              xs: 600,
+              md: 1200,
+            },
 
-          color: text,
-          opacity: 1,
+            color: text,
+            opacity: 1,
 
-          pointerEvents: "none",
+            pointerEvents: "none",
 
-          zIndex: 0,
+            zIndex: 0,
 
-          transform: "rotate(0deg)",
+            transform: "rotate(0deg)",
 
-          transformOrigin: "center center",
+            transformOrigin: "center center",
 
-          "& svg": {
-            width: "100%",
-            height: "auto",
-            display: "block",
-          },
-        }}
-      >
-        <Illustration />
-      </Box>
+            "& svg": {
+              width: "100%",
+              height: "auto",
+              display: "block",
+            },
+          }}
+        >
+          <Illustration />
+        </Box>
+      )}
     </Box>
   );
 }

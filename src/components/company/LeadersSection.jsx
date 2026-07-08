@@ -1,4 +1,3 @@
-
 import { Box, Typography } from "@mui/material";
 import Comillas from "../../assets/comillas.svg?react";
 
@@ -96,23 +95,17 @@ export default function LeadersSection({ company }) {
     });
     }, []);
 
-
-
   return (
     <Box
       ref={sectionRef}
       sx={{
         position: "relative",
-        
-         zIndex: 10,
-
+        zIndex: 10,
         backgroundColor: leadersBackground,
-
         px: {
           xs: 4,
           md: 8,
         },
-
         pt: 16,
         pb: 20,
 
@@ -124,23 +117,16 @@ export default function LeadersSection({ company }) {
             ref={circleRef}
             sx={{
                 position: "absolute",
-
                 top: 0,
-
                 left: {
-                xs: 32,
-                md: 70,
-                },
-
+                    xs: 32,
+                    md: 70,
+                    },
                 transform: "translateY(-50%)",
-
                 width: 36,
                 height: 36,
-
                 borderRadius: "50%",
-
                 backgroundColor: leadersBackground,
-
                 zIndex: 5,
             }}
             />
@@ -164,12 +150,10 @@ export default function LeadersSection({ company }) {
         <Box
             sx={{
             position: "absolute",
-
             top: -20,
             left: -100,
-
             width: {
-                xs: 140,
+                xs: 200,
                 md: 500,
             },
 
@@ -193,9 +177,8 @@ export default function LeadersSection({ company }) {
 
             right: -100,
             bottom: -20,
-
             width: {
-                xs: 140,
+                xs: 200,
                 md: 500,
             },
 
@@ -213,10 +196,7 @@ export default function LeadersSection({ company }) {
             <Comillas />
         </Box>
         </Box>
-
-        
-
-            <Box
+        <Box
         ref={contentRef}
         sx={{
             position: "relative",
@@ -227,10 +207,9 @@ export default function LeadersSection({ company }) {
         {leaders.map((leader, index) => (
         <Box
             ref={(el) => (leadersRef.current[index] = el)}
-            key={leader.name}
+            key={leader.id}
             sx={{
             display: "flex",
-
             justifyContent:
                 index % 2 === 0
                 ? "flex-end"
@@ -250,12 +229,20 @@ export default function LeadersSection({ company }) {
             >
             <Box
                 sx={{
-                display: "flex",
+                    display: "flex",
 
-                alignItems: "flex-start",
+                    flexDirection: {
+                    xs: "column",
+                    md: "row",
+                    },
 
-                gap: 6,
-                }}
+                    alignItems: "flex-start",
+
+                    gap: {
+                    xs: 2,
+                    md: 6,
+                    },
+                                }}
             >
                 {/* NOMBRE + CARGO */}
 
@@ -268,19 +255,16 @@ export default function LeadersSection({ company }) {
                 <Typography
                     sx={{
                     color: leadersText,
-
                     fontSize: {
                         xs: "2rem",
                         md: "4rem",
                     },
-
                     width: {
                         xs: "100%",
                         md: 420,
                         },
 
                     fontWeight: 600,
-
                     lineHeight: 1,
                     }}
                 >
@@ -309,10 +293,14 @@ export default function LeadersSection({ company }) {
 
                 <Box
                 sx={{
+                    display: {
+                        xs: "none",
+                        md: "block",
+                    },
                     width: "2px",
                     minHeight: 200,
                     backgroundColor: leadersText,
-                    
+        
                     flexShrink: 0,
                 }}
                 />
@@ -321,30 +309,32 @@ export default function LeadersSection({ company }) {
 
                 <Box
                 sx={{
-                    width: "55%",
+                   width: {
+                    xs: "100%",
+                    md: "55%",
+                    },
                 }}
                 >
                 <Typography
                     sx={{
                     color: leadersText,
-
                     fontSize: {
                         xs: "1rem",
                         md: "1.15rem",
                     },
-
                     lineHeight: 1.45,
+                    width: {
+                        xs: "100%",
+                        md: 420,
+                    },
 
-                     width: 420,
-
-                    height: 200,
-
+                    height: {
+                        xs: "auto",
+                        md: 200,
+                    },
                     display: "flex",
-
                     alignItems: "flex-end",
                     }}
-
-                    
                 >
                     { leader.quote}
                 </Typography>
@@ -354,7 +344,6 @@ export default function LeadersSection({ company }) {
         </Box>
    ))}
   </Box>
-
 </Box>
 );
 }
