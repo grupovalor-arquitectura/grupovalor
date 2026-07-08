@@ -26,7 +26,9 @@ export default function FeaturedProjectInfo({
     >
       <Box
         sx={{
-          px: { xs: 2, md: 4 },
+        
+          px: { xs: 2, md: 7 },
+
 
           display: "flex",
           flexDirection: "column",
@@ -42,9 +44,10 @@ export default function FeaturedProjectInfo({
             sx={{
               fontSize: "48px",
               lineHeight: 1,
+              fontWeight: 700,
 
               color: "#421b1e",
-              fontWeight: 700,
+              
             }}
           >
             {project.title}

@@ -1,10 +1,9 @@
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 
-import footerData  from "../data/footerData";
+import footerData from "../data/footerData";
 
-
-async function seedFooter() {
+export async function seedFooter() {
   try {
     await setDoc(
       doc(db, "footer", "content"),
@@ -16,5 +15,3 @@ async function seedFooter() {
     console.error(error);
   }
 }
-
-seedFooter();

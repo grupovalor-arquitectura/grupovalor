@@ -14,12 +14,14 @@ export default function FeaturedProjectsSection({
       sx={{
         position: "relative",
         height: "320vh",
+        
       }}
     >
       {/* STICKY VIEWPORT */}
       <Box
         sx={{
           position: "sticky",
+          
           
           top: 0,
 

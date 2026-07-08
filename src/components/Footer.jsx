@@ -1,6 +1,9 @@
 import { Box, Typography, TextField, Button, ButtonBase } from "@mui/material";
 
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { getFooter } from "../services/footerService";
 
 import GVMono from "../assets/GVMono.svg?react";
 
@@ -14,6 +17,24 @@ export default function Footer({ branding }) {
 
   const navigate = useNavigate();
   const colors = branding || defaultBranding;
+
+  const [footer, setFooter] = useState(null);
+
+  useEffect(() => {
+    const loadFooter = async () => {
+      try {
+        const data = await getFooter();
+
+        console.log("Footer:", data);
+
+        setFooter(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadFooter();
+  }, []);
 
   const footerLinks = [
     {

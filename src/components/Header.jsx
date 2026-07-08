@@ -7,9 +7,18 @@ import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 
-export default function Header({ onMenuClick, isOpen }) {
+export default function Header({
+  onMenuClick,
+  isOpen,
+  branding,
+}) {
   const theme = useTheme();
   const [active, setActive] = useState(null);
+
+  const colors = branding || {
+    text: theme.palette.primary.main,
+    background: theme.palette.background.default,
+  };
 
   return (
     <Box
@@ -22,28 +31,25 @@ export default function Header({ onMenuClick, isOpen }) {
     >
       {/* LOGO */}
       <Box
-  component={Link}
-  to="/"
-
-  sx={{
-    display: "flex",
-    alignItems: "center",
-
-    textDecoration: "none",
-
-    cursor: "none",
-  }}
->
-  <GVIcon
-    style={{
-      height: 40,
-      width: "auto",
-      color: theme.palette.primary.main,
-      stroke: "none",
-      cursor: "pointer",
-    }}
-  />
-</Box>
+        component={Link}
+        to="/"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          cursor: "none",
+        }}
+      >
+        <GVIcon
+          style={{
+            height: 40,
+            width: "auto",
+            color: colors.text,
+            stroke: "none",
+            cursor: "pointer",
+          }}
+        />
+      </Box>
 
       {/* DERECHA */}
       <Box
@@ -59,10 +65,7 @@ export default function Header({ onMenuClick, isOpen }) {
             display: { xs: "none", md: "block" },
           }}
         >
-          <HeaderMenuItems
-            active={active}
-            onSelect={setActive}
-          />
+          <HeaderMenuItems branding={colors} />
         </Box>
 
         {/* MENÚ MOBILE */}
@@ -80,13 +83,10 @@ export default function Header({ onMenuClick, isOpen }) {
             transition: "all 0.3s ease",
           }}
         >
-          <HeaderMenuItems
-            active={active}
-            onSelect={setActive}
-          />
+          <HeaderMenuItems branding={colors} />
         </Box>
 
-        {/* ICONO SOLO MOBILE */}
+        {/* ICONO MOBILE */}
         <Box
           sx={{
             display: { xs: "block", md: "none" },
@@ -95,6 +95,7 @@ export default function Header({ onMenuClick, isOpen }) {
           <MenuIcon
             isOpen={isOpen}
             onClick={onMenuClick}
+            branding={colors}
           />
         </Box>
       </Box>
