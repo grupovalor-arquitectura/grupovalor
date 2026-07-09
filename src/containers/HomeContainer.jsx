@@ -12,6 +12,9 @@ import Footer from "../components/Footer";
 import HomeContentPanel from "../components/HomeContentPanel";
 import FeaturedProjects from "../components/FeaturedProjects";
 
+import { useMediaQuery } from "@mui/material";
+import VisualCirclesMobile from "../components/VisualCirclesMobile";
+
 import Fondo1 from "../assets/33DC-AEREAGENERAL.png";
 import Fondo2 from "../assets/wacari.png"
 import Fondo3 from "../assets/escritorio.png"
@@ -57,6 +60,8 @@ export default function HomeContainer() {
   const theme =
     muiTheme.custom.brandTheme[activeSection] ||
     muiTheme.custom.brandTheme.default;
+
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
 
   const [isReady, setIsReady] = useState(false);
 
@@ -157,11 +162,19 @@ export default function HomeContainer() {
             />
           }
           visual={
-            <VisualCircles
-              active={activeSection}
-              color={theme.circle}
-              textColor={theme.text}
-            />
+            isMobile ? (
+              <VisualCirclesMobile
+                active={activeSection}
+                color={theme.circle}
+                textColor={theme.text}
+              />
+            ) : (
+              <VisualCircles
+                active={activeSection}
+                color={theme.circle}
+                textColor={theme.text}
+              />
+            )
           }
           bottom={
             <BottomBar
@@ -191,10 +204,12 @@ export default function HomeContainer() {
           zIndex: 3,
         }}
       >
-        <HomeContentPanel
-          active={activeSection}
-          content={content?.[homeSectionMap[activeSection]]}
-        />
+        {!isMobile && (
+          <HomeContentPanel
+            active={activeSection}
+            content={content?.[homeSectionMap[activeSection]]}
+          />
+        )}
       </Box>
 
       <FeaturedProjects />

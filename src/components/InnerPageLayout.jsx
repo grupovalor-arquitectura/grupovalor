@@ -7,19 +7,21 @@ import Footer from "./Footer";
 export default function InnerPageLayout({
   children,
   headerBackground = "background.default",
+  overlayHeader = false,
 }) {
   const theme = useTheme();
 
-  const headerBranding =
-    headerBackground === "primary.main"
-      ? {
-          text: theme.palette.background.default,
-          background: theme.palette.primary.main,
-        }
-      : {
-          text: theme.palette.primary.main,
-          background: theme.palette.background.default,
-        };
+  const headerBranding = overlayHeader
+  ? {
+      text: theme.palette.primary.main,
+      background: "transparent",
+      activeText: theme.palette.background.default,
+    }
+  : {
+      text: theme.palette.background.default,
+      background: theme.palette.primary.main,
+      activeText: theme.palette.primary.main,
+    };
 
   return (
     <Box
@@ -27,14 +29,25 @@ export default function InnerPageLayout({
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        position: "relative",
       }}
     >
       {/* HEADER */}
       <Box
         sx={{
+          position: overlayHeader ? "absolute" : "relative",
+          top: 0,
+          left: 0,
+          width: "100%",
+
+          zIndex: 100,
+
           px: { xs: 2, md: 7 },
           pt: { xs: 2, md: 5 },
-          bgcolor: headerBackground,
+
+          bgcolor: overlayHeader
+            ? "transparent"
+            : headerBackground,
         }}
       >
         <Header branding={headerBranding} />

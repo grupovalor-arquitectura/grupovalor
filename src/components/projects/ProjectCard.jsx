@@ -2,11 +2,14 @@ import { Box, Divider, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import useReveal from "../../hooks/useReveal";
 
 export default function ProjectCard({ project }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const navigate = useNavigate();
 
   const cardRef = useRef(null);
 
@@ -14,15 +17,27 @@ export default function ProjectCard({ project }) {
 
   return (
     <Box
-      ref={cardRef}
-      sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
+        ref={cardRef}
+        onClick={() => navigate(`/proyectos/${project.slug}`)}
+        sx={{
+          width: "100%",
+          height: "100%",
 
-      }}
-    >
+          display: "flex",
+          flexDirection: "column",
+
+          cursor: "pointer",
+
+          transition: "transform .35s ease",
+
+          "&:hover": {
+            transform: {
+              xs: "none",
+              md: "translateY(-6px)",
+            },
+          },
+        }}
+      >
       {/* HEADER */}
 
       <Box
