@@ -5,24 +5,16 @@ import { useProjects } from "../context/ProjectsContext";
 
 
 export default function FeaturedProjects() {
-  const [currentIndex, setCurrentIndex] =
-    useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const { featuredProjects, loading } = useProjects();
 
   const sectionRef = useRef(null);
-
-  // 🔥 acumulador de scroll
   const wheelAccumulator = useRef(0);
-
-  // 🔥 lock para evitar spam
   const isAnimating = useRef(false);
 
-  if (loading || featuredProjects.length === 0) {
-  return null;
-}
-
-  const activeProject = featuredProjects[currentIndex];
+  const activeProject =
+    featuredProjects[currentIndex] ?? null;
 
   useEffect(() => {
     const THRESHOLD = 220;
@@ -101,6 +93,10 @@ export default function FeaturedProjects() {
       );
     }
   }, [featuredProjects, currentIndex]);
+
+   if (loading || featuredProjects.length === 0) {
+    return null;
+  }
 
   return (
     <FeaturedProjectsSection

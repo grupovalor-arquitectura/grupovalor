@@ -3,6 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 
 export async function getArchive() {
+
+  console.log("🔥 LEYENDO ARCHIVE DESDE FIRESTORE");
   try {
     const snapshot = await getDocs(collection(db, "archive"));
 

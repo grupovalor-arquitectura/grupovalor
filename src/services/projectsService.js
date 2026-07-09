@@ -3,6 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 
 export async function getProjects() {
+
+  console.log("🔥 LEYENDO PROJECTS DESDE FIRESTORE");
   try {
     const snapshot = await getDocs(collection(db, "projects"));
 
