@@ -56,16 +56,24 @@ export default function ProjectHero({ project }) {
           inset: 0,
 
           background: {
-            xs: `linear-gradient(
-              180deg,
-              rgba(0,0,0,.08) 0%,
-              rgba(0,0,0,.28) 100%
-            )`,
-            md: `linear-gradient(
-              180deg,
-              rgba(0,0,0,.05) 0%,
-              rgba(0,0,0,.18) 100%
-            )`,
+            xs: `
+              linear-gradient(
+                to bottom,
+                rgba(0,0,0,.45) 0%,
+                rgba(0,0,0,.28) 10%,
+                rgba(0,0,0,.12) 18%,
+                rgba(0,0,0,0) 30%
+              )
+            `,
+            md: `
+              linear-gradient(
+                to bottom,
+                rgba(0,0,0,.38) 0%,
+                rgba(0,0,0,.22) 8%,
+                rgba(0,0,0,.08) 25%,
+                rgba(0,0,0,0) 45%
+              )
+            `,
           },
         }}
       />

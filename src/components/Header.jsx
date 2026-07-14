@@ -5,7 +5,7 @@ import HeaderMenuItems from "./HeaderMenuItems";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useState } from "react";
+
 
 export default function Header({
   onMenuClick,
@@ -13,7 +13,6 @@ export default function Header({
   branding,
 }) {
   const theme = useTheme();
-  const [active, setActive] = useState(null);
 
   const colors = branding || {
     text: theme.palette.primary.main,
@@ -27,6 +26,7 @@ export default function Header({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        zIndex: 1300,
       }}
     >
       {/* LOGO */}
@@ -56,40 +56,38 @@ export default function Header({
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: "24px",
+          gap: {
+            xs: 1,
+            md: 3,
+          },
         }}
       >
         {/* MENÚ DESKTOP */}
         <Box
           sx={{
-            display: { xs: "none", md: "block" },
+            display: {
+              xs: "none",
+              md: "block",
+            },
           }}
         >
-          <HeaderMenuItems branding={colors} />
+          <HeaderMenuItems
+           
+            branding={colors}
+          />
         </Box>
 
-        {/* MENÚ MOBILE */}
+        {/* HAMBURGUESA MOBILE */}
         <Box
           sx={{
-            display: { xs: "block", md: "none" },
-
-            opacity: isOpen ? 1 : 0,
-            transform: isOpen
-              ? "translateY(0)"
-              : "translateY(-16px)",
-
-            pointerEvents: isOpen ? "auto" : "none",
-
-            transition: "all 0.3s ease",
-          }}
-        >
-          <HeaderMenuItems branding={colors} />
-        </Box>
-
-        {/* ICONO MOBILE */}
-        <Box
-          sx={{
-            display: { xs: "block", md: "none" },
+            display: {
+              xs: "flex",
+              md: "none",
+            },
+            width: 48,
+            height: 48,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <MenuIcon

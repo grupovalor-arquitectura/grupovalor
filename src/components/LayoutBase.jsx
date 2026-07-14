@@ -1,6 +1,13 @@
 import { Box } from "@mui/material";
 
-export default function LayoutBase({ header, visual, bottom, footer}) {
+export default function LayoutBase({ 
+  header, 
+  mobileMenu,
+  visual, 
+  bottom, 
+  footer}) {
+
+
   return (
     <Box
       sx={{
@@ -15,18 +22,20 @@ export default function LayoutBase({ header, visual, bottom, footer}) {
     >
       {header}
 
+      {mobileMenu}
+
       <Box
-        sx={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+          sx={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+          }}
       >
-        {visual}
+          {visual}
       </Box>
 
-      {bottom}
+            {bottom}
     </Box>
   );
 }

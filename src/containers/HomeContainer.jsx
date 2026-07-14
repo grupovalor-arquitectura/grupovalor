@@ -11,6 +11,7 @@ import VisualCircles from "../components/VisualCircles";
 import Footer from "../components/Footer";
 import HomeContentPanel from "../components/HomeContentPanel";
 import FeaturedProjects from "../components/FeaturedProjects";
+import MobileMenu from "../components/MobileMenu";
 
 import { useMediaQuery } from "@mui/material";
 import VisualCirclesMobile from "../components/VisualCirclesMobile";
@@ -155,12 +156,25 @@ export default function HomeContainer() {
         }}
       >
         <LayoutBase
-          header={
-            <Header
-              onMenuClick={toggleHeader}
-              isOpen={isHeaderOpen}
-            />
-          }
+            header={
+              <Header
+                onMenuClick={toggleHeader}
+                isOpen={isHeaderOpen}
+              />
+            }
+
+            mobileMenu={
+              <MobileMenu
+                isOpen={isHeaderOpen}
+                onClose={toggleHeader}
+                branding={{
+                  text: theme.text,
+                  background: theme.bg,
+                  activeText: theme.bg,
+                }}
+              />
+            }
+
           visual={
             isMobile ? (
               <VisualCirclesMobile

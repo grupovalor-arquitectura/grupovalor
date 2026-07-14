@@ -1,7 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
 
-import { db } from "../firebase/firestore";
-import { projectsData } from "../data/projectsData";
+import { db } from "../src/firebase/firestore";
+import { projectsData } from "../src/data/projectsData";
 
 export async function seedArchive() {
   try {

@@ -7,6 +7,7 @@ import ProjectHero from "../components/ProjectDetail/ProjectHero";
 import ProjectInfo from "../components/ProjectDetail/ProjectInfo";
 import ProjectGallery from "../components/ProjectDetail/ProjectGallery";
 import ProjectNavigation from "../components/ProjectDetail/ProjectNavigation";
+import ProjectVideo from "../components/ProjectDetail/ProjectVideo";
 
 import { useProjects } from "../context/ProjectsContext";
 
@@ -33,6 +34,8 @@ export default function ProjectDetail() {
       <ProjectHero project={project} />
 
       <ProjectInfo project={project} />
+
+      <ProjectVideo video={project.video} />
 
       <ProjectGallery project={project} />
 

@@ -16,6 +16,11 @@ const items = [
   },
 
   {
+    label: "Nosotros",
+    path: "/nosotros",
+  },
+
+  {
     label: "Contacto",
     path: "/contacto",
   },

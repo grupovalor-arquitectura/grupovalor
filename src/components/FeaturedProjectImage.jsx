@@ -1,9 +1,14 @@
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function FeaturedProjectImage({
   project,
   projectRef,
 }) {
+
+  const navigate = useNavigate();
+
+
   return (
     <Box
       ref={projectRef}
@@ -79,7 +84,10 @@ export default function FeaturedProjectImage({
           position: "relative",
 
           bgcolor: "#c8beb8",
+          cursor: "pointer",
         }}
+
+         onClick={() => navigate(`/proyectos/${project.slug}`)}
       >
         {project.coverImage && (
           <Box

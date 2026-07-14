@@ -1,6 +1,6 @@
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase/firestore";
-import { companiesData } from "../data/companiesData";
+import { db } from "../src/firebase/firestore";
+import { companiesData } from "../src/data/companiesData";
 
 
 export async function seedCompanies() {
