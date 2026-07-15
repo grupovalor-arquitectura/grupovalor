@@ -1,17 +1,26 @@
 import { Box, Typography } from "@mui/material";
+import { useState } from "react";
 
 import { useParams } from "react-router-dom";
 import useCompany from "../hooks/useCompany";
 import { companyAssets } from "../data/companyAssets";
 
 import CompanyLayout from "../components/company/CompanyLayout";
-import CompanyHeader from "../components/company/CompanyHeader";
+import Header from "../components/Header";
 import CompanyHero from "../components/company/CompanyHero";
 import ServicesSection from "../components/company/ServicesSection";
 import LeadersSection from "../components/company/LeadersSection";
 import Footer from "../components/Footer";
+import MobileMenu from "../components/MobileMenu";
 
 export default function CompanyPage() {
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleMenuClick = () => {
+      setIsMenuOpen((prev) => !prev);
+    };
+
   const { slug } = useParams();
 
   const { company, loading, error } = useCompany(slug);
@@ -51,11 +60,45 @@ export default function CompanyPage() {
 
   return (
     <CompanyLayout>
-    <CompanyHeader branding={companyData.branding} />
-    <CompanyHero company={companyData} />
-    <ServicesSection company={companyData} />
-    <LeadersSection company={companyData} />
-    <Footer branding={companyData.branding} />
-  </CompanyLayout>
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 1500,
+          px: {
+            xs: 3,
+            md: 7,
+          },
+          py: {
+            xs: 2,
+            md: 5,
+          },
+        }}
+      >
+        <Header
+          branding={companyData.branding}
+          isOpen={isMenuOpen}
+          onMenuClick={handleMenuClick}
+        />
+      </Box>
+
+  <MobileMenu
+    isOpen={isMenuOpen}
+    onClose={() => setIsMenuOpen(false)}
+    branding={companyData.branding}
+  />
+
+  <CompanyHero company={companyData} />
+  <ServicesSection company={companyData} />
+  <LeadersSection company={companyData} />
+  <Footer branding={companyData.branding} />
+
+  <CompanyHero company={companyData} />
+  <ServicesSection company={companyData} />
+  <LeadersSection company={companyData} />
+  <Footer branding={companyData.branding} />
+</CompanyLayout>
   );
 }

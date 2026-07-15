@@ -1,6 +1,9 @@
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+import { useState } from "react";
+import MobileMenu from "./MobileMenu";
+
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -11,10 +14,16 @@ export default function InnerPageLayout({
 }) {
   const theme = useTheme();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuClick = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   const headerBranding = overlayHeader
   ? {
       text: theme.palette.primary.main,
-      background: "transparent",
+       background: theme.palette.background.default,
       activeText: theme.palette.background.default,
     }
   : {
@@ -22,6 +31,11 @@ export default function InnerPageLayout({
       background: theme.palette.primary.main,
       activeText: theme.palette.primary.main,
     };
+
+    const mobileMenuBranding = {
+        background: theme.palette.background.default,
+        
+      };
 
   return (
     <Box
@@ -32,7 +46,7 @@ export default function InnerPageLayout({
         position: "relative",
       }}
     >
-      {/* HEADER */}
+     {/* HEADER */}
       <Box
         sx={{
           position: overlayHeader ? "absolute" : "relative",
@@ -40,7 +54,7 @@ export default function InnerPageLayout({
           left: 0,
           width: "100%",
 
-          zIndex: 100,
+          zIndex: 1,
 
           px: { xs: 2, md: 7 },
           pt: { xs: 2, md: 5 },
@@ -50,8 +64,19 @@ export default function InnerPageLayout({
             : headerBackground,
         }}
       >
-        <Header branding={headerBranding} />
+        <Header
+          branding={headerBranding}
+          isOpen={isMenuOpen}
+          onMenuClick={handleMenuClick}
+        />
       </Box>
+
+      {/* MOBILE MENU */}
+      <MobileMenu
+         branding={mobileMenuBranding}
+        onClose={() => setIsMenuOpen(false)}
+        isOpen={isMenuOpen}
+      />
 
       {/* CONTENT */}
       <Box sx={{ flex: 1 }}>

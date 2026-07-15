@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
+
 const items = [
   {
     label: "Proyectos",
@@ -21,8 +22,9 @@ const items = [
 ];
 
 const defaultBranding = {
-  text: "#d8d1cd",
-  background: "#431b1d",
+  text: "#bfafaa",
+  background: "#421b1e",
+  activeText: "#c16242"
 };
 
 export default function MobileMenu({
@@ -31,6 +33,10 @@ export default function MobileMenu({
   branding,
 }) {
   const colors = branding || defaultBranding;
+
+
+  console.log(branding);
+console.log(colors);
 
   return (
     <Box
@@ -45,7 +51,7 @@ export default function MobileMenu({
 
         flexDirection: "column",
 
-        backgroundColor: colors.background,
+        backgroundColor: colors.heroBackground || defaultBranding.background,
 
         visibility: isOpen ? "visible" : "hidden",
         opacity: isOpen ? 1 : 0,
@@ -98,8 +104,8 @@ export default function MobileMenu({
                   lineHeight: 1,
 
                   color: isActive
-                    ? colors.activeText || colors.text
-                    : colors.text,
+                    ? (colors.activeText ?? defaultBranding.activeText)
+                    : (colors.text ?? defaultBranding.text),
 
                   transition: "opacity .25s ease",
 

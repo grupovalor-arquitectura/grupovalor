@@ -6,16 +6,26 @@ import { useState } from "react";
 import MenuIconOpen from "../assets/MenuIconOpen.svg?react";
 import MenuIconClose from "../assets/MenuIconClose.svg?react";
 
-export default function MenuIcon({ isOpen, onClick }) {
+export default function MenuIcon({
+  isOpen,
+  onClick,
+  branding,
+}) {
 
     const theme = useTheme(); 
 
     const [isHovered, setIsHovered] = useState(false);
 
+    const colors = {
+      text: theme.palette.primary.main,
+      activeText: theme.palette.secondary.main,
+      ...branding,
+    };
+
     const color =
-    isOpen || isHovered
-      ? theme.palette.secondary.main
-      : theme.palette.primary.main;
+      isOpen || isHovered
+        ? colors.activeText || colors.text
+        : colors.text;
 
   return (
     <div
