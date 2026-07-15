@@ -11,7 +11,10 @@ export default function TimelineContentStart({
    <Box
      sx={{
         position: "absolute",
-        top: "160vh",
+        top: {
+          xs: "130vh",
+          md: "160vh",
+        },
         left: `calc(31.8% + 42px)`,  
         width: 320,
         zIndex: 20,

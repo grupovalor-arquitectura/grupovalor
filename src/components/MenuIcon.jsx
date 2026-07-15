@@ -27,6 +27,7 @@ export default function MenuIcon({
         ? colors.activeText || colors.text
         : colors.text;
 
+
   return (
     <div
       onClick={onClick}

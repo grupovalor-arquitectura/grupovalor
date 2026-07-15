@@ -1,38 +1,35 @@
 import { Box } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 
-import { historyData } from "../../data/historyData";
 
 import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
 
 export default function TimelineTrack({
   endRef,
+  milestones,
   activeMilestone,
+  onNodeClick,
 }) {
 
-  const NODE_SPACING = 160;
+  const theme = useTheme();
 
-  const anchorX =
-    window.innerWidth * 0.318;
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down("md")
+  );
+
+  const NODE_SPACING = isMobile ? 120 : 160;
+
+  const anchorX = isMobile
+    ? window.innerWidth * 0.1
+    : window.innerWidth * 0.318;
 
   const trackOffset =
     anchorX -
     activeMilestone *
       NODE_SPACING;
 
-  const timeline2Section =
-  historyData.sections.find(
-    section => section.id === "timeline-2"
-  );
 
-  const timeline2Milestones =
-    timeline2Section.milestoneIds.map(
-      milestoneId =>
-        historyData.milestones.find(
-          milestone =>
-            milestone.id === milestoneId
-        )
-    );
 
   return (
     <Box
@@ -40,7 +37,10 @@ export default function TimelineTrack({
         position: "relative",
 
         width: "100%",
-        height: "100vh",
+        height: {
+          xs: "400px",
+          md: "100vh",
+        },
 
         overflow: "hidden",
       }}
@@ -51,7 +51,10 @@ export default function TimelineTrack({
         sx={{
           position: "absolute",
 
-          top: "33vh",
+          top: {
+            xs: 100,
+            md: "33vh",
+          },
           left: 0,
 
           width: "100%",
@@ -73,7 +76,7 @@ export default function TimelineTrack({
           left: 0,
 
           width:
-            timeline2Milestones.length *
+            milestones.length *
             NODE_SPACING,
 
           height: "100%",
@@ -83,7 +86,7 @@ export default function TimelineTrack({
           transition: "transform 0.6s cubic-bezier(.22,.61,.36,1)",
         }}
       >
-        {timeline2Milestones.map(
+        {milestones.map(
           (milestone, index) => (
             <Box
               key={milestone.id}
@@ -95,20 +98,30 @@ export default function TimelineTrack({
               sx={{
                 position: "absolute",
 
-                top: "calc(33vh - 42px)",
+                top: {
+                  xs: 58,
+                  md: "calc(33vh - 42px)",
+                },
 
                 left:
                   index *
                   NODE_SPACING,
               }}
             >
-              <TimelineNode
-                label={milestone.year}
-                active={
-                  index ===
-                  activeMilestone
-                }
-              />
+              <Box
+                onClick={() => {
+                  console.log("🚨 TIMELINE TRACK NUEVO", index);
+                  onNodeClick?.(index);
+                }}
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <TimelineNode
+                  label={milestone.year}
+                  active={index === activeMilestone}
+                />
+              </Box>
             </Box>
           )
         )}

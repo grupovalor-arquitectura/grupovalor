@@ -1,7 +1,14 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 
 import { useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
+
+
 
 import TimelineTunnel from "./TimelineTunnel";
 
@@ -13,6 +20,12 @@ export default function TimelineHeader({
   visibleCircles,
 
 }) {
+
+    const theme = useTheme();
+
+    const isMobile = useMediaQuery(
+      theme.breakpoints.down("md")
+    );
 
     const labelRef = useRef();
     const titleRef = useRef();
@@ -68,7 +81,10 @@ export default function TimelineHeader({
   <Box
     sx={{
       width: "100%",
-      height: "100vh",
+      height: {
+        xs: "70vh",
+        md: "100vh",
+      },
       display: "flex",
       alignItems: "center",
       pl: {
@@ -104,24 +120,29 @@ export default function TimelineHeader({
             display: "flex",
             alignItems: "center",
             gap: "40px",
-            mb: 4,
+            gap: {
+              xs: 0,
+              md: "40px",
+            },
         }}
         >
-        <Box
-            ref={startRef}
-            sx={{
-              position: "relative",
-              width: 84,
-              height: 84,
-              flexShrink: 0,
-            }}
-        >
-            <TimelineTunnel 
-                originRef={startRef}
-                circles={circles}
-                visibleCircles={visibleCircles}
-            />
-        </Box>
+        {!isMobile && (
+          <Box
+              ref={startRef}
+              sx={{
+                  position: "relative",
+                  width: 84,
+                  height: 84,
+                  flexShrink: 0,
+              }}
+          >
+              <TimelineTunnel
+                  originRef={startRef}
+                  circles={circles}
+                  visibleCircles={visibleCircles}
+              />
+          </Box>
+      )}
 
         <Typography
             ref={labelRef}
@@ -129,6 +150,11 @@ export default function TimelineHeader({
             fontSize: {
                 xs: "3rem",
                 md: "4rem",
+            },
+
+            mb: {
+              xs: 4,
+              md: 0,
             },
 
             fontWeight: 700,
@@ -148,7 +174,10 @@ export default function TimelineHeader({
         ref={titleRef}
         sx={{
             
-          ml: "124px",
+          ml: {
+            xs: 0,
+            md: "124px",
+          },
 
           fontSize: {
             xs: "3rem",
@@ -160,7 +189,10 @@ export default function TimelineHeader({
 
           color: "#D9C8C5",
 
-          maxWidth: "500px",
+          maxWidth: {
+            xs: "85%",
+            md: "500px",
+          },
 
           mb: 4,
         }}
@@ -173,9 +205,15 @@ export default function TimelineHeader({
       <Typography
         ref={descriptionRef}
         sx={{
-          ml: "124px",
+          ml: {
+            xs: 0,
+            md: "124px",
+          },
 
-          maxWidth: "460px",
+          maxWidth: {
+            xs: "85%",
+            md: "460px",
+          },
 
           color: "#D9C8C5",
 

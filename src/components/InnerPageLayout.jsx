@@ -24,7 +24,7 @@ export default function InnerPageLayout({
   ? {
       text: theme.palette.primary.main,
        background: theme.palette.background.default,
-      activeText: theme.palette.background.default,
+      activeText: theme.palette.primary.main,
     }
   : {
       text: theme.palette.background.default,
@@ -54,15 +54,17 @@ export default function InnerPageLayout({
           left: 0,
           width: "100%",
 
-          zIndex: 1,
+          zIndex: 1500,
 
           px: { xs: 2, md: 7 },
           pt: { xs: 2, md: 5 },
 
-          bgcolor: overlayHeader
-            ? "transparent"
-            : headerBackground,
-        }}
+          bgcolor: isMenuOpen
+          ? "transparent"
+          : overlayHeader
+              ? "transparent"
+              : headerBackground
+                }}
       >
         <Header
           branding={headerBranding}

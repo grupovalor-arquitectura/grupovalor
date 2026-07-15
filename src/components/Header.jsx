@@ -88,6 +88,7 @@ export default function Header({
             height: 48,
             alignItems: "center",
             justifyContent: "center",
+           
           }}
         >
           <MenuIcon

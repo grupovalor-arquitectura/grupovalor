@@ -15,12 +15,19 @@ import TimelineMoment from "./TimelineMoment";
 import TimelineTrackStart from "./TimelineTrackStart"
 import TimelineContentStart from "./TimelineContentStart";
 import TimelineTunnel from "./TimelineTunnel";
+import HistoryTimelineMobile from "./HistoryTimelineMobile";
 
-import { Box } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HistoryTimeline({startRef}) {
+
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down("md")
+  );
 
   const startMoment = historyData.moments[0]; 
   const consolidationMoment = historyData.moments[1];
@@ -80,6 +87,12 @@ export default function HistoryTimeline({startRef}) {
 
   const milestone = timeline2Milestones[activeMilestone];
 
+  const activeTimeline1 =
+  timeline1Milestones[activeMilestoneStart];
+
+  const activeTimeline2 =
+    timeline2Milestones[activeMilestone];
+
   const handlePrevious = () => {
     setActiveMilestone((prev) =>
       Math.max(prev - 1, 0)
@@ -137,6 +150,24 @@ export default function HistoryTimeline({startRef}) {
       );
   }, []);
 
+  if (isMobile) {
+  return (
+    <HistoryTimelineMobile
+      timeline1Milestones={timeline1Milestones}
+      timeline2Milestones={timeline2Milestones}
+
+      activeMilestoneStart={activeMilestoneStart}
+      activeMilestone={activeMilestone}
+
+      activeTimeline1={activeTimeline1}
+      activeTimeline2={activeTimeline2}
+
+      setActiveMilestoneStart={setActiveMilestoneStart}
+      setActiveMilestone={setActiveMilestone}
+    />
+  );
+}
+
  return (
   <Box
     ref={sectionRef}
@@ -162,21 +193,21 @@ export default function HistoryTimeline({startRef}) {
         circleRef={originMomentRef}
       />
 
-    <Box
-        sx={{
-          position: "absolute",
-
-          left: anchorX ,
-          top: tunnelTop,
-
-          zIndex: 2,
-        }}
-      >
-        <TimelineTunnel
-          circles={tunnel1.circles}
-          visibleCircles={tunnel1.visibleCircles}
-        />
-      </Box>
+    {!isMobile && (
+        <Box
+          sx={{
+            position: "absolute",
+            left: anchorX,
+            top: tunnelTop,
+            zIndex: 2,
+          }}
+        >
+          <TimelineTunnel
+            circles={tunnel1.circles}
+            visibleCircles={tunnel1.visibleCircles}
+          />
+        </Box>
+      )}
 
       <TimelineTrackStart
         startAnchorRef={timeline1StartRef}
@@ -194,11 +225,17 @@ export default function HistoryTimeline({startRef}) {
         sx={{
           position: "absolute",
 
-          top: "133vh",
+          top: {
+            xs: "108vh",
+            md: "133vh",
+          },
           left: 0,
 
           width: "100%",
-          height: "67vh",
+          height: {
+            xs: "92vh",
+            md: "67vh",
+          },
 
           backgroundImage: `url(${timeline1Milestones[activeMilestoneStart].image})`,
           backgroundSize: "cover",
@@ -214,7 +251,10 @@ export default function HistoryTimeline({startRef}) {
         sx={{
           position: "absolute",
           left: 50,
-          top: "170vh",
+          top: {
+            xs: "140vh",
+            md: "170vh",
+          },
           zIndex: 30,
         }}
         direction="prev"
@@ -226,7 +266,10 @@ export default function HistoryTimeline({startRef}) {
         sx={{
           position: "absolute",
           right: 50,
-          top: "170vh",
+          top: {
+            xs: "140vh",
+            md: "170vh",
+          },
           zIndex: 30,
         }}
         direction="next"
@@ -257,6 +300,7 @@ export default function HistoryTimeline({startRef}) {
 
         <TimelineTrack
           endRef={timeline2StartRef}
+          milestones={timeline2Milestones}
           activeMilestone={activeMilestone}
         />
 

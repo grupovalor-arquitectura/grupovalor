@@ -1,14 +1,37 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 
-export default function TimelineMoment({ moment, circleRef }) {
+export default function TimelineMoment({ 
+  moment, 
+  circleRef }) {
+
+
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down("md")
+  );
+
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100vh",
+        height: {
+          xs: "75vh",
+          md: "100vh",
+        },
 
         display: "flex",
         alignItems: "center",
+
+        pt: {
+      xs: 20,   // prueba primero con este valor
+      md: 0,
+    },
 
         pl: {
           xs: 4,
@@ -18,7 +41,10 @@ export default function TimelineMoment({ moment, circleRef }) {
     >
       <Box
         sx={{
-          width: "650px",
+          width: {
+            xs: "100%",
+            md: "650px",
+          },
         }}
       >
         {/* CÍRCULO + LABEL */}
@@ -27,20 +53,25 @@ export default function TimelineMoment({ moment, circleRef }) {
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: "40px",
+            gap: {
+              xs: 0,
+              md: "40px",
+          },
             mb: 4,
           }}
         >
-          <Box
-            ref={circleRef || null}
-            sx={{
-              width: 84,
-              height: 84,
-              borderRadius: "50%",
-              backgroundColor: "#C76A45",
-              flexShrink: 0,
-            }}
-          />
+        {!isMobile && (
+            <Box
+                ref={circleRef || null}
+                sx={{
+                    width: 84,
+                    height: 84,
+                    borderRadius: "50%",
+                    backgroundColor: "#C76A45",
+                    flexShrink: 0,
+                }}
+            />
+        )}
 
           <Typography
             sx={{
@@ -67,7 +98,10 @@ export default function TimelineMoment({ moment, circleRef }) {
 
         <Typography
           sx={{
-            ml: "124px",
+            ml: {
+              xs: 0,
+              md: "124px",
+            },
 
             fontSize: {
               xs: "3rem",
@@ -80,7 +114,10 @@ export default function TimelineMoment({ moment, circleRef }) {
 
             color: "#D9C8C5",
 
-            maxWidth: "500px",
+            maxWidth: {
+              xs: "100%",
+              md: "500px",
+            },
 
             mb: 4,
           }}
@@ -92,9 +129,15 @@ export default function TimelineMoment({ moment, circleRef }) {
 
         <Typography
           sx={{
-            ml: "124px",
+             ml: {
+              xs: 0,
+              md: "124px",
+            },
 
-            maxWidth: "460px",
+            maxWidth: {
+              xs: "80%",
+              md: "460px",
+            },
 
             color: "#D9C8C5",
 
