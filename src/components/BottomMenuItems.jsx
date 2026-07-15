@@ -2,6 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+
 import Divider from "./Divider";
 
 const items = [
@@ -32,6 +35,9 @@ export default function BottomMenuItems({
     useState(false);
 
   const navigate = useNavigate();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (isReady) {
@@ -149,13 +155,22 @@ export default function BottomMenuItems({
     <Box
       sx={{
         display: "flex",
-        alignItems: "center",
+
+        flexDirection: {
+          xs: "column-reverse",
+          md: "row",
+        },
+
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+
         gap: 1.5,
-        flexWrap: "wrap",
       }}
-    >
+        >
       {/* 🔹 PROYECTOS */}
-      {renderChip(items[1])}
+      {!isMobile && renderChip(items[1])}
 
       {/* 🔹 GRUPO VALOR */}
       {renderChip(items[0])}
@@ -165,16 +180,25 @@ export default function BottomMenuItems({
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+
+            flexDirection: {
+              xs: "column-reverse",
+              md: "row",
+            },
+
+            alignItems: {
+              xs: "flex-start",
+              md: "center",
+            },
+
             gap: 1.5,
 
             opacity: isExpanded ? 1 : 0,
 
-            transition:
-              "opacity 0.25s ease",
+            transition: "opacity 0.25s ease",
           }}
         >
-          <Divider sx={{ mx: 1 }} />
+          {!isMobile && <Divider sx={{ mx: 1 }} />}
 
           {items.slice(2).map(renderChip)}
         </Box>

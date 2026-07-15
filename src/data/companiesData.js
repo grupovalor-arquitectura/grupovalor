@@ -8,6 +8,13 @@ import LogoPV from "../assets/LogoPV.svg?react";
 import LogoEV from "../assets/LogoEV.svg?react";
 import LogoBV from "../assets/LogoBV.svg?react";
 
+import AVMono from "../assets/AVMono.svg?react";
+import CVMono from "../assets/CVMono.svg?react";
+import PVMono from "../assets/PVMono.svg?react";
+import EVMono from "../assets/EVMono.svg?react";
+import BVMono from "../assets/BVMono.svg?react";
+import GVMono from "../assets/GVMono.svg?react";
+
 
 export const companiesData = {
 
@@ -15,6 +22,7 @@ export const companiesData = {
     slug: "arquitectura-valor",
     name: "Arquitectura Valor",
     logo: LogoAV,
+    monogram: AVMono,
     tagline: `Valor
               más allá
               del diseño`,
@@ -92,6 +100,7 @@ export const companiesData = {
     slug: "constructora-valor",
     name: "Constructora Valor",
     logo: LogoCV,
+    monogram: CVMono,
     tagline: `Valor
               más allá
               de la obra`,
@@ -165,6 +174,8 @@ export const companiesData = {
     slug: "promotora-valor",
     name: "Promotora Valor",
     logo: LogoPV,
+    logo: LogoEV,
+    monogram: PVMono,
     tagline:  `Valor
               más allá de
               la rentabilidad`,
@@ -241,6 +252,8 @@ export const companiesData = {
   "estrategia-valor": {
     slug: "estrategia-valor",
     shortName: "ev.",
+    logo: LogoEV,
+    monogram: EVMono,
     name: "Estrategias Valor",
     logo: LogoEV,
     tagline:  `Valor
@@ -312,6 +325,8 @@ export const companiesData = {
     slug: "banca-valor",
     name: "Banca Valor",
     logo: LogoBV,
+    logo: LogoEV,
+    monogram: BVMono,
     tagline:  `Valor
               más allá
               del dinero`,

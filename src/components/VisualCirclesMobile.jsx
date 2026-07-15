@@ -1,8 +1,24 @@
 import { Box } from "@mui/material";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 import gsap from "gsap";
 
 import GVMono from "../assets/GVMono.svg?react";
+import AVMono from "../assets/AVMono.svg?react";
+import CVMono from "../assets/CVMono.svg?react";
+import PVMono from "../assets/PVMono.svg?react";
+import EVMono from "../assets/EVMono.svg?react";
+import BVMono from "../assets/BVMono.svg?react";
+
+const monograms = {
+  default: GVMono,
+  arquitectura: AVMono,
+  constructora: CVMono,
+  promotora: PVMono,
+  estrategia: EVMono,
+  banca: BVMono,
+};
 
 const circles = [
   { duration: 2.5, scale: 1.012, opacity: 0.28 },
@@ -13,12 +29,23 @@ const circles = [
   { duration: 3.1, scale: 1.015, opacity: 0.32 },
 ];
 
+const companySlugs = {
+  arquitectura: "arquitectura-valor",
+  constructora: "constructora-valor",
+  promotora: "promotora-valor",
+  estrategia: "estrategia-valor",
+  banca: "banca-valor",
+};
+
 export default function VisualCirclesMobile({
+  active = "default",
   color = "#c16242",
   logoColor = "#421b1e",
 }) {
   const circlesRef = useRef([]);
   const centerRef = useRef(null);
+  const Monogram = monograms[active] || monograms.default;
+  const navigate = useNavigate();
 
   useEffect(() => {
     circlesRef.current.forEach((circle, index) => {
@@ -79,6 +106,13 @@ export default function VisualCirclesMobile({
 
       <Box
         ref={centerRef}
+        onClick={() => {
+          const slug = companySlugs[active];
+
+          if (slug) {
+            navigate(`/empresas/${slug}`);
+          }
+        }}
         sx={{
           width: 170,
           height: 170,
@@ -92,6 +126,7 @@ export default function VisualCirclesMobile({
           alignItems: "center",
 
           boxShadow: `0 0 30px ${color}30`,
+          cursor: active !== "default" ? "pointer" : "default",
         }}
       >
         <Box
@@ -106,7 +141,7 @@ export default function VisualCirclesMobile({
             },
           }}
         >
-          <GVMono />
+          <Monogram />
         </Box>
       </Box>
     </Box>
