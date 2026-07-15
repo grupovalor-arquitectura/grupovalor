@@ -18,6 +18,8 @@ import CompanyPage from "../pages/CompanyPage";
 
 
 
+
+
 export default function Router() {
   return (
     <BrowserRouter>
@@ -50,9 +52,6 @@ export default function Router() {
 
           <Route path="privacidad" element={<Privacy />}/>
 
-
-
-   
 
         </Route>
       </Routes>
