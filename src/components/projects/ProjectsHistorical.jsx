@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-import { useEffect, useRef } from "react";
-
+import { useEffect, useRef, useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import ArchiveGallery from "./ArchiveGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +17,18 @@ export default function ProjectsHistorical() {
 
   const sectionRef = useRef(null);
   const linesRef = useRef([]);
+
+  const [openProject, setOpenProject] = useState(null);
+
+  const handleProjectClick = (project) => {
+    if (!Array.isArray(project.gallery) || !project.gallery.length) {
+      return;
+}
+
+    setOpenProject((prev) =>
+      prev === project.id ? null : project.id
+    );
+  };
 
     useEffect(() => {
     if (!archiveProjects.length) return;
@@ -123,7 +136,10 @@ export default function ProjectsHistorical() {
                         },
 
                     py: 3,
+                    cursor: project.gallery?.length ? "pointer" : "default",
                 }}
+
+                onClick={() => handleProjectClick(project)}
               >
                 {/* Número */}
 
@@ -201,16 +217,23 @@ export default function ProjectsHistorical() {
                 <Box
                   sx={{
                     flex: 1.2,
-
                     minWidth: 0,
-
                     display: "flex",
-
                     flexDirection: "column",
+                    alignItems: {
+                      xs: "flex-start",
+                      md: "flex-end",
+                    },
 
-                    alignItems: "flex-end",
+                    textAlign: {
+                      xs: "left",
+                      md: "right",
+                    },
 
-                    textAlign: "right",
+                    width: {
+                      xs: "100%",
+                      md: "auto",
+                    },
                   }}
                 >
                   <Typography
@@ -240,7 +263,15 @@ export default function ProjectsHistorical() {
                   sx={{
                     flex: 0.45,
 
-                    textAlign: "right",
+                    width: {
+                      xs: "100%",
+                      md: "auto",
+                    },
+
+                    textAlign: {
+                      xs: "left",
+                      md: "right",
+                    },
 
                     whiteSpace: "nowrap",
 
@@ -250,6 +281,12 @@ export default function ProjectsHistorical() {
                   {project.year}
                 </Typography>
               </Box>
+
+              {openProject === project.id && (
+                <ArchiveGallery
+                  gallery={project.gallery}
+                />
+              )}
 
               {index !== archiveProjects.length - 1 && (
                <Box
