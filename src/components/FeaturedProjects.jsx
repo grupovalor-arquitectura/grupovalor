@@ -1,13 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 
 import FeaturedProjectsSection from "./FeaturedProjectsSection";
+import FeaturedProjectsMobile from "./FeaturedProjectsMobile";
+
 import { useProjects } from "../context/ProjectsContext";
+
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+
 
 
 export default function FeaturedProjects() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const { featuredProjects, loading } = useProjects();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const sectionRef = useRef(null);
   const wheelAccumulator = useRef(0);
@@ -94,8 +103,16 @@ export default function FeaturedProjects() {
     }
   }, [featuredProjects, currentIndex]);
 
-   if (loading || featuredProjects.length === 0) {
+  if (loading || featuredProjects.length === 0) {
     return null;
+}
+
+  if (isMobile) {
+    return (
+      <FeaturedProjectsMobile
+        projects={featuredProjects}
+      />
+    );
   }
 
   return (

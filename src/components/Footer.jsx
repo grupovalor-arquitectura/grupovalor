@@ -104,13 +104,15 @@ export default function Footer({ branding }) {
             },
         }}
       >
-        <GVMono
-          style={{
-            width: 80,
-            height: "auto",
-            color: colors.primary,
-          }}
-        />
+    <GVMono
+      style={{
+        width: 80,
+        height: "auto",
+        color: colors.primary,
+      }}
+    />
+
+      
       </Box>
 
       {/* OFICINA */}
