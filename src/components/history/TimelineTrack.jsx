@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { useRef, useState } from "react";
 
+import { useDrag } from "@use-gesture/react";
 
 import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
@@ -29,7 +31,23 @@ export default function TimelineTrack({
     activeMilestone *
       NODE_SPACING;
 
+  const [dragOffset, setDragOffset] = useState(0);
 
+  const currentOffset = isMobile
+    ? trackOffset + dragOffset
+    : trackOffset;
+
+  const bind = useDrag(({ movement: [mx] }) => {
+    console.log(mx);
+
+   setDragOffset(mx * 10);
+  });
+
+  console.log({
+  trackOffset,
+  dragOffset,
+  currentOffset,
+});
 
   return (
     <Box
@@ -67,6 +85,7 @@ export default function TimelineTrack({
       {/* track móvil */}
 
       <Box
+        {...bind()}
         sx={{
           position: "absolute",
 
@@ -81,10 +100,11 @@ export default function TimelineTrack({
 
           height: "100%",
 
-          transform: `translateX(${trackOffset}px)`,
+          transform: `translateX(${currentOffset}px)`,
 
           transition: "transform 0.6s cubic-bezier(.22,.61,.36,1)",
         }}
+
       >
         {milestones.map(
           (milestone, index) => (
