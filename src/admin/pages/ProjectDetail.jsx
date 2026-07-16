@@ -84,6 +84,12 @@ export default function ProjectDetail() {
     }));
   };
 
+  const handleDeleteNewGalleryImage = (fileToDelete) => {
+    setGalleryFiles((prev) =>
+      prev.filter((file) => file !== fileToDelete)
+    );
+  };
+
   const handleSave = async () => {
     try {
       setSaving(true);
@@ -136,6 +142,7 @@ export default function ProjectDetail() {
       onSave={handleSave}
       onCancel={() => navigate("/admin/projects")}
       onDeleteGalleryImage={handleDeleteGalleryImage}
+      onDeleteNewGalleryImage={handleDeleteNewGalleryImage}
     />
   );
 }

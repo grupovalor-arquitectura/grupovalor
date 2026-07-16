@@ -25,6 +25,7 @@ export default function ProjectForm({
   onSave,
   onCancel,
   onDeleteGalleryImage,
+  onDeleteNewGalleryImage,
 }) {
 
   
@@ -186,7 +187,7 @@ return (
         rows={8}
         value={formData.description}
         onChange={(value) =>
-            onChange("description", value)
+        onChange("description", value)
         }
         />
 
@@ -320,109 +321,159 @@ return (
         </Box>
     </Box>
 
+    
+
     {/* GALLERY */}
 
-    <Typography
-        variant="h6"
-        sx={{
-        color: "background.default",
-        mb: 2,
-        }}
-    >
-        Galería
-    </Typography>
+<Typography
+  variant="h6"
+  sx={{
+    color: "background.default",
+    mb: 2,
+  }}
+>
+  Galería
+</Typography>
 
     <Box
         sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        mb: 4,
-        }}
-    >
-        <Typography
-        variant="body2"
-        sx={{
-            color: "text.secondary",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 4,
         }}
         >
-        Agrega una o varias imágenes para la galería del proyecto.
+        <Typography
+            variant="body2"
+            sx={{
+            color: "text.secondary",
+            }}
+        >
+            Agrega una o varias imágenes para la galería del proyecto.
         </Typography>
 
         <ImageUploadButton
-        multiple
-        onSelect={onGallerySelect}
+            multiple
+            onSelect={onGallerySelect}
         >
-        Agregar imágenes
+            Agregar imágenes
         </ImageUploadButton>
-    </Box>
+        </Box>
 
-    {formData.gallery?.map((image) => (
         <Box
-        key={image}
         sx={{
             display: "grid",
-            gridTemplateColumns: "1fr auto",
-            alignItems: "center",
-            py: 2,
-            borderBottom: "1px solid",
-            borderColor: "divider",
+            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+            gap: 3,
         }}
         >
-        <Typography
-            sx={{
-            color: "background.default",
-            }}
-        >
-            {getImageName(image)}
-        </Typography>
+        {/* Imágenes existentes */}
 
-        <Typography
-            onClick={() => onDeleteGalleryImage(image)}
+        {formData.gallery?.map((image) => (
+            <Box
+            key={image}
             sx={{
-                color: "error.main",
-                cursor: "pointer",
-
-                "&:hover": {
-                opacity: 0.6,
-                },
+                position: "relative",
+                aspectRatio: "1",
+                overflow: "hidden",
+                borderRadius: 2,
             }}
             >
-            Eliminar
-            </Typography>
-        </Box>
-    ))}
+            <Box
+                component="img"
+                src={image}
+                sx={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                }}
+            />
 
-    {galleryFiles.map((file) => (
-        <Box
-        key={file.name}
-        sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto",
-            alignItems: "center",
-            py: 2,
-            borderBottom: "1px solid",
-            borderColor: "divider",
-        }}
-        >
-        <Typography
-            sx={{
-            color: "background.default",
-            }}
-        >
-            {file.name}
-        </Typography>
+            <Button
+                variant="contained"
+                color="error"
+                size="small"
+                onClick={() => onDeleteGalleryImage(image)}
+                sx={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                minWidth: 36,
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                p: 0,
+                }}
+            >
+                ×
+            </Button>
+            </Box>
+        ))}
 
-        <Typography
-            sx={{
-            color: "success.main",
-            }}
-        >
-            Nueva
-        </Typography>
+        {/* Imágenes nuevas */}
+
+       {galleryFiles.map((file) => (
+            <Box
+                key={file.name}
+                sx={{
+                position: "relative",
+                aspectRatio: "1",
+                overflow: "hidden",
+                borderRadius: 2,
+                }}
+            >
+                <Box
+                component="img"
+                src={URL.createObjectURL(file)}
+                sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                }}
+                />
+
+                <Button
+                variant="contained"
+                color="error"
+                size="small"
+                onClick={() => onDeleteNewGalleryImage(file)}
+                sx={{
+                    position: "absolute",
+                    top: 8,
+                    right: 8,
+                    minWidth: 36,
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    p: 0,
+                }}
+                >
+                ×
+                </Button>
+
+                <Box
+                sx={{
+                    position: "absolute",
+                    left: 8,
+                    bottom: 8,
+                    bgcolor: "success.main",
+                    color: "#fff",
+                    px: 1,
+                    py: 0.5,
+                    borderRadius: 1,
+                    fontSize: 12,
+                }}
+                >
+                Nueva
+                </Box>
+            </Box>
+            ))}
+
+        
         </Box>
-    ))}
     </Box>
+
+
    {/* =======================
         CONFIGURACIÓN
     ======================= */}
