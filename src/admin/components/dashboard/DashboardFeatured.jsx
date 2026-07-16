@@ -4,8 +4,11 @@ import {
 } from "@mui/material";
 
 import { useProjects } from "../../../context/ProjectsContext";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardFeatured() {
+
+  const navigate = useNavigate();
   const { featuredProjects } = useProjects();
 
   return (
@@ -56,13 +59,18 @@ export default function DashboardFeatured() {
           </Typography>
 
           <Typography
+            onClick={() => navigate(`/admin/projects/${project.slug}`)}
             sx={{
-              color: "background.default",
-              cursor: "pointer",
+                color: "background.default",
+                cursor: "pointer",
+
+                "&:hover": {
+                    opacity: 0.6,
+                },
             }}
-          >
+        >
             Editar
-          </Typography>
+        </Typography>
         </Box>
       ))}
     </Box>

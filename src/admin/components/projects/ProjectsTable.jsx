@@ -43,11 +43,17 @@ export default function ProjectsTable() {
           Nombre
         </Typography>
 
-        <Typography color="background.default" textAlign="center">
+        <Typography
+          color="background.default"
+          sx={{ justifySelf: "end" }}
+        >
           Editar
         </Typography>
 
-        <Typography color="background.default" textAlign="center">
+        <Typography
+          color="background.default"
+          sx={{ justifySelf: "end" }}
+        >
           Eliminar
         </Typography>
       </Box>
