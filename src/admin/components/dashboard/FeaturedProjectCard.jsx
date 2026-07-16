@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function navigation() {
+export default function FeaturedProjectCard() {
   return (
     <div>
       

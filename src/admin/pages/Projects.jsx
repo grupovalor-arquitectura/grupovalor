@@ -1,9 +1,5 @@
-import React from 'react'
+import ProjectsTable from "../components/projects/ProjectsTable";
 
 export default function Projects() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <ProjectsTable />;
 }

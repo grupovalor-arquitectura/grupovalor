@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
+// ===========================
+// SITIO
+// ===========================
 
 import SiteLayout from "../components/SiteLayout";
 
@@ -9,75 +11,145 @@ import Projects from "../pages/Projects";
 import ProjectDetail from "../pages/ProjectDetail";
 import History from "../pages/History";
 import Contact from "../pages/Contact";
-import About from "../pages/About"
+import About from "../pages/About";
 import Terms from "../pages/Terms";
 import Privacy from "../pages/Privacy";
 import CompanyPage from "../pages/CompanyPage";
 
+// ===========================
+// CMS
+// ===========================
+
 import Login from "../admin/pages/Login";
 import Dashboard from "../admin/pages/Dashboard";
+import ProjectsAdmin from "../admin/pages/Projects";
+import ProjectDetailAdmin from "../admin/pages/ProjectDetail";
+import Archive from "../admin/pages/Archive";
+import Companies from "../admin/pages/Companies";
+import HomeAdmin from "../admin/pages/Home";
+import FooterAdmin from "../admin/pages/Footer";
 
+import AdminLayout from "../admin/layouts/AdminLayout";
 import ProtectedRoute from "../admin/routes/ProtectedRoute";
 
-
 export default function Router() {
-return (
-  <BrowserRouter>
-    <Routes>
-      {/* ===========================
-          CMS
-      =========================== */}
+  return (
+    <BrowserRouter>
+      <Routes>
 
-      <Route path="/login" element={<Login />} />
+        {/* ===========================
+            LOGIN
+        =========================== */}
 
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+        <Route path="/login" element={<Login />} />
 
-      {/* ===========================
-          SITIO
-      =========================== */}
+        {/* ===========================
+            CMS
+        =========================== */}
 
-      <Route path="/" element={<SiteLayout />}>
-        {/* HOME */}
-        <Route index element={<Home />} />
-
-        {/* PROYECTOS */}
-        <Route path="proyectos" element={<Projects />} />
-
-        {/* DETALLE */}
         <Route
-          path="proyectos/:slug"
-          element={<ProjectDetail />}
-        />
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            path="/admin"
+            element={<Dashboard />}
+          />
 
-        {/* EMPRESAS */}
+          <Route
+            path="/admin/projects"
+            element={<ProjectsAdmin />}
+          />
+
+          <Route
+            path="/admin/projects/new"
+            element={<ProjectDetailAdmin />}
+          />
+
+          <Route
+            path="/admin/projects/:slug"
+            element={<ProjectDetailAdmin />}
+          />
+
+          <Route
+            path="/admin/archive"
+            element={<Archive />}
+          />
+
+          <Route
+            path="/admin/companies"
+            element={<Companies />}
+          />
+
+          <Route
+            path="/admin/home"
+            element={<HomeAdmin />}
+          />
+
+          <Route
+            path="/admin/footer"
+            element={<FooterAdmin />}
+          />
+        </Route>
+
+        {/* ===========================
+            SITIO
+        =========================== */}
+
         <Route
-          path="empresas/:slug"
-          element={<CompanyPage />}
-        />
+          path="/"
+          element={<SiteLayout />}
+        >
+          <Route
+            index
+            element={<Home />}
+          />
 
-        {/* HISTORIA */}
-        <Route path="historia" element={<History />} />
+          <Route
+            path="proyectos"
+            element={<Projects />}
+          />
 
-        {/* CONTACTO */}
-        <Route path="contacto" element={<Contact />} />
+          <Route
+            path="proyectos/:slug"
+            element={<ProjectDetail />}
+          />
 
-        {/* NOSOTROS */}
-        <Route path="nosotros" element={<About />} />
+          <Route
+            path="empresas/:slug"
+            element={<CompanyPage />}
+          />
 
-        {/* TÉRMINOS */}
-        <Route path="terminos" element={<Terms />} />
+          <Route
+            path="historia"
+            element={<History />}
+          />
 
-        {/* PRIVACIDAD */}
-        <Route path="privacidad" element={<Privacy />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>
-);
+          <Route
+            path="contacto"
+            element={<Contact />}
+          />
+
+          <Route
+            path="nosotros"
+            element={<About />}
+          />
+
+          <Route
+            path="terminos"
+            element={<Terms />}
+          />
+
+          <Route
+            path="privacidad"
+            element={<Privacy />}
+          />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+  );
 }

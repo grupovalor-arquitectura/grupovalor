@@ -1,9 +1,15 @@
-import React from 'react'
+import DashboardActions from "../components/dashboard/DashboardActions";
+import DashboardStats from "../components/dashboard/DashboardStats";
+import DashboardFeatured from "../components/dashboard/DashboardFeatured";
 
 export default function Dashboard() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <DashboardActions />
+
+      <DashboardStats />
+
+      <DashboardFeatured />
+    </>
+  );
 }
