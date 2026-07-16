@@ -12,7 +12,7 @@ import { storage } from "../../../firebase/firebase";
  * @param {Object} params
  * @param {File} params.file
  * @param {String} params.folder
- * @param {String} params.fileName
+ * @param {String} [params.fileName]
  *
  * @returns {Promise<String>} downloadURL
  */
@@ -28,10 +28,11 @@ export default async function uploadImage({
 
   const extension = file.name.split(".").pop();
 
-  // Si no se envía un nombre, genera uno automáticamente
-  const finalName =
-    fileName ??
-    `${crypto.randomUUID()}.${extension}`;
+  // Si se envía un nombre, conserva la extensión.
+  // Si no, genera un nombre único.
+  const finalName = fileName
+    ? `${fileName}.${extension}`
+    : `${crypto.randomUUID()}.${extension}`;
 
   const storageRef = ref(
     storage,

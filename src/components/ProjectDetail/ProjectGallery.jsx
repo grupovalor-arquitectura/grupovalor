@@ -9,7 +9,11 @@ export default function ProjectGallery({ project }) {
     theme.breakpoints.down("md")
   );
 
-  const gallery = project?.gallery ?? [];
+  const gallery = (project?.gallery ?? []).filter(
+    (image) => typeof image === "string" && image.trim() !== ""
+  );
+
+  console.log(gallery);
 
   if (!gallery.length) {
     return (

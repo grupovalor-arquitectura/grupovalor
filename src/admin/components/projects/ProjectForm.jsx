@@ -6,86 +6,28 @@ import {
   Switch,
 } from "@mui/material";
 
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { useProjects } from "../../../context/ProjectsContext";
 import AdminTextField from "../ui/AdminTextField";
 import AdminSelect from "../ui/AdminSelect";
 import ImageUploadButton from "../ui/ImageUploadButton";
-import updateProject from "../../services/firestore/updateProject";
-import uploadImage from "../../services/storage/uploadImage";
 
-import saveProject from "../../services/saveProject";
 
-const emptyProject = {
-        title: "",
-        slug: "",
-        year: "",
-        location: "",
-        type: "",
-        status: "",
-        shortDescription: "",
-        description: "",
-        video: "",
-        website: {
-            label: "",
-            url: "",
-        },
-        filters: [],
-        gallery: [],
-        coverImage: "",
-        featured: false,
-        order: 0,
-        };
+export default function ProjectForm({
+  formData,
+  coverFile,
+  galleryFiles,
+  saving,
+  isNew,
 
-export default function ProjectForm() {
+  onChange,
+  onWebsiteChange,
+  onCoverSelect,
+  onGallerySelect,
+  onSave,
+  onCancel,
+  onDeleteGalleryImage,
+}) {
 
-    const navigate = useNavigate();
-
-    const { slug } = useParams();
-
-     const { projects } = useProjects();
-
-    const isNew = slug === "new";
-
-    const project = isNew
-        ? null
-        : projects.find((item) => item.slug === slug);
-
-    const [formData, setFormData] = useState(emptyProject);
-
-    const [galleryFiles, setGalleryFiles] = useState([]);
-    const [coverFile, setCoverFile] = useState(null);
-
-    const [saving, setSaving] = useState(false);
-
-        useEffect(() => {
-        if (isNew) {
-            setFormData(emptyProject);
-        } else if (project) {
-            setFormData(project);
-        }
-        }, [isNew, project]);
-
-    const handleChange = (field, value) => {
-        setFormData((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
-        };   
-
-    const handleWebsiteChange = (field, value) => {
-        setFormData((prev) => ({
-            ...prev,
-            website: {
-            ...prev.website,
-            [field]: value,
-            },
-        }));
-        };
-
+  
     const getImageName = (url) => {
         if (!url) return "";
 
@@ -93,37 +35,6 @@ export default function ProjectForm() {
             .split("/")
             .pop()
             .split("?")[0];
-        };
-
-    const handleGallerySelect = (files) => {
-        setGalleryFiles((prev) => [
-            ...prev,
-            ...files,
-        ]);
-        };
-
-   const handleCoverSelect = (file) => {
-        setCoverFile(file);
-        };
-
-   const handleSave = async () => {
-        if (!coverFile) {
-            alert("Selecciona una portada.");
-            return;
-        }
-
-        try {
-            const url = await uploadImage({
-            file: coverFile,
-            folder: `images/${formData.slug}`,
-            fileName: "cover",
-            });
-
-            console.log("URL:", url);
-
-        } catch (error) {
-            console.error(error);
-        }
         };
 
     const typeOptions = [
@@ -166,73 +77,80 @@ return (
     ======================= */}
 
     <Box sx={{ mb: 8 }}>
-      <Typography
+    <Typography
         variant="h5"
         sx={{
-          color: "background.default",
-          mb: 4,
+        color: "background.default",
+        mb: 4,
         }}
-      >
+    >
         Información general
-      </Typography>
+    </Typography>
 
-      <Box
+    <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: 4,
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gap: 4,
         }}
-      >
+    >
         <AdminTextField
-          label="Nombre"
-          value={formData.title}
-          onChange={(value) => handleChange("title", value)}
+        label="Nombre"
+        value={formData.title}
+        onChange={(value) => onChange("title", value)}
         />
 
         <AdminTextField
-          label="Slug"
-          value={formData.slug}
-          onChange={(value) => handleChange("slug", value)}
+        label="Slug"
+        value={formData.slug}
+        onChange={(value) => onChange("slug", value)}
         />
 
         <AdminTextField
-          label="Año"
-          type="number"
-          value={formData.year}
-          onChange={(value) => handleChange("year", value)}
+        label="ID"
+        type="number"
+        value={formData.id ?? ""}
+        disabled
         />
 
         <AdminTextField
-          label="Ubicación"
-          value={formData.location}
-          onChange={(value) => handleChange("location", value)}
+        label="Orden"
+        type="number"
+        value={formData.order}
+        onChange={(value) => onChange("order", value)}
         />
 
-       <AdminSelect
-            label="Tipo"
-            value={formData.type}
-            options={typeOptions}
-            onChange={(value) => handleChange("type", value)}
-            />
+        <AdminTextField
+        label="Año"
+        type="number"
+        value={formData.year}
+        onChange={(value) => onChange("year", value)}
+        />
+
+        <AdminTextField
+        label="Ubicación"
+        value={formData.location}
+        onChange={(value) => onChange("location", value)}
+        />
 
         <AdminSelect
-            label="Estado"
-            value={formData.status}
-            options={statusOptions}
-            onChange={(value) => handleChange("status", value)}
-            />
-
-        <AdminTextField
-          label="Orden"
-          type="number"
-          value={formData.order}
-          onChange={(value) => handleChange("order", value)}
+        label="Tipo"
+        value={formData.type}
+        options={typeOptions}
+        onChange={(value) => onChange("type", value)}
         />
-      </Box>
+
+        <AdminSelect
+        label="Estado"
+        value={formData.status}
+        options={statusOptions}
+        onChange={(value) => onChange("status", value)}
+        />
+    </Box>
     </Box>
 
-    {/* =======================
-        CONTENIDO
+   {/* =======================
+    CONTENIDO
     ======================= */}
 
     <Box sx={{ mb: 8 }}>
@@ -258,7 +176,7 @@ return (
         rows={3}
         value={formData.shortDescription}
         onChange={(value) =>
-            handleChange("shortDescription", value)
+            onChange("shortDescription", value)
         }
         />
 
@@ -268,7 +186,7 @@ return (
         rows={8}
         value={formData.description}
         onChange={(value) =>
-            handleChange("description", value)
+            onChange("description", value)
         }
         />
 
@@ -276,7 +194,7 @@ return (
         label="Video (YouTube)"
         value={formData.video}
         onChange={(value) =>
-            handleChange("video", value)
+            onChange("video", value)
         }
         />
 
@@ -291,7 +209,7 @@ return (
             label="Texto del botón"
             value={formData.website?.label ?? ""}
             onChange={(value) =>
-            handleWebsiteChange("label", value)
+            onWebsiteChange("label", value)
             }
         />
 
@@ -299,14 +217,14 @@ return (
             label="URL del sitio web"
             value={formData.website?.url ?? ""}
             onChange={(value) =>
-            handleWebsiteChange("url", value)
+            onWebsiteChange("url", value)
             }
         />
         </Box>
     </Box>
     </Box>
 
- {/* =======================
+    {/* =======================
         IMÁGENES
     ======================= */}
 
@@ -327,7 +245,7 @@ return (
         variant="h6"
         sx={{
         color: "background.default",
-        mb: 2,
+        mb: 3,
         }}
     >
         Imagen de portada
@@ -336,21 +254,58 @@ return (
     <Box
         sx={{
         display: "grid",
-        gridTemplateColumns: "1fr auto",
-        alignItems: "center",
-        gap: 4,
-        py: 2,
-        borderBottom: "1px solid",
-        borderColor: "divider",
-        mb: 6,
+        gridTemplateColumns: "360px 1fr",
+        gap: 6,
+        mb: 8,
+        alignItems: "start",
         }}
     >
+        {(coverFile || formData.coverImage) ? (
+            <Box
+                component="img"
+                src={
+                coverFile
+                    ? URL.createObjectURL(coverFile)
+                    : formData.coverImage
+                }
+                alt="Portada"
+                sx={{
+                width: "100%",
+                aspectRatio: "16 / 10",
+                objectFit: "cover",
+                borderRadius: 2,
+                border: "1px solid",
+                borderColor: "divider",
+                bgcolor: "grey.100",
+                }}
+            />
+            ) : (
+            <Box
+                sx={{
+                width: "100%",
+                aspectRatio: "16 / 10",
+                border: "1px dashed",
+                borderColor: "divider",
+                borderRadius: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "text.secondary",
+                bgcolor: "grey.100",
+                }}
+            >
+                No hay imagen de portada
+            </Box>
+            )}
+
+        <Box>
         <Typography
-        sx={{
+            sx={{
             color: "background.default",
-        }}
+            mb: 3,
+            }}
         >
-        {coverFile
+            {coverFile
             ? coverFile.name
             : formData.coverImage
                 ? getImageName(formData.coverImage)
@@ -358,10 +313,11 @@ return (
         </Typography>
 
         <ImageUploadButton
-            onSelect={handleCoverSelect}
-            >
-            Cambiar imagen
+            onSelect={onCoverSelect}
+        >
+            Cambiar portada
         </ImageUploadButton>
+        </Box>
     </Box>
 
     {/* GALLERY */}
@@ -378,28 +334,28 @@ return (
 
     <Box
         sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 4,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        mb: 4,
+        }}
+    >
+        <Typography
+        variant="body2"
+        sx={{
+            color: "text.secondary",
         }}
         >
-        <Typography
-            variant="body2"
-            sx={{
-            color: "text.secondary",
-            }}
-        >
-            Agrega una o varias imágenes para la galería del proyecto.
+        Agrega una o varias imágenes para la galería del proyecto.
         </Typography>
 
         <ImageUploadButton
-            multiple
-            onSelect={handleGallerySelect}
+        multiple
+        onSelect={onGallerySelect}
         >
-            Agregar imágenes
+        Agregar imágenes
         </ImageUploadButton>
-        </Box>
+    </Box>
 
     {formData.gallery?.map((image) => (
         <Box
@@ -422,51 +378,51 @@ return (
         </Typography>
 
         <Typography
+            onClick={() => onDeleteGalleryImage(image)}
             sx={{
-            color: "error.main",
-            cursor: "pointer",
+                color: "error.main",
+                cursor: "pointer",
 
-            "&:hover": {
+                "&:hover": {
                 opacity: 0.6,
-            },
+                },
             }}
-        >
+            >
             Eliminar
-        </Typography>
+            </Typography>
         </Box>
     ))}
 
     {galleryFiles.map((file) => (
         <Box
-            key={file.name}
-            sx={{
+        key={file.name}
+        sx={{
             display: "grid",
             gridTemplateColumns: "1fr auto",
             alignItems: "center",
             py: 2,
             borderBottom: "1px solid",
             borderColor: "divider",
+        }}
+        >
+        <Typography
+            sx={{
+            color: "background.default",
             }}
         >
-            <Typography
-            sx={{
-                color: "background.default",
-            }}
-            >
             {file.name}
-            </Typography>
+        </Typography>
 
-            <Typography
+        <Typography
             sx={{
-                color: "success.main",
+            color: "success.main",
             }}
-            >
+        >
             Nueva
-            </Typography>
+        </Typography>
         </Box>
-        ))}
+    ))}
     </Box>
-
    {/* =======================
         CONFIGURACIÓN
     ======================= */}
@@ -487,7 +443,7 @@ return (
         <Switch
             checked={formData.featured}
             onChange={(event) =>
-            handleChange("featured", event.target.checked)
+                onChange("featured", event.target.checked)
             }
         />
         }
@@ -510,46 +466,46 @@ return (
         ACCIONES
     ======================= */}
 
-    <Box
-    sx={{
-        mt: 10,
-        pt: 4,
-        borderTop: "1px solid",
-        borderColor: "divider",
-        display: "flex",
-        justifyContent: "flex-end",
-        gap: 2,
-    }}
-    >
-    <Button
-        variant="outlined"
-        onClick={() => navigate("/admin/projects")}
+   <Box
         sx={{
-        minWidth: 180,
-        color: "background.default",
-        borderColor: "background.default",
-
-        "&:hover": {
+            mt: 10,
+            pt: 4,
+            borderTop: "1px solid",
+            borderColor: "divider",
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 2,
+        }}
+        >
+        <Button
+            variant="outlined"
+            onClick={onCancel}
+            sx={{
+            minWidth: 180,
+            color: "background.default",
             borderColor: "background.default",
-            backgroundColor: "transparent",
-            opacity: 0.7,
-        },
-        }}
-    >
-        Descartar cambios
-    </Button>
 
-    <Button
-        variant="contained"
-        onClick={handleSave}
-        disabled={saving}
-        sx={{
-        minWidth: 180,
-        }}
-    >
-        {saving ? "Guardando..." : "Guardar cambios"}
-    </Button>
-    </Box>
+            "&:hover": {
+                borderColor: "background.default",
+                backgroundColor: "transparent",
+                opacity: 0.7,
+            },
+            }}
+        >
+            Descartar cambios
+        </Button>
+
+        <Button
+            variant="contained"
+            onClick={onSave}
+            disabled={saving}
+            sx={{
+            minWidth: 180,
+            }}
+        >
+            {saving ? "Guardando..." : "Guardar cambios"}
+        </Button>
+        </Box>
   </Box>
 );
 }

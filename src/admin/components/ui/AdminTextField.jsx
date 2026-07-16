@@ -13,7 +13,7 @@ export default function AdminTextField({
         shrink: true,
       }}
       {...props}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event) => onChange?.(event.target.value)}
       sx={{
         "& .MuiInputLabel-root": {
           color: "background.default",

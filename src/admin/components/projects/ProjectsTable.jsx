@@ -23,36 +23,45 @@ export default function ProjectsTable() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "2fr auto auto",
+          gridTemplateColumns: "80px 80px 1fr 100px 100px",
           gap: 4,
-
+          alignItems: "center",
           pb: 2,
-
           borderBottom: "1px solid",
           borderColor: "background.default",
         }}
       >
         <Typography color="background.default">
+          ID
+        </Typography>
+
+        <Typography color="background.default">
+          Orden
+        </Typography>
+
+        <Typography color="background.default">
           Nombre
         </Typography>
 
-        <Typography color="background.default">
+        <Typography color="background.default" textAlign="center">
           Editar
         </Typography>
 
-        <Typography color="background.default">
+        <Typography color="background.default" textAlign="center">
           Eliminar
         </Typography>
       </Box>
 
       {/* Filas */}
 
-      {projects.map((project) => (
-        <ProjectRow
-          key={project.slug}
-          project={project}
-        />
-      ))}
+      {[...projects]
+        .sort((a, b) => a.order - b.order)
+        .map((project) => (
+          <ProjectRow
+            key={project.slug}
+            project={project}
+          />
+        ))}
     </Box>
   );
 }

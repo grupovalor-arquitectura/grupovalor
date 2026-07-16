@@ -8,45 +8,48 @@ export default function ProjectRow({ project }) {
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: "2fr auto auto",
+        gridTemplateColumns: "80px 80px 1fr 100px 100px",
         gap: 4,
-
         alignItems: "center",
-
         py: 2,
-
         borderBottom: "1px solid",
         borderColor: "background.default",
       }}
     >
-      <Typography
-        sx={{
-          color: "background.default",
-        }}
-      >
+      <Typography color="background.default">
+        {project.id}
+      </Typography>
+
+      <Typography color="background.default">
+        {project.order}
+      </Typography>
+
+      <Typography color="background.default">
         {project.title}
       </Typography>
 
-   <Typography
+      <Typography
         onClick={() =>
-            navigate(`/admin/projects/${project.slug}`)
+          navigate(`/admin/projects/${project.slug}`)
         }
         sx={{
-            color: "background.default",
-            cursor: "pointer",
+          color: "background.default",
+          cursor: "pointer",
+          textAlign: "center",
 
-            "&:hover": {
+          "&:hover": {
             opacity: 0.6,
-            },
+          },
         }}
-        >
+      >
         Editar
-        </Typography>
-        
+      </Typography>
+
       <Typography
         sx={{
           color: "background.default",
           cursor: "pointer",
+          textAlign: "center",
 
           "&:hover": {
             opacity: 0.6,
