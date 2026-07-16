@@ -6,6 +6,7 @@ import { useProjects } from "../../context/ProjectsContext";
 import saveProject from "../services/saveProject";
 
 import ProjectForm from "../components/projects/ProjectForm";
+import generateSlug from "../utils/generateSlug";
 
 const emptyProject = {
   title: "",
@@ -52,6 +53,9 @@ export default function ProjectDetail() {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
+      ...(field === "title" && {
+        slug: generateSlug(value),
+      }),
     }));
   };
 
@@ -86,7 +90,10 @@ export default function ProjectDetail() {
 
       const updatedProject = await saveProject({
         originalProject,
-        project: formData,
+        project: {
+          ...formData,
+          slug: generateSlug(formData.title),
+        },
         coverFile,
         galleryFiles,
       });

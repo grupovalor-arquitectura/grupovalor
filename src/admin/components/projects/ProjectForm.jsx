@@ -103,7 +103,7 @@ return (
         <AdminTextField
         label="Slug"
         value={formData.slug}
-        onChange={(value) => onChange("slug", value)}
+        disabled
         />
 
         <AdminTextField

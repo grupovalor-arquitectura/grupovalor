@@ -12,6 +12,7 @@ import ProjectVideo from "../components/ProjectDetail/ProjectVideo";
 
 import { useProjects } from "../context/ProjectsContext";
 
+
 export default function ProjectDetail() {
   const { slug } = useParams();
 
