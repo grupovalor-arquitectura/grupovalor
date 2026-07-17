@@ -54,14 +54,14 @@ const theme = createTheme({
     brandTheme,
   },
 
-  /* 🔥 SCROLLBAR GLOBAL */
+  /* SCROLLBAR GLOBAL */
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
           margin: 0,
           padding: 0,
-          overflowX: "hidden", // 🔥 elimina scroll horizontal
+          overflowX: "hidden", 
           scrollbarWidth: "thin",
           scrollbarColor: "#c16242 #421b1e",
         },
