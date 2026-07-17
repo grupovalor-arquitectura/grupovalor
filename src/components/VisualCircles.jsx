@@ -46,11 +46,12 @@ export default function VisualCircles({
   };
 
   const companySlugs = {
-    arquitectura: "arquitectura-valor",
-    constructora: "constructora-valor",
-    promotora: "promotora-valor",
-    estrategia: "estrategia-valor",
-    banca: "banca-valor",
+    default: "/nosotros",
+    arquitectura: "/empresas/arquitectura-valor",
+    constructora: "/empresas/constructora-valor",
+    promotora: "/empresas/promotora-valor",
+    estrategia: "/empresas/estrategia-valor",
+    banca: "/empresas/banca-valor",
   };
 
   const glow = `
@@ -100,7 +101,8 @@ export default function VisualCircles({
         height="100%"
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* 🔹 BASE */}
+        {/* BASE */}
+
         {circles.map((c, i) => {
           const delay = 1.5 + Math.abs(c.pos) * 0.3;
           const isActive = active === c.key && c.key !== null;
@@ -118,7 +120,6 @@ export default function VisualCircles({
                 strokeWidth={1}
                 style={{
                   transformOrigin: "800px 300px",
-
                   animation:
                     c.pos === 0
                       ? "breath 4s ease-in-out infinite"
@@ -142,8 +143,6 @@ export default function VisualCircles({
                       scale(2)
                     `,
                     transformOrigin: "800px 300px",
-
-                    // 🔥 NUEVO: fade-in suave
                     opacity: 0,
                     animation: "fadeInLogo 0.6s ease-in forwards",
                   }}
@@ -161,7 +160,7 @@ export default function VisualCircles({
           );
         })}
 
-        {/* 🔥 OVERLAY */}
+        {/*  OVERLAY */}
         {active && (
           (() => {
             const c = circles.find((c) => c.key === active);
@@ -171,13 +170,16 @@ export default function VisualCircles({
             const translateX = c.pos * 120;
 
             return (
-             <g
+              <g
                 onClick={() => {
                   const slug = companySlugs[active];
 
                   if (slug) {
-                    navigate(`/empresas/${slug}`);
+                    navigate(`/${slug}`);
                   }
+                }}
+                style={{
+                  cursor: "pointer",
                 }}
               >
                 <circle
