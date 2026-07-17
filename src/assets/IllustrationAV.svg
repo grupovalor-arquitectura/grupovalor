@@ -3,62 +3,62 @@
   <!-- Generator: Adobe Illustrator 29.8.7, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
   <defs>
     <style>
-      .st0, .st1 {
+      .av-stroke, .av-line {
         fill: none;
         stroke: currentColor;
         stroke-miterlimit: 10;
         stroke-width: 0.5px;
       }
 
-      .st1 {
+      .av-line {
         stroke-width: 0.5px;
       }
     </style>
   </defs>
-  <circle class="st0" cx="485" cy="321.7" r="249.1"/>
-  <circle class="st0" cx="249.6" cy="321.7" r="249.1"/>
+  <circle class="av-stroke" cx="485" cy="321.7" r="249.1"/>
+  <circle class="av-stroke" cx="249.6" cy="321.7" r="249.1"/>
   <g>
-    <line class="st1" x1="302.9" y1="321.7" x2="45.2" y2="321.7"/>
-    <line class="st1" x1="303.6" y1="312.1" x2="48.8" y2="273.7"/>
-    <line class="st1" x1="305.7" y1="302.7" x2="59.5" y2="226.8"/>
-    <line class="st1" x1="309.3" y1="293.7" x2="77.1" y2="181.9"/>
-    <line class="st1" x1="314.1" y1="285.4" x2="101.2" y2="140.3"/>
-    <line class="st1" x1="320.1" y1="277.9" x2="131.2" y2="102.6"/>
-    <line class="st1" x1="327.1" y1="271.3" x2="166.5" y2="69.9"/>
-    <line class="st1" x1="335.1" y1="265.9" x2="206.2" y2="42.8"/>
-    <line class="st1" x1="343.8" y1="261.7" x2="249.6" y2="21.9"/>
-    <line class="st1" x1="353" y1="258.9" x2="295.6" y2="7.7"/>
-    <line class="st1" x1="362.5" y1="257.5" x2="343.2" y2=".5"/>
-    <line class="st1" x1="372.1" y1="257.5" x2="391.4" y2=".5"/>
-    <line class="st1" x1="381.6" y1="258.9" x2="439" y2="7.7"/>
-    <line class="st1" x1="390.8" y1="261.7" x2="485" y2="21.9"/>
-    <line class="st1" x1="399.5" y1="265.9" x2="528.3" y2="42.8"/>
-    <line class="st1" x1="407.5" y1="271.3" x2="568.1" y2="69.9"/>
-    <line class="st1" x1="414.5" y1="277.9" x2="603.4" y2="102.6"/>
-    <line class="st1" x1="420.5" y1="285.4" x2="633.4" y2="140.3"/>
-    <line class="st1" x1="425.3" y1="293.7" x2="657.5" y2="181.9"/>
-    <line class="st1" x1="428.8" y1="302.7" x2="675.1" y2="226.8"/>
-    <line class="st1" x1="431" y1="312.1" x2="685.8" y2="273.7"/>
-    <line class="st1" x1="431.7" y1="321.7" x2="689.4" y2="321.7"/>
-    <line class="st1" x1="431" y1="331.3" x2="685.8" y2="369.7"/>
-    <line class="st1" x1="428.8" y1="340.7" x2="675.1" y2="416.6"/>
-    <line class="st1" x1="425.3" y1="349.6" x2="657.5" y2="461.5"/>
-    <line class="st1" x1="420.5" y1="358" x2="633.4" y2="503.1"/>
-    <line class="st1" x1="414.5" y1="365.5" x2="603.4" y2="540.8"/>
-    <line class="st1" x1="407.5" y1="372.1" x2="568.1" y2="573.5"/>
-    <line class="st1" x1="399.5" y1="377.5" x2="528.3" y2="600.6"/>
-    <line class="st1" x1="390.8" y1="381.7" x2="485" y2="621.5"/>
-    <line class="st1" x1="381.6" y1="384.5" x2="439" y2="635.7"/>
-    <line class="st1" x1="372.1" y1="385.9" x2="391.4" y2="642.9"/>
-    <line class="st1" x1="362.5" y1="385.9" x2="343.2" y2="642.9"/>
-    <line class="st1" x1="353" y1="384.5" x2="295.6" y2="635.7"/>
-    <line class="st1" x1="343.8" y1="381.7" x2="249.6" y2="621.5"/>
-    <line class="st1" x1="335.1" y1="377.5" x2="206.2" y2="600.6"/>
-    <line class="st1" x1="327.1" y1="372.1" x2="166.5" y2="573.5"/>
-    <line class="st1" x1="320.1" y1="365.5" x2="131.2" y2="540.8"/>
-    <line class="st1" x1="314.1" y1="358" x2="101.2" y2="503.1"/>
-    <line class="st1" x1="309.3" y1="349.6" x2="77.1" y2="461.5"/>
-    <line class="st1" x1="305.7" y1="340.7" x2="59.5" y2="416.6"/>
-    <line class="st1" x1="303.6" y1="331.3" x2="48.8" y2="369.7"/>
+    <line class="av-line" x1="302.9" y1="321.7" x2="45.2" y2="321.7"/>
+    <line class="av-line" x1="303.6" y1="312.1" x2="48.8" y2="273.7"/>
+    <line class="av-line" x1="305.7" y1="302.7" x2="59.5" y2="226.8"/>
+    <line class="av-line" x1="309.3" y1="293.7" x2="77.1" y2="181.9"/>
+    <line class="av-line" x1="314.1" y1="285.4" x2="101.2" y2="140.3"/>
+    <line class="av-line" x1="320.1" y1="277.9" x2="131.2" y2="102.6"/>
+    <line class="av-line" x1="327.1" y1="271.3" x2="166.5" y2="69.9"/>
+    <line class="av-line" x1="335.1" y1="265.9" x2="206.2" y2="42.8"/>
+    <line class="av-line" x1="343.8" y1="261.7" x2="249.6" y2="21.9"/>
+    <line class="av-line" x1="353" y1="258.9" x2="295.6" y2="7.7"/>
+    <line class="av-line" x1="362.5" y1="257.5" x2="343.2" y2=".5"/>
+    <line class="av-line" x1="372.1" y1="257.5" x2="391.4" y2=".5"/>
+    <line class="av-line" x1="381.6" y1="258.9" x2="439" y2="7.7"/>
+    <line class="av-line" x1="390.8" y1="261.7" x2="485" y2="21.9"/>
+    <line class="av-line" x1="399.5" y1="265.9" x2="528.3" y2="42.8"/>
+    <line class="av-line" x1="407.5" y1="271.3" x2="568.1" y2="69.9"/>
+    <line class="av-line" x1="414.5" y1="277.9" x2="603.4" y2="102.6"/>
+    <line class="av-line" x1="420.5" y1="285.4" x2="633.4" y2="140.3"/>
+    <line class="av-line" x1="425.3" y1="293.7" x2="657.5" y2="181.9"/>
+    <line class="av-line" x1="428.8" y1="302.7" x2="675.1" y2="226.8"/>
+    <line class="av-line" x1="431" y1="312.1" x2="685.8" y2="273.7"/>
+    <line class="av-line" x1="431.7" y1="321.7" x2="689.4" y2="321.7"/>
+    <line class="av-line" x1="431" y1="331.3" x2="685.8" y2="369.7"/>
+    <line class="av-line" x1="428.8" y1="340.7" x2="675.1" y2="416.6"/>
+    <line class="av-line" x1="425.3" y1="349.6" x2="657.5" y2="461.5"/>
+    <line class="av-line" x1="420.5" y1="358" x2="633.4" y2="503.1"/>
+    <line class="av-line" x1="414.5" y1="365.5" x2="603.4" y2="540.8"/>
+    <line class="av-line" x1="407.5" y1="372.1" x2="568.1" y2="573.5"/>
+    <line class="av-line" x1="399.5" y1="377.5" x2="528.3" y2="600.6"/>
+    <line class="av-line" x1="390.8" y1="381.7" x2="485" y2="621.5"/>
+    <line class="av-line" x1="381.6" y1="384.5" x2="439" y2="635.7"/>
+    <line class="av-line" x1="372.1" y1="385.9" x2="391.4" y2="642.9"/>
+    <line class="av-line" x1="362.5" y1="385.9" x2="343.2" y2="642.9"/>
+    <line class="av-line" x1="353" y1="384.5" x2="295.6" y2="635.7"/>
+    <line class="av-line" x1="343.8" y1="381.7" x2="249.6" y2="621.5"/>
+    <line class="av-line" x1="335.1" y1="377.5" x2="206.2" y2="600.6"/>
+    <line class="av-line" x1="327.1" y1="372.1" x2="166.5" y2="573.5"/>
+    <line class="av-line" x1="320.1" y1="365.5" x2="131.2" y2="540.8"/>
+    <line class="av-line" x1="314.1" y1="358" x2="101.2" y2="503.1"/>
+    <line class="av-line" x1="309.3" y1="349.6" x2="77.1" y2="461.5"/>
+    <line class="av-line" x1="305.7" y1="340.7" x2="59.5" y2="416.6"/>
+    <line class="av-line" x1="303.6" y1="331.3" x2="48.8" y2="369.7"/>
   </g>
 </svg>

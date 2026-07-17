@@ -123,7 +123,7 @@ export default function AboutTextSection({
 
         <Box
           sx={{
-            maxWidth: 900,
+            maxWidth: 600,
           }}
         >
           <Typography
