@@ -8,10 +8,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutTextSection({
+
+  id,
   title,
   content,
   background = "primary.main",
   color = "background.default", 
+
 }) {
 
     const sectionRef = useRef(null);
@@ -52,11 +55,12 @@ export default function AboutTextSection({
             },
             "-=0.2"
         );
-        }, []);
+    }, []);
 
   return (
     <Box
-        ref={sectionRef}
+      id={id}
+      ref={sectionRef}
       sx={{
         bgcolor: background,
         color,
@@ -67,20 +71,19 @@ export default function AboutTextSection({
         },
 
         pt: {
-            xs: 8,
-            md: 10,
-            },
+          xs: 8,
+          md: 10,
+          },
 
-            pb: {
-            xs: 6,
-            md: 8,
-            },
+        pb: {
+          xs: 6,
+          md: 8,
+        },
       }}
     >
       <Box
         sx={{
           display: "flex",
-
           flexDirection: {
             xs: "column",
             md: "row",

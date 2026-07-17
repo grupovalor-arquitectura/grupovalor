@@ -35,11 +35,14 @@ import AboutAdmin from "../admin/pages/About"
 
 import AdminLayout from "../admin/layouts/AdminLayout";
 import ProtectedRoute from "../admin/routes/ProtectedRoute";
+import ScrollManager from "./ScrollManager";
 
 export default function Router() {
   return (
     <BrowserRouter>
-      <Routes>
+
+      <ScrollManager />
+        <Routes>
 
         {/* ===========================
             LOGIN
@@ -173,7 +176,7 @@ export default function Router() {
           />
         </Route>
 
-      </Routes>
+        </Routes>
     </BrowserRouter>
   );
 }

@@ -47,7 +47,7 @@ export default function Footer({ branding }) {
     },
     {
       label: "Manifiesto",
-      path: "/nosotros",
+      path: "/nosotros#manifiesto",
     },
   ];
 
@@ -146,6 +146,9 @@ export default function Footer({ branding }) {
           {footer.office.city}
           <br />
           {footer.office.phone}
+          <br />
+
+          
         </Typography>
 
         <Box
@@ -170,12 +173,34 @@ export default function Footer({ branding }) {
               <Typography
                 sx={{
                   color: colors.primary,
+
+                  "&:hover": {
+                    color: "secondary.main",
+              },
                 }}
               >
                 {social.label}
               </Typography>
             </ButtonBase>
           ))}
+
+          <Box
+            component="a"
+            href={`https://wa.me/${footer.office.whatsapp.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              cursor: "pointer",
+
+              "&:hover": {
+                color: "secondary.main",
+              },
+            }}
+          >
+            WhatsApp
+          </Box>
         </Box>
       </Box>
 
@@ -210,6 +235,9 @@ export default function Footer({ branding }) {
             <Typography
               sx={{
                 color: colors.primary,
+                "&:hover": {
+                    color: "secondary.main",
+                },
               }}
             >
               {item.label}
@@ -231,6 +259,12 @@ export default function Footer({ branding }) {
             xs: "left",
             lg: "right",
           },
+
+          "&:hover": {
+                    color: "secondary.main",
+              },
+
+          
         }}
       >
         <ButtonBase
@@ -310,7 +344,7 @@ export default function Footer({ branding }) {
           fontSize: 14,
         }}
       >
-        © 2025 Grupo Valor. Todos los derechos reservados.
+        © 2026 Grupo Valor. Todos los derechos reservados.
       </Typography>
 
       <Box

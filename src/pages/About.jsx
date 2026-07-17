@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import InnerPageLayout from "../components/InnerPageLayout";
 
@@ -6,14 +7,12 @@ import AboutHero from "../components/about/AboutHero";
 import AboutIntro from "../components/about/AboutIntro";
 import AboutTeam from "../components/about/AboutTeam";
 import AboutTextSection from "../components/about/AboutTextSection";
-
 import { getAboutContent } from "../services/aboutService";
-
-
 
 export default function About() {
   const [about, setAbout] = useState(null);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     async function loadAbout() {
@@ -30,7 +29,26 @@ export default function About() {
     loadAbout();
   }, []);
 
+  useEffect(() => {
+    if (!about) return;
+
+    if (location.hash === "#manifiesto") {
+      const element = document.getElementById("manifiesto");
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  }, [about, location.hash]);
+
   if (loading || !about) return null;
+
+
+
+
 
 return (
 <InnerPageLayout
@@ -47,6 +65,7 @@ return (
       <AboutTeam team={about.team} />
 
       <AboutTextSection
+        id="manifiesto"
         title={about.manifesto.title}
         content={about.manifesto.content}
       />
