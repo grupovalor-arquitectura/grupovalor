@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+
 
 // ===========================
 // SITIO
@@ -15,6 +18,7 @@ import About from "../pages/About";
 import Terms from "../pages/Terms";
 import Privacy from "../pages/Privacy";
 import CompanyPage from "../pages/CompanyPage";
+
 
 // ===========================
 // CMS
@@ -40,7 +44,6 @@ import ScrollManager from "./ScrollManager";
 export default function Router() {
   return (
     <BrowserRouter>
-
       <ScrollManager />
         <Routes>
 
@@ -176,7 +179,7 @@ export default function Router() {
           />
         </Route>
 
-        </Routes>
+      </Routes>
     </BrowserRouter>
   );
 }

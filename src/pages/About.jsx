@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import InnerPageLayout from "../components/InnerPageLayout";
@@ -7,27 +7,13 @@ import AboutHero from "../components/about/AboutHero";
 import AboutIntro from "../components/about/AboutIntro";
 import AboutTeam from "../components/about/AboutTeam";
 import AboutTextSection from "../components/about/AboutTextSection";
-import { getAboutContent } from "../services/aboutService";
+
+import { useProjects } from "../context/ProjectsContext";
 
 export default function About() {
-  const [about, setAbout] = useState(null);
-  const [loading, setLoading] = useState(true);
+  
+  const { about, loading } = useProjects();
   const location = useLocation();
-
-  useEffect(() => {
-    async function loadAbout() {
-      try {
-        const data = await getAboutContent();
-        setAbout(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadAbout();
-  }, []);
 
   useEffect(() => {
     if (!about) return;
@@ -45,10 +31,6 @@ export default function About() {
   }, [about, location.hash]);
 
   if (loading || !about) return null;
-
-
-
-
 
 return (
 <InnerPageLayout

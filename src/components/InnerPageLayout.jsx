@@ -24,7 +24,7 @@ export default function InnerPageLayout({
   ? {
       text: theme.palette.primary.main,
        background: theme.palette.background.default,
-      activeText: theme.palette.primary.main,
+      activeText: theme.palette.background.default,
     }
   : {
       text: theme.palette.background.default,

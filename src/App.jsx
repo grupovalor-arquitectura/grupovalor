@@ -5,7 +5,7 @@ import {
 
 import theme from "./theme";
 import Router from "./router/Router";
-
+import GlobalLoader from "./components/GlobalLoader";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <CssBaseline />
 
       <Router />
+      <GlobalLoader />
     </ThemeProvider>
   );
 }

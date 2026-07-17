@@ -44,8 +44,6 @@ export default function CompanyPage() {
     ...assets,
   };
 
-  console.log("Objeto:", company);
-
     for (const key of Object.keys(company)) {
       console.log(
         `Clave: >${key}<`,
@@ -56,9 +54,8 @@ export default function CompanyPage() {
       );
     }
 
-    console.log(company[" leaders"]);
-
   return (
+
     <CompanyLayout>
       <Box
         sx={{
@@ -84,21 +81,17 @@ export default function CompanyPage() {
         />
       </Box>
 
-  <MobileMenu
-    isOpen={isMenuOpen}
-    onClose={() => setIsMenuOpen(false)}
-    branding={companyData.branding}
-  />
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        branding={companyData.branding}
+      />
 
-  <CompanyHero company={companyData} />
-  <ServicesSection company={companyData} />
-  <LeadersSection company={companyData} />
-  <Footer branding={companyData.branding} />
+      <CompanyHero company={companyData} />
+      <ServicesSection company={companyData} />
+      <LeadersSection company={companyData} />
+      <Footer branding={companyData.branding} />
 
-  <CompanyHero company={companyData} />
-  <ServicesSection company={companyData} />
-  <LeadersSection company={companyData} />
-  <Footer branding={companyData.branding} />
-</CompanyLayout>
+    </CompanyLayout>
   );
 }

@@ -51,15 +51,17 @@ export function ProjectsProvider({ children }) {
         const cachedAbout = localStorage.getItem(ABOUT_KEY);
         const cachedFooter = localStorage.getItem(FOOTER_KEY);
 
-        // Mostrar cache inmediatamente
-        if (
+        const hasCache =
           cachedProjects &&
           cachedArchive &&
           cachedCompanies &&
           cachedHome &&
           cachedAbout &&
-          cachedFooter
-        ) {
+          cachedFooter;
+
+        // Mostrar cache inmediatamente
+        if ( hasCache ) {
+
           setProjects(JSON.parse(cachedProjects));
           setArchiveProjects(JSON.parse(cachedArchive));
           setCompanies(JSON.parse(cachedCompanies));
@@ -74,15 +76,7 @@ export function ProjectsProvider({ children }) {
         const cachedVersion = localStorage.getItem(VERSION_KEY);
 
         
-       if (
-          cachedVersion === currentVersion &&
-          cachedProjects &&
-          cachedArchive &&
-          cachedCompanies &&
-          cachedHome &&
-          cachedAbout &&
-          cachedFooter
-        ) {
+       if (cachedVersion === currentVersion && hasCache) {
           return;
         }
 
@@ -151,6 +145,7 @@ export function ProjectsProvider({ children }) {
       } catch (error) {
         console.error("❌", error);
       } finally {
+        console.log("Terminó la carga");
         setLoading(false);
       }
     }
