@@ -9,8 +9,10 @@ export default function AdminTextField({
     <TextField
       fullWidth
       variant="standard"
-      InputLabelProps={{
-        shrink: true,
+      slotProps={{
+        inputLabel: {
+          shrink: true,
+        },
       }}
       {...props}
       onChange={(event) => onChange?.(event.target.value)}

@@ -42,6 +42,11 @@ export default function Sidebar() {
       />
 
       <NavItem
+        label="Nosotros"
+        to="/admin/about"
+      />
+
+      <NavItem
         label="Footer"
         to="/admin/footer"
       />

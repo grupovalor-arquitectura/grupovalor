@@ -30,6 +30,7 @@ import Companies from "../admin/pages/Companies";
 import HomeAdmin from "../admin/pages/Home";
 import FooterAdmin from "../admin/pages/Footer";
 import CompanyDetail from "../admin/pages/CompanyDetail";
+import AboutAdmin from "../admin/pages/About"
 
 
 import AdminLayout from "../admin/layouts/AdminLayout";
@@ -100,6 +101,11 @@ export default function Router() {
           <Route
             path="/admin/companies/:slug"
             element={<CompanyDetail />}
+          />
+
+          <Route
+            path="/admin/about"
+            element={<AboutAdmin />}
           />
 
           <Route

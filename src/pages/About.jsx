@@ -9,7 +9,7 @@ import AboutTextSection from "../components/about/AboutTextSection";
 
 import { getAboutContent } from "../services/aboutService";
 
-import FotoGrupal from "../assets/FotoGrupal.jpg";
+
 
 export default function About() {
   const [about, setAbout] = useState(null);
@@ -37,8 +37,8 @@ return (
       overlayHeader
       headerBackground="primary.main"
     >
-      <AboutHero heroImage={FotoGrupal} />
-
+      <AboutHero heroImage={about.teamIntro.image} />
+      
       <AboutIntro
         title={about.teamIntro.title}
         description={about.teamIntro.description}
