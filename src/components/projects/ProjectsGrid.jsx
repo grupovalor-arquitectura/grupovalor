@@ -1,10 +1,7 @@
+import { useRef } from "react";
 import { Box } from "@mui/material";
 
-import ProjectCard from "./ProjectCard";
-
-import { useRef } from "react";
-
-
+import DesktopProjectCard from "./DesktopProjectCard";
 
 const ROW_HEIGHT = {
   xs: "auto",
@@ -14,34 +11,31 @@ const ROW_HEIGHT = {
 };
 
 export default function ProjectsGrid({
+
   projects = [],
+
 }) {
+
   const rows = [];
 
   for (let i = 0; i < projects.length; i += 2) {
     rows.push(projects.slice(i, i + 2));
   }
 
-
   return (
     <Box
       
       sx={{
-        px: { xs: 2, md: 7 },
-        pb: { xs: 8, md: 12 },
-
+        px: 7,
+        pb: 12,
         display: "flex",
         flexDirection: "column",
-        
-        minHeight: {
-            xs: "60vh",
-            md: "100vh",
-            },
-
-        gap: { xs: 6, md: 10 },
+        minHeight: "100vh",
+        gap: 10,
       }}
     >
       {rows.map((row, rowIndex) => {
+
         const reverse = rowIndex % 2 !== 0;
 
         return (
@@ -49,16 +43,9 @@ export default function ProjectsGrid({
             key={rowIndex}
             sx={{
               display: "flex",
-
-              flexDirection: {
-                xs: "column",
-                md: "row",
-              },
-
+              flexDirection: "row",
               alignItems: "stretch",
-
-              gap: { xs: 6, md: 4 },
-
+              gap: 4,
               height: ROW_HEIGHT,
             }}
           >
@@ -77,13 +64,11 @@ export default function ProjectsGrid({
                   key={project.id}
                   sx={{
                     flex,
-
                     display: "flex",
-
                     minHeight: 0,
                   }}
                 >
-                  <ProjectCard
+                  <DesktopProjectCard
                     project={project}
                   />
                 </Box>

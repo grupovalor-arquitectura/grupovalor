@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ProjectCard({
 
   project,
+  cardNumber,
   index,
   showDivider = true,
   imageAspectRatio = "4 / 3",
@@ -72,7 +73,7 @@ return (
           color: "background.default",
         }}
       >
-        {String(index + 1).padStart(2, "0")}
+        {String(cardNumber).padStart(2, "0")}
       </Typography>
     </Box>
 

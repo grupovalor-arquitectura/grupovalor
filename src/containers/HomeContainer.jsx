@@ -45,14 +45,7 @@ export default function HomeContainer() {
 
   const { content, loading, error } = useHomeContent();
 
-  console.log("Home Content:", content);
-  console.log("Loading:", loading);
-  console.log("Error:", error);
-  
-
   const [activeSection, setActiveSection] = useState(null);
-
-  console.log("Active Section:", activeSection);
 
   const [heroImage, setHeroImage] = useState(Fondo1);
 

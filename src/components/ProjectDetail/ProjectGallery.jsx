@@ -13,8 +13,6 @@ export default function ProjectGallery({ project }) {
     (image) => typeof image === "string" && image.trim() !== ""
   );
 
-  console.log(gallery);
-
   if (!gallery.length) {
     return (
       <Box

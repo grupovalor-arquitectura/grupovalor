@@ -22,8 +22,7 @@ export default function FeaturedProjects() {
   const wheelAccumulator = useRef(0);
   const isAnimating = useRef(false);
 
-  const activeProject =
-    featuredProjects[currentIndex] ?? null;
+ 
 
   useEffect(() => {
     const THRESHOLD = 220;
@@ -105,7 +104,10 @@ export default function FeaturedProjects() {
 
   if (loading || featuredProjects.length === 0) {
     return null;
-}
+  }
+
+  const activeProject =
+    featuredProjects[currentIndex] ?? null;
 
   if (isMobile) {
     return (

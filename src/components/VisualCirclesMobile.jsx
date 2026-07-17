@@ -11,7 +11,7 @@ import PVMono from "../assets/PVMono.svg?react";
 import EVMono from "../assets/EVMono.svg?react";
 import BVMono from "../assets/BVMono.svg?react";
 
-console.log(GVMono);
+
 
 const monograms = {
   default: GVMono,

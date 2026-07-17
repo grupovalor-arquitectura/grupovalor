@@ -101,11 +101,13 @@ export default function ProjectsHeader() {
               md: 1,
             },
 
+            whiteSpace: "pre-line",
+
             color: "background.default",
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Suspendisse potenti.
+          {`El lugar donde
+            la visión toma forma`}
         </Typography>
 
         <Typography
@@ -113,7 +115,7 @@ export default function ProjectsHeader() {
           sx={{
             maxWidth: {
               xs: "100%",
-              md: 560,
+              md: 700,
             },
 
             fontSize: {
@@ -128,10 +130,11 @@ export default function ProjectsHeader() {
             opacity: 0.9,
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Suspendisse potenti. Integer dictum, lorem vitae ullamcorper
-          feugiat, velit lacus consequat sapien, sed facilisis ligula
-          augue vitae tortor.
+          Cada proyecto refleja nuestra manera de entender el desarrollo inmobiliario:
+          una integración de arquitectura, promoción, construcción, estrategia e
+          inversión para transformar oportunidades en espacios que generan valor.
+          Porque una buena idea solo cobra sentido cuando mejora la vida
+          de las personas y permanece en el tiempo
         </Typography>
       </Box>
     </Box>

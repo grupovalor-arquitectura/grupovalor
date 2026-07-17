@@ -2,6 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 
 export async function getHomeContent() {
+
   try {
     const docRef = doc(db, "home", "content");
 

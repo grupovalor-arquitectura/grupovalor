@@ -36,6 +36,13 @@ export default function ProjectCard({ project }) {
               md: "translateY(-6px)",
             },
           },
+
+          "&:hover img": {
+            transform: {
+              xs: "scale(1)",
+              md: "scale(1.08)",
+            },
+          },
         }}
       >
       {/* HEADER */}
@@ -84,7 +91,7 @@ export default function ProjectCard({ project }) {
       <Box
         sx={{
           width: "100%",
-          
+
           ...(isMobile
             ? {
                 aspectRatio: "1 / 1",
@@ -93,19 +100,28 @@ export default function ProjectCard({ project }) {
                 flex: 1,
               }),
 
-          bgcolor: project.coverImage
-            ? "transparent"
-            : "background.default",
-
-          backgroundImage: project.coverImage
-            ? `url(${project.coverImage})`
-            : "none",
-
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          overflow: "hidden",
+          position: "relative",
+          bgcolor: "background.default",
         }}
-      />
+      >
+        {project.coverImage && (
+          <Box
+            component="img"
+            src={project.coverImage}
+            alt={project.title}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+
+              transition: "transform .9s cubic-bezier(0.22, 1, 0.36, 1)",
+              transform: "scale(1)",
+            }}
+          />
+        )}
+      </Box>
 
       {/* DESKTOP */}
 

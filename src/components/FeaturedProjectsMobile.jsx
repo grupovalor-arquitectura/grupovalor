@@ -21,6 +21,7 @@ export default function FeaturedProjectsMobile({
           key={project.id}
           project={project}
           index={index}
+          cardNumber={index + 1}
           showDivider={index < projects.length - 1}
         />
       ))}

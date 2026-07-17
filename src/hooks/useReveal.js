@@ -33,7 +33,8 @@ export default function useReveal(
           scrollTrigger: {
             trigger: ref.current,
             start,
-            once,
+            once: false,
+            toggleActions: "play none none reverse",
           },
         }
       );

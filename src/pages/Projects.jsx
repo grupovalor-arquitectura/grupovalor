@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
-
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 import { Box } from "@mui/material";
 
-import InnerPageLayout from "../components/InnerPageLayout";
+import { useState } from "react";
+import { useProjects } from "../context/ProjectsContext";
 
+import InnerPageLayout from "../components/InnerPageLayout";
 import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsFilters from "../components/projects/ProjectsFilters";
 import ProjectsGrid from "../components/projects/ProjectsGrid";
 import ProjectsHistorical from "../components/projects/ProjectsHistorical";
+import ProjectCard from "../components/ProjectCard";
 
-import { getProjects } from "../services/projectsService";
 
 export default function Projects() {
-  const [projects, setProjects] = useState([]);
+
   const [filter, setFilter] = useState("all");
 
-  useEffect(() => {
-    async function loadProjects() {
-      try {
-        const data = await getProjects();
-        setProjects(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  const { projects, loading } = useProjects();
 
-    loadProjects();
-  }, []);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const filteredProjects =
     filter === "all"
@@ -49,9 +43,28 @@ export default function Projects() {
           onChange={setFilter}
         />
 
-        <ProjectsGrid
-          projects={filteredProjects}
-        />
+        {isMobile ? (
+          <Box
+            sx={{
+              px: 2,
+              pb: 8,
+            }}
+          >
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                cardNumber={index + 1}
+                showDivider={index < filteredProjects.length - 1}
+              />
+            ))}
+          </Box>
+        ) : (
+          <ProjectsGrid
+            projects={filteredProjects}
+          />
+        )}
 
         {filter === "history" && (
           <ProjectsHistorical />

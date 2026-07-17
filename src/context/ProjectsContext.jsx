@@ -69,16 +69,11 @@ export function ProjectsProvider({ children }) {
           setFooter(JSON.parse(cachedFooter));
         }
 
-      
-
         const siteConfig = await getSiteConfig();
-       
-
         const currentVersion = String(siteConfig.version);
         const cachedVersion = localStorage.getItem(VERSION_KEY);
 
-      
-
+        
        if (
           cachedVersion === currentVersion &&
           cachedProjects &&
@@ -134,6 +129,21 @@ export function ProjectsProvider({ children }) {
         localStorage.setItem(
           COMPANIES_KEY,
           JSON.stringify(companiesData)
+        );
+
+        localStorage.setItem(
+          HOME_KEY,
+          JSON.stringify(homeData)
+        );
+
+        localStorage.setItem(
+          ABOUT_KEY,
+          JSON.stringify(aboutData)
+        );
+
+        localStorage.setItem(
+          FOOTER_KEY,
+          JSON.stringify(footerData)
         );
 
         
@@ -197,6 +207,11 @@ export function ProjectsProvider({ children }) {
       localStorage.setItem(
         VERSION_KEY,
         currentVersion
+      );
+
+      localStorage.setItem(
+        COMPANIES_KEY,
+        JSON.stringify(companiesData)
       );
 
       localStorage.setItem(

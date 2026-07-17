@@ -77,6 +77,14 @@ export default function ProjectInfo({ project }) {
           rel="noopener noreferrer"
           underline="none"
           color="inherit"
+          sx={{
+            cursor: "pointer",
+            transition: ".3s",
+
+            "&:hover": {
+              color: "secondary.main",
+            },
+          }}
         >
           {project.website.label}
         </Link>
