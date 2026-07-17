@@ -6,11 +6,11 @@ import FeaturedProjectImage from "./FeaturedProjectImage";
 export default function FeaturedProjectsTrack({
   currentIndex,
   projects,
+
 }) {
   const projectRef = useRef(null);
 
-  const [projectWidth, setProjectWidth] =
-    useState(0);
+  const [projectWidth, setProjectWidth] = useState(0);
 
   useEffect(() => {
     if (!projectRef.current) return;
@@ -26,17 +26,12 @@ export default function FeaturedProjectsTrack({
 
     updateWidth();
 
-    window.addEventListener(
-      "resize",
-      updateWidth
-    );
+    window.addEventListener("resize", updateWidth);
 
     return () => {
-      window.removeEventListener(
-        "resize",
-        updateWidth
-      );
+      window.removeEventListener("resize", updateWidth);
     };
+    
   }, []);
 
   return (
@@ -51,13 +46,9 @@ export default function FeaturedProjectsTrack({
       style={{
         display: "flex",
         alignItems: "center",
-
         gap: "1.5vw",
-
         paddingRight: "20vw",
-
         width: "max-content",
-
         willChange: "transform",
       }}
     >
@@ -65,9 +56,8 @@ export default function FeaturedProjectsTrack({
         <FeaturedProjectImage
           key={project.id}
           project={project}
-          projectRef={
-            index === 0 ? projectRef : null
-          }
+          index={index}
+          projectRef={ index === 0 ? projectRef : null }
         />
       ))}
     </motion.div>

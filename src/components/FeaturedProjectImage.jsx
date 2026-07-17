@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function FeaturedProjectImage({
   project,
   projectRef,
+  index,
 }) {
 
   const navigate = useNavigate();
@@ -15,11 +16,8 @@ export default function FeaturedProjectImage({
       sx={{
         display: "flex",
         alignItems: "stretch",
-
         gap: "1.5vw",
-
         flexShrink: 0,
-
         width: "calc(58vw + 56px + 1.5vw)",
       }}
     >
@@ -27,15 +25,11 @@ export default function FeaturedProjectImage({
       <Box
         sx={{
           width: "56px",
-
           display: "flex",
           flexDirection: "column",
-
           justifyContent: "space-between",
           alignItems: "flex-end",
-
           height: "90vh",
-
           flexShrink: 0,
         }}
       >
@@ -44,12 +38,11 @@ export default function FeaturedProjectImage({
           sx={{
             fontSize: "18px",
             lineHeight: 1,
-
             color: "#421b1e",
             fontWeight: 500,
           }}
         >
-          {String(project.id).padStart(2, "0")}
+          {String(index + 1).padStart(2, "0")}
         </Typography>
 
         {/* LOCATION */}
@@ -57,13 +50,10 @@ export default function FeaturedProjectImage({
           sx={{
             writingMode: "vertical-rl",
             transform: "rotate(180deg)",
-
             fontSize: "18px",
             lineHeight: 1,
             fontWeight: 500,
-
             color: "#421b1e",
-
             letterSpacing: "0.02em",
           }}
         >
@@ -76,13 +66,9 @@ export default function FeaturedProjectImage({
         sx={{
           width: "58vw",
           height: "90vh",
-
           overflow: "hidden",
-
           flexShrink: 0,
-
           position: "relative",
-
           bgcolor: "#c8beb8",
           cursor: "pointer",
         }}
@@ -97,16 +83,10 @@ export default function FeaturedProjectImage({
             sx={{
               width: "100%",
               height: "100%",
-
               objectFit: "cover",
-
               display: "block",
-
-              transition:
-                "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
-
+              transition: "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
               transform: "scale(1)",
-
               willChange: "transform",
 
               "&:hover": {
