@@ -2,6 +2,10 @@ import { Box, Typography, Collapse } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import GVIcon from "../assets/GVIcon.svg?react";
+import MenuIcon from "./MenuIcon";
+import { Link } from "react-router-dom";
+
 
 const items = [
   {
@@ -86,13 +90,50 @@ export default function MobileMenu({
         opacity: isOpen ? 1 : 0,
         transition: "opacity .35s ease",
         pointerEvents: isOpen ? "auto" : "none",
-        zIndex: 1200,
-        pt: "96px",
+        zIndex: 9999,
       }}
     >
+
       <Box
         sx={{
-          mt: 4,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+
+          px: 2,
+          pt: 2,
+
+          minHeight: 72,
+        }}
+      >
+        <Box
+          component={Link}
+          to="/"
+          onClick={onClose}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+          }}
+        >
+          <GVIcon
+            style={{
+              height: 40,
+              width: "auto",
+              color: colors.text ?? defaultBranding.text,
+            }}
+          />
+        </Box>
+
+        <MenuIcon
+          isOpen={true}
+          onClick={onClose}
+          branding={colors}
+        />
+      </Box>
+      <Box
+        sx={{
+          mt: 2,
         }}
       >
         {items.map((item) => {

@@ -14,6 +14,7 @@ export default function TimelineTrackMobile({
         display: "flex",
         flexDirection: "column",
         gap: 5,
+
       }}
     >
       {/* TIMELINE */}

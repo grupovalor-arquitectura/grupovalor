@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 
 export default function TimelineMoment({ 
+
   moment, 
   circleRef }) {
 
@@ -21,7 +22,7 @@ export default function TimelineMoment({
       sx={{
         width: "100%",
         height: {
-          xs: "75vh",
+          xs: "85vh",
           md: "100vh",
         },
 

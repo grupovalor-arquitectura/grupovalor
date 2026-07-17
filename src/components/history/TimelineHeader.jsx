@@ -92,6 +92,8 @@ export default function TimelineHeader({
         md: "32%",
       },
 
+      
+
       "@keyframes breath": {
         "0%": {
             transform: "scale(1)",

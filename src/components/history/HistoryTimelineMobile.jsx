@@ -39,8 +39,7 @@ export default function HistoryTimelineMobile({
         milestones={timeline1Milestones}
         activeMilestone={activeMilestoneStart}
         onNodeClick={(index) => {
-  console.log("SET START", index);
-  setActiveMilestoneStart(index);
+          setActiveMilestoneStart(index);
 }}
       />
 
@@ -57,9 +56,8 @@ export default function HistoryTimelineMobile({
         milestones={timeline2Milestones}
         activeMilestone={activeMilestone}
         onNodeClick={(index) => {
-  console.log("SET SECOND", index);
-  setActiveMilestone(index);
-}}
+            setActiveMilestone(index);
+        }}
       />
 
       <TimelineMilestoneMobile

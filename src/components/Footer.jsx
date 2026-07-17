@@ -342,13 +342,35 @@ export default function Footer({ branding }) {
           },
         }}
       >
-        <ButtonBase onClick={() => navigate("/privacidad")}>
+        <ButtonBase
+          onClick={() => navigate("/privacidad")}
+          sx={{
+            "& .MuiTypography-root": {
+              transition: "color .25s ease",
+            },
+
+            "&:hover .MuiTypography-root": {
+              color: "secondary.main",
+            },
+          }}
+        >
           <Typography color={colors.text}>
             Políticas de privacidad
           </Typography>
         </ButtonBase>
 
-        <ButtonBase onClick={() => navigate("/terminos")}>
+        <ButtonBase
+          onClick={() => navigate("/terminos")}
+          sx={{
+            "& .MuiTypography-root": {
+              transition: "color .25s ease",
+            },
+
+            "&:hover .MuiTypography-root": {
+              color: "secondary.main",
+            },
+          }}
+        >
           <Typography color={colors.text}>
             Términos y condiciones
           </Typography>
