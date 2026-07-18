@@ -17,6 +17,7 @@ export default function Header({
   const colors = branding || {
     text: theme.palette.primary.main,
     background: theme.palette.background.default,
+    activeText: theme.palette.background.default,
   };
 
   return (

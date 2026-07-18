@@ -124,11 +124,8 @@ export default function ProjectNavigation({ project }) {
         sx={{
           display: "flex",
 
-          flexDirection: {
-            xs: "column",
-            md: "row",
-          },
-
+          flexDirection: "row",
+      
           gap: {
             xs: 6,
             md: 0,
