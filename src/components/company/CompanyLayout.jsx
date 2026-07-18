@@ -1,10 +1,13 @@
-import CompanyHeader from "./CompanyHeader";
+import { Box } from "@mui/material";
 
 export default function CompanyLayout({ children }) {
   return (
-    <>
-       <CompanyHeader />
+    <Box
+      sx={{
+        position: "relative",
+      }}
+    >
       {children}
-    </>
+    </Box>
   );
 }

@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 
-import { homeContentMap } from "../data/homeContent";
+import useHomeContent from "../hooks/useHomeContent";
 
 import LayoutBase from "../components/LayoutBase";
 import Header from "../components/Header";
@@ -11,6 +11,10 @@ import VisualCircles from "../components/VisualCircles";
 import Footer from "../components/Footer";
 import HomeContentPanel from "../components/HomeContentPanel";
 import FeaturedProjects from "../components/FeaturedProjects";
+import MobileMenu from "../components/MobileMenu";
+
+import { useMediaQuery } from "@mui/material";
+import VisualCirclesMobile from "../components/VisualCirclesMobile";
 
 import Fondo1 from "../assets/33DC-AEREAGENERAL.png";
 import Fondo2 from "../assets/wacari.png"
@@ -24,15 +28,30 @@ const heroBackgrounds = [
   Fondo3,
 ];
 
+const homeSectionMap = {
+  default: "default",
+  arquitectura: "arquitecturaValor",
+  constructora: "constructoraValor",
+  promotora: "promotoraValor",
+  estrategia: "estrategiasValor",
+  banca: "bancaValor",
+};
+
 export default function HomeContainer() {
 
   const { isOpen: isHeaderOpen, toggleMenu: toggleHeader } = useMenu(false);
 
   const { isOpen: isBottomOpen, toggleMenu: toggleBottom } = useMenu(true);
 
+  const { content, loading, error } = useHomeContent();
+
   const [activeSection, setActiveSection] = useState(null);
 
-  const [heroImage, setHeroImage] = useState(Fondo1);
+  const [heroImage] = useState(() => {
+    return heroBackgrounds[
+      Math.floor(Math.random() * heroBackgrounds.length)
+    ];
+  });
 
   const muiTheme = useTheme();
 
@@ -40,26 +59,37 @@ export default function HomeContainer() {
     muiTheme.custom.brandTheme[activeSection] ||
     muiTheme.custom.brandTheme.default;
 
-  const [isReady, setIsReady] = useState(false);
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
 
   useEffect(() => {
+    async function preloadHero() {
+      await Promise.all(
+        heroBackgrounds.map(
+          (src) =>
+            new Promise((resolve) => {
+              const img = new Image();
+              img.src = src;
 
-    const randomImage =
-      heroBackgrounds[
-        Math.floor(
-          Math.random() * heroBackgrounds.length
+              if (img.complete) {
+                resolve();
+              } else {
+                img.onload = resolve;
+                img.onerror = resolve;
+              }
+            })
         )
-      ];
+      );
 
-    setHeroImage(randomImage);
-
-    const timer = setTimeout(() => {
-      setIsReady(true);
       setActiveSection("default");
-    }, 3800);
+    }
 
-    return () => clearTimeout(timer);
+    preloadHero();
   }, []);
+
+
+  if (error) {
+    return <p>Error cargando el Home.</p>;
+  }
 
   return (
     <Box
@@ -82,13 +112,10 @@ export default function HomeContainer() {
           backgroundSize: "cover",
           backgroundPosition: "center",
 
-          opacity: 0.5,
+          opacity: heroImage ? 0.5 : 0,
+          transition: "opacity .8s ease",
 
-          filter: `
-            
-            
-            brightness(0.75)
-          `,
+          filter: `brightness(0.75)`,
 
           zIndex: 0,
           pointerEvents: "none",
@@ -123,18 +150,39 @@ export default function HomeContainer() {
         }}
       >
         <LayoutBase
-          header={
-            <Header
-              onMenuClick={toggleHeader}
-              isOpen={isHeaderOpen}
-            />
-          }
+            header={
+              <Header
+                onMenuClick={toggleHeader}
+                isOpen={isHeaderOpen}
+              />
+            }
+
+            mobileMenu={
+              <MobileMenu
+                isOpen={isHeaderOpen}
+                onClose={toggleHeader}
+                branding={{
+                  text: theme.text,
+                  background: theme.bg,
+                  activeText: theme.bg,
+                }}
+              />
+            }
+
           visual={
-            <VisualCircles
-              active={activeSection}
-              color={theme.circle}
-              textColor={theme.text}
-            />
+            isMobile ? (
+              <VisualCirclesMobile
+                active={activeSection}
+                color={theme.circle}
+                textColor={theme.text}
+              />
+            ) : (
+              <VisualCircles
+                active={activeSection}
+                color={theme.circle}
+                textColor={theme.text}
+              />
+            )
           }
           bottom={
             <BottomBar
@@ -146,7 +194,6 @@ export default function HomeContainer() {
               }
               isOpen={isBottomOpen}
               onMenuClick={toggleBottom}
-              isReady={isReady}
             />
           }
         />
@@ -164,10 +211,12 @@ export default function HomeContainer() {
           zIndex: 3,
         }}
       >
-        <HomeContentPanel
-          active={activeSection}
-          content={homeContentMap[activeSection]}
-        />
+        {!isMobile && (
+          <HomeContentPanel
+            active={activeSection}
+            content={content?.[homeSectionMap[activeSection]]}
+          />
+        )}
       </Box>
 
       <FeaturedProjects />

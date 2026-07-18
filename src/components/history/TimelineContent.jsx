@@ -1,30 +1,47 @@
 import { Box, Typography } from "@mui/material";
-import { historyData } from "../../data/historyData";
+
 
 export default function TimelineContent({
-  activeMilestone,
+  milestone,
+  tunnelComplete
 }) {
-  const milestone =
-    historyData.milestones[
-      activeMilestone
-    ];
+  
 
   return (
    <Box
      sx={{
         position: "absolute",
-        top: "145vh",
-        left: "50%",
-        transform: "translateX(-50%)",
+        top: "160vh",
+        left: `calc(31.8% + 42px)`,  
         width: 320,
         zIndex: 20,
     }}
         >
-      <Typography
-        sx={{
+
+        <Box
+          sx={{
+            width: "1px",
+            height: tunnelComplete
+              ? "225px"
+              : "0px",
+
+            transition:
+              "height 1.2s cubic-bezier(0.22,1,0.36,1)",
+
+            backgroundColor: "#C76A45",
+            mt: "-200px",
+
+            mb: 3,
+
+
+           }}
+        />
+
+        <Typography
+          sx={{
             fontSize: {
-                xs: "2rem",
-                md: "2rem",
+              xs: "2rem",
+              md: "2rem",
             },
 
             fontWeight: 700,
@@ -34,12 +51,25 @@ export default function TimelineContent({
             color: "#D9C8C5",
 
             mb: 2,
-            }}
-        >
-        {milestone.title}
-      </Typography>
 
-      <Typography
+           opacity: tunnelComplete ? 1 : 0,
+
+              transform: tunnelComplete
+                ? "translateY(0)"
+                : "translateY(30px)",
+
+              transition:
+                "opacity 0.8s ease, transform 0.8s ease",
+
+
+           
+          }}
+        >
+          {milestone.title}
+        </Typography>
+
+
+        <Typography
         sx={{
             fontSize: "0.9rem",
 
@@ -48,10 +78,19 @@ export default function TimelineContent({
             color: "#D9C8C5",
 
             maxWidth: 280,
+
+            opacity: tunnelComplete ? 1 : 0,
+
+            transform: tunnelComplete
+              ? "translateY(0)"
+              : "translateY(20px)",
+
+            transition:
+              "opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s",
             }}
         >
         {milestone.description}
-      </Typography>
+        </Typography>
     </Box>
   );
 }

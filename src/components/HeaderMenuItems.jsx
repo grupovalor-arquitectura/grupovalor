@@ -16,6 +16,11 @@ const items = [
   },
 
   {
+    label: "Nosotros",
+    path: "/nosotros",
+  },
+
+  {
     label: "Contacto",
     path: "/contacto",
   },
@@ -88,12 +93,10 @@ export default function HeaderMenuItems({
               sx={{
                 fontSize: "14px",
 
-                color: isActive
-                  ? colors.background
-                  : hovered ===
-                    item.path
-                  ? colors.background
-                  : colors.text,
+                 color:
+                  isActive || hovered === item.path
+                    ? colors.activeText
+                    : colors.text,
 
                 transition:
                   "color 0.25s ease",

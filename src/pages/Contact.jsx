@@ -1,13 +1,17 @@
 import InnerPageLayout from "../components/InnerPageLayout";
+import ContactHero from "../components/contact/ContactHero";
+import ContactForm from "../components/contact/ContactForm";
 
 export default function Contact() {
   return (
     <InnerPageLayout
-        content={
-            <div>
-                Contact page
-            </div>
-        }
-        />
-    );
-    }
+        overlayHeader
+        headerBackground="primary.main"
+    >
+
+      <ContactHero />
+    <ContactForm />  
+        
+    </InnerPageLayout>
+  );
+}

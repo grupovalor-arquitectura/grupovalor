@@ -7,6 +7,7 @@ export default function FeaturedProjectsSection({
   sectionRef,
   currentIndex,
   activeProject,
+  featuredProjects,
 }) {
   return (
     <Box
@@ -14,12 +15,14 @@ export default function FeaturedProjectsSection({
       sx={{
         position: "relative",
         height: "320vh",
+        
       }}
     >
       {/* STICKY VIEWPORT */}
       <Box
         sx={{
           position: "sticky",
+          
           
           top: 0,
 
@@ -28,7 +31,7 @@ export default function FeaturedProjectsSection({
 
           overflow: "hidden",
 
-          backgroundColor: "#d6cfc9",
+          bgcolor: "primary.main",
 
           display: "flex",
           alignItems: "center",
@@ -49,7 +52,6 @@ export default function FeaturedProjectsSection({
           {/* FIXED PANEL */}
           <FeaturedProjectInfo
             project={activeProject}
-            currentIndex={currentIndex}
           />
 
           {/* TRACK VIEWPORT */}
@@ -70,6 +72,7 @@ export default function FeaturedProjectsSection({
           >
             <FeaturedProjectsTrack
               currentIndex={currentIndex}
+              projects={featuredProjects}
             />
           </Box>
         </Box>

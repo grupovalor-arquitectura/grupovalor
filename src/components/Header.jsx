@@ -5,11 +5,19 @@ import HeaderMenuItems from "./HeaderMenuItems";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useState } from "react";
 
-export default function Header({ onMenuClick, isOpen }) {
+
+export default function Header({
+  onMenuClick,
+  isOpen,
+  branding,
+}) {
   const theme = useTheme();
-  const [active, setActive] = useState(null);
+
+  const colors = branding || {
+    text: theme.palette.primary.main,
+    background: theme.palette.background.default,
+  };
 
   return (
     <Box
@@ -18,83 +26,75 @@ export default function Header({ onMenuClick, isOpen }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        zIndex: 1300,
       }}
     >
       {/* LOGO */}
       <Box
-  component={Link}
-  to="/"
-
-  sx={{
-    display: "flex",
-    alignItems: "center",
-
-    textDecoration: "none",
-
-    cursor: "none",
-  }}
->
-  <GVIcon
-    style={{
-      height: 40,
-      width: "auto",
-      color: theme.palette.primary.main,
-      stroke: "none",
-      cursor: "pointer",
-    }}
-  />
-</Box>
+        component={Link}
+        to="/"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          cursor: "none",
+        }}
+      >
+        <GVIcon
+          style={{
+            height: 40,
+            width: "auto",
+            color: colors.text,
+            stroke: "none",
+            cursor: "pointer",
+          }}
+        />
+      </Box>
 
       {/* DERECHA */}
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: "24px",
+          gap: {
+            xs: 1,
+            md: 3,
+          },
         }}
       >
         {/* MENÚ DESKTOP */}
         <Box
           sx={{
-            display: { xs: "none", md: "block" },
+            display: {
+              xs: "none",
+              md: "block",
+            },
           }}
         >
           <HeaderMenuItems
-            active={active}
-            onSelect={setActive}
+           
+            branding={colors}
           />
         </Box>
 
-        {/* MENÚ MOBILE */}
+        {/* HAMBURGUESA MOBILE */}
         <Box
           sx={{
-            display: { xs: "block", md: "none" },
-
-            opacity: isOpen ? 1 : 0,
-            transform: isOpen
-              ? "translateY(0)"
-              : "translateY(-16px)",
-
-            pointerEvents: isOpen ? "auto" : "none",
-
-            transition: "all 0.3s ease",
-          }}
-        >
-          <HeaderMenuItems
-            active={active}
-            onSelect={setActive}
-          />
-        </Box>
-
-        {/* ICONO SOLO MOBILE */}
-        <Box
-          sx={{
-            display: { xs: "block", md: "none" },
+            display: {
+              xs: "flex",
+              md: "none",
+            },
+            width: 48,
+            height: 48,
+            alignItems: "center",
+            justifyContent: "center",
+           
           }}
         >
           <MenuIcon
             isOpen={isOpen}
             onClick={onMenuClick}
+            branding={colors}
           />
         </Box>
       </Box>

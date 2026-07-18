@@ -1,23 +1,53 @@
 import { Box } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
+import { useRef, useState } from "react";
 
-import { historyData } from "../../data/historyData";
+import { useDrag } from "@use-gesture/react";
 
 import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
 
 export default function TimelineTrack({
-  nodeRef,
+  endRef,
+  milestones,
   activeMilestone,
+  onNodeClick,
 }) {
-  const NODE_SPACING = 160;
 
-  const anchorX =
-    window.innerWidth * 0.318;
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down("md")
+  );
+
+  const NODE_SPACING = isMobile ? 120 : 160;
+
+  const anchorX = isMobile
+    ? window.innerWidth * 0.1
+    : window.innerWidth * 0.318;
 
   const trackOffset =
     anchorX -
     activeMilestone *
       NODE_SPACING;
+
+  const [dragOffset, setDragOffset] = useState(0);
+
+  const currentOffset = isMobile
+    ? trackOffset + dragOffset
+    : trackOffset;
+
+  const bind = useDrag(({ movement: [mx] }) => {
+    console.log(mx);
+
+   setDragOffset(mx * 10);
+  });
+
+  console.log({
+  trackOffset,
+  dragOffset,
+  currentOffset,
+});
 
   return (
     <Box
@@ -25,7 +55,10 @@ export default function TimelineTrack({
         position: "relative",
 
         width: "100%",
-        height: "100vh",
+        height: {
+          xs: "400px",
+          md: "100vh",
+        },
 
         overflow: "hidden",
       }}
@@ -36,7 +69,10 @@ export default function TimelineTrack({
         sx={{
           position: "absolute",
 
-          top: "33vh",
+          top: {
+            xs: 100,
+            md: "33vh",
+          },
           left: 0,
 
           width: "100%",
@@ -49,6 +85,7 @@ export default function TimelineTrack({
       {/* track móvil */}
 
       <Box
+        {...bind()}
         sx={{
           position: "absolute",
 
@@ -58,44 +95,53 @@ export default function TimelineTrack({
           left: 0,
 
           width:
-            historyData.milestones.length *
+            milestones.length *
             NODE_SPACING,
 
           height: "100%",
 
-          transform: `translateX(${trackOffset}px)`,
+          transform: `translateX(${currentOffset}px)`,
 
-          transition:
-            "transform 0.6s cubic-bezier(.22,.61,.36,1)",
+          transition: "transform 0.6s cubic-bezier(.22,.61,.36,1)",
         }}
+
       >
-        {historyData.milestones.map(
+        {milestones.map(
           (milestone, index) => (
             <Box
               key={milestone.id}
               ref={
-                index ===
-                activeMilestone
-                  ? nodeRef
+                index === activeMilestone
+                  ? endRef
                   : null
               }
               sx={{
                 position: "absolute",
 
-                top: "calc(33vh - 42px)",
+                top: {
+                  xs: 58,
+                  md: "calc(33vh - 42px)",
+                },
 
                 left:
                   index *
                   NODE_SPACING,
               }}
             >
-              <TimelineNode
-                milestone={milestone}
-                active={
-                  index ===
-                  activeMilestone
-                }
-              />
+              <Box
+                onClick={() => {
+                  console.log("🚨 TIMELINE TRACK NUEVO", index);
+                  onNodeClick?.(index);
+                }}
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <TimelineNode
+                  label={milestone.year}
+                  active={index === activeMilestone}
+                />
+              </Box>
             </Box>
           )
         )}

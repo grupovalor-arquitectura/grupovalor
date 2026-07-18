@@ -1,233 +1,384 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
+import { Box, Typography, TextField, Button, ButtonBase } from "@mui/material";
+
+import { useNavigate } from "react-router-dom";
+import { useProjects } from "../context/ProjectsContext";
 
 import GVMono from "../assets/GVMono.svg?react";
 
 const defaultBranding = {
-  background: "#421b1e",
+  primary: "#d6cfc9",
+  secondary: "#421b1e",
   text: "#d6cfc9",
 };
 
-export default function Footer({
-  branding,
-}) {
-  const colors =
-    branding || defaultBranding;
+export default function Footer({ branding }) {
+
+  const navigate = useNavigate();
+  const colors = branding || defaultBranding;
+
+  const { footer } = useProjects();
+
+  const footerLinks = [
+    {
+      label: "Términos y condiciones",
+      path: "/terminos",
+    },
+    {
+      label: "Políticas de privacidad",
+      path: "/privacidad",
+    },
+    {
+      label: "Manifiesto",
+      path: "/nosotros#manifiesto",
+    },
+  ];
+
+  if (!footer) return null;
 
   return (
+  <Box
+    sx={{
+      width: "100%",
+      backgroundColor: colors.secondary,
+      color: colors.primary,
+      px: { xs: 4, md: 6, lg: 8 },
+      py: { xs: 6, lg: 8 },
+    }}
+  >
+    {/* =======================
+        CONTENIDO SUPERIOR
+    ======================== */}
+
     <Box
       sx={{
-        width: "100%",
-        backgroundColor: colors.secondary,
-        color: colors.primary,
-        px: { xs: 2, md: 7 },
-        pt: { xs: 5, md: 12 },
-        pb: { xs: 2, md: 4 },
+        display: {
+          xs: "flex",
+          lg: "grid",
+        },
+
+        flexDirection: "column",
+
+        gridTemplateColumns: {
+          lg: "180px 340px 1fr 320px",
+        },
+
+        rowGap: {
+          xs: 5,
+          lg: 0,
+        },
+
+        columnGap: {
+          lg: 6,
+        },
+
+        alignItems: "start",
       }}
     >
+      {/* LOGO */}
+
       <Box
         sx={{
           display: "flex",
-          justifyContent:
-            "space-between",
-          flexWrap: "wrap",
-          gap: 4,
-          alignItems: "stretch",
+          justifyContent: "flex-start",
+            mb: {
+              xs: 1,
+              lg: 0,
+            },
         }}
       >
-        {/* LOGO + DIVIDER + DIRECCIÓN */}
+    <GVMono
+      style={{
+        width: 80,
+        height: "auto",
+        color: colors.primary,
+      }}
+    />
+
+      
+      </Box>
+
+      {/* OFICINA */}
+
+      <Box
+        sx={{
+          textAlign: {
+            xs: "left",
+            lg: "left",
+          },
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: 700,
+            mb: 2,
+          }}
+        >
+          Oficina Principal
+        </Typography>
+
+        <Typography
+          sx={{
+            fontSize: 16,
+            lineHeight: 1.8,
+          }}
+        >
+          {footer.office.address}
+          <br />
+          {footer.office.city}
+          <br />
+          {footer.office.phone}
+          <br />
+
+          
+        </Typography>
+
         <Box
           sx={{
             display: "flex",
-            alignItems: "flex-start",
-            gap: 3,
+            justifyContent: {
+              xs: "left",
+              lg: "flex-start",
+            },
+            gap: 2,
+            mt: 3,
           }}
         >
-          <GVMono
-            style={{
-              height: 90,
-              width: "auto",
-              color: colors.primary,
-            }}
-          />
+          {Object.entries(footer.social).map(([key, social]) => (
+            <ButtonBase
+              key={key}
+              component="a"
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Typography
+                sx={{
+                  color: colors.primary,
+
+                  "&:hover": {
+                    color: "secondary.main",
+              },
+                }}
+              >
+                {social.label}
+              </Typography>
+            </ButtonBase>
+          ))}
 
           <Box
+            component="a"
+            href={`https://wa.me/${footer.office.whatsapp.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
             sx={{
-              width: "2px",
-              height: "auto",
-              alignSelf: "stretch",
-              backgroundColor:
-                colors.text,
-              opacity: 0.3,
-              mx: "20px",
+              color: "inherit",
+              textDecoration: "none",
+              cursor: "pointer",
+
+              "&:hover": {
+                color: "secondary.main",
+              },
             }}
-          />
-
-          <Box>
-            <Typography
-              sx={{
-                fontSize: 20,
-                fontWeight: 800,
-                mb: 1,
-              }}
-            >
-              Oficina Principal
-            </Typography>
-
-            <Typography
-              sx={{
-                fontSize: 14,
-                lineHeight: 1.6,
-              }}
-            >
-              Edificio Monserrate <br />
-              Calle 3 Sur # 43 A - 52.{" "}
-              <br />
-              Oficina 1122 <br />
-              Bogotá, Colombia.
-            </Typography>
+          >
+            WhatsApp
           </Box>
         </Box>
+      </Box>
 
-        {/* LINKS */}
-        <Box>
-          <Typography
-            sx={{
-              fontSize: 14,
-              lineHeight: 2,
-            }}
-          >
-            Términos y condiciones <br />
-            Políticas de privacidad <br />
-            Manifiesto <br />
-            Línea ética
-          </Typography>
-        </Box>
+      {/* NAVEGACIÓN */}
 
-        {/* CONTACTO */}
-        <Box>
-          <Typography
-            sx={{
-              fontSize: 20,
-              fontWeight: 800,
-              mb: 1,
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: {
+            xs: "flex-start",
+            lg: "flex-end",
+          },
+          textAlign: {
+            xs: "left",
+            lg: "right",
+          },
+          gap: 1,
+        }}
+      >
+        {footerLinks.map((item) => (
+          <ButtonBase
+            key={item.path}
+             sx={{
+              justifyContent: {
+                xs: "flex-start",
+                lg: "flex-end",
+              },
             }}
+            onClick={() => navigate(item.path)}
           >
-            ¿Quieres invertir o <br />
-            tienes alguna consulta?
-          </Typography>
-        </Box>
-
-        {/* FORMULARIO */}
-        <Box
-          sx={{
-            minWidth: 280,
-            textAlign: "right",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-        >
-          <Typography
-            sx={{
-              mb: 2,
-              fontSize: 20,
-              fontWeight: 800,
-            }}
-          >
-            Suscríbete a nuestro boletín{" "}
-            <br />
-            y entérate de nuestros
-            proyectos
-          </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              gap: 1,
-            }}
-          >
-            <TextField
-              placeholder="example@email.com"
-              size="small"
-              variant="outlined"
-              fullWidth
+            <Typography
               sx={{
-                "& .MuiOutlinedInput-root":
-                  {
-                    borderRadius:
-                      "999px",
-
-                    color:
-                      colors.text,
-
-                    "& fieldset": {
-                      borderColor:
-                        `${colors.text}66`,
-                    },
-
-                    "&:hover fieldset":
-                      {
-                        borderColor:
-                          colors.text,
-                      },
-
-                    "&.Mui-focused fieldset":
-                      {
-                        borderColor:
-                          colors.text,
-                      },
-                  },
-
-                "& input::placeholder":
-                  {
-                    color:
-                      colors.text,
-                    opacity: 0.5,
-                  },
-              }}
-            />
-
-            <Button
-              variant="outlined"
-              sx={{
-                borderRadius:
-                  "999px",
-                px: 3,
-
-                color: colors.text,
-
-                borderColor:
-                  `${colors.text}66`,
-
+                color: colors.primary,
                 "&:hover": {
-                  borderColor:
-                    colors.text,
-                  color:
-                    colors.text,
+                    color: "secondary.main",
                 },
               }}
             >
-              enviar
-            </Button>
-          </Box>
+              {item.label}
+            </Typography>
+          </ButtonBase>
+        ))}
+      </Box>
 
+      {/* CTA */}
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: {
+            xs: "flex-start",
+            lg: "flex-end",
+          },
+          textAlign: {
+            xs: "left",
+            lg: "right",
+          },
+
+          "&:hover": {
+                    color: "secondary.main",
+              },
+
+          
+        }}
+      >
+        <ButtonBase
+          onClick={() => navigate("/contacto")}
+          sx={{
+            justifyContent: {
+              xs: "flex-start",
+              lg: "flex-end",
+            },
+            textAlign: {
+              xs: "left",
+              lg: "right",
+            },
+
+            "&:hover .contact-title": {
+              opacity: 0.7,
+            },
+          }}
+        >
           <Typography
             sx={{
-              fontSize: 12,
-              mt: 1.5,
-              color: colors.text,
+              fontSize: {
+                xs: 20,
+                lg: 30,
+              },
+              lineHeight: 1.2,
+              fontWeight: 700,
+              color: colors.primary,
+               whiteSpace: "pre-line",
             }}
           >
-            Formulario enviado.
-            Revisa tu bandeja.
+            {footer.contact.title}
           </Typography>
-        </Box>
+        </ButtonBase>
       </Box>
     </Box>
-  );
-}
+
+    {/* =======================
+        DIVIDER
+    ======================== */}
+
+    <Box
+      sx={{
+        mt: {
+          xs: 6,
+          lg: 7,
+        },
+        mb: {
+          xs: 4,
+          lg: 3,
+        },
+        borderBottom: `1px solid ${colors.primary}66`,
+      }}
+    />
+
+    {/* =======================
+        FOOTER INFERIOR
+    ======================== */}
+
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+        justifyContent: "space-between",
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+        gap: 2,
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: 14,
+        }}
+      >
+        © 2026 Grupo Valor. Todos los derechos reservados.
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+          gap: {
+            xs: 1,
+            md: 4,
+          },
+        }}
+      >
+        <ButtonBase
+          onClick={() => navigate("/privacidad")}
+          sx={{
+            "& .MuiTypography-root": {
+              transition: "color .25s ease",
+            },
+
+            "&:hover .MuiTypography-root": {
+              color: "secondary.main",
+            },
+          }}
+        >
+          <Typography color={colors.text}>
+            Políticas de privacidad
+          </Typography>
+        </ButtonBase>
+
+        <ButtonBase
+          onClick={() => navigate("/terminos")}
+          sx={{
+            "& .MuiTypography-root": {
+              transition: "color .25s ease",
+            },
+
+            "&:hover .MuiTypography-root": {
+              color: "secondary.main",
+            },
+          }}
+        >
+          <Typography color={colors.text}>
+            Términos y condiciones
+          </Typography>
+        </ButtonBase>
+      </Box>
+    </Box>
+  </Box>
+);
+
+
+ }

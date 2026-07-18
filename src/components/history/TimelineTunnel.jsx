@@ -1,20 +1,22 @@
 import { Box } from "@mui/material";
 
 export default function TimelineTunnel({
+  containerRef,
    originRef,
+   endRef,
    circles = 70,
    visibleCircles = circles,
    size = 84,
    step = 8,
 }) {
 
+
+
   return (
     <Box
       sx={{
         position: "absolute",
-
-        top: 0,
-        left: 0,
+       
 
         width: size,
 
@@ -30,7 +32,6 @@ export default function TimelineTunnel({
       {Array.from({ length: visibleCircles }).map((_, index) => (
         <Box
             key={index}
-            ref={index === 0 ? originRef : null}
             sx={{
                 position: "absolute",
                 

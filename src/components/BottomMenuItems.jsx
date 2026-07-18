@@ -2,6 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+
 import Divider from "./Divider";
 
 const items = [
@@ -21,8 +24,9 @@ const items = [
 ];
 
 export default function BottomMenuItems({
+
   onSelect,
-  isReady,
+
 }) {
   const [selected, setSelected] =
     useState(null);
@@ -33,11 +37,8 @@ export default function BottomMenuItems({
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isReady) {
-      onSelect?.("default");
-    }
-  }, [isReady]);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const renderChip = (item) => {
     // 🔥 Grupo Valor depende del menu abierto
@@ -50,8 +51,7 @@ export default function BottomMenuItems({
       <Box
         key={item.label}
         onClick={() => {
-          if (!isReady) return;
-
+         
           // 🔥 navegación
           if (item.isLink) {
             navigate(item.path);
@@ -95,15 +95,11 @@ export default function BottomMenuItems({
           px: 2,
           py: 0.5,
 
-          cursor: isReady
-            ? "pointer"
-            : "default",
+          cursor: "pointer",
 
-          opacity: isReady ? 1 : 0.4,
+          opacity: 1,
 
-          pointerEvents: isReady
-            ? "auto"
-            : "none",
+          pointerEvents: "auto",
 
           border: "1px solid",
 
@@ -149,13 +145,22 @@ export default function BottomMenuItems({
     <Box
       sx={{
         display: "flex",
-        alignItems: "center",
+
+        flexDirection: {
+          xs: "column-reverse",
+          md: "row",
+        },
+
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+
         gap: 1.5,
-        flexWrap: "wrap",
       }}
-    >
+        >
       {/* 🔹 PROYECTOS */}
-      {renderChip(items[1])}
+      {!isMobile && renderChip(items[1])}
 
       {/* 🔹 GRUPO VALOR */}
       {renderChip(items[0])}
@@ -165,16 +170,25 @@ export default function BottomMenuItems({
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+
+            flexDirection: {
+              xs: "column-reverse",
+              md: "row",
+            },
+
+            alignItems: {
+              xs: "flex-start",
+              md: "center",
+            },
+
             gap: 1.5,
 
             opacity: isExpanded ? 1 : 0,
 
-            transition:
-              "opacity 0.25s ease",
+            transition: "opacity 0.25s ease",
           }}
         >
-          <Divider sx={{ mx: 1 }} />
+          {!isMobile && <Divider sx={{ mx: 1 }} />}
 
           {items.slice(2).map(renderChip)}
         </Box>

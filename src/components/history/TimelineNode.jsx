@@ -30,12 +30,30 @@ export default function TimelineNode({
         fontWeight: 700,
 
         position: "relative",
-        zIndex:
-            active
-                ? 10
-                : 3,
-                }}
-                >
+        zIndex: active ? 10 : 3,
+
+        "@keyframes breath": {
+          "0%": {
+            transform: "scale(1)",
+          },
+
+          "50%": {
+            transform: "scale(1.08)",
+          },
+
+          "100%": {
+            transform: "scale(1)",
+          },
+        },
+
+        animation: active
+          ? "breath 3s ease-in-out infinite"
+          : "none",
+  
+      }}
+    >
+
+
       <Typography
         sx={{
           zIndex: 2,

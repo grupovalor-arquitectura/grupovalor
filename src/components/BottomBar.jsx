@@ -5,7 +5,21 @@ import BottomMenuIcon from "./BottomMenuIcon";
 import BottomMenuItems from "./BottomMenuItems";
 import Divider from "./Divider";
 
-export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isReady}) {
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+
+export default function BottomBar({
+
+  active,
+  onSelect,
+  isOpen,
+  onMenuClick
+
+}) {
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box
       sx={{
@@ -18,11 +32,12 @@ export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isRea
     >
       {/* IZQUIERDA */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <MenuTrigger
-          onClick={onMenuClick}
-          icon={<BottomMenuIcon isOpen={isOpen} />}
-        />
-
+        {!isMobile && (
+          <MenuTrigger
+            onClick={onMenuClick}
+            icon={<BottomMenuIcon isOpen={isOpen} />}
+          />
+        )}
         <Box
           sx={{
             opacity: isOpen ? 1 : 0,
@@ -33,7 +48,6 @@ export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isRea
           {/* 🔥 usa el onSelect del padre */}
           <BottomMenuItems 
             onSelect={onSelect} 
-            isReady={isReady}
           />
         </Box>
       </Box>

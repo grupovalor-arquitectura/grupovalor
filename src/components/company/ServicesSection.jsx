@@ -27,12 +27,12 @@ export default function ServicesSection({ company }) {
             ease: "power2.out",
 
             scrollTrigger: {
-            trigger: sectionRef.current,
+              trigger: sectionRef.current,
 
-            start: "top 80%",
-            end: "top 50%",
+              start: "top 80%",
+              end: "top 50%",
 
-            scrub: 1,
+              scrub: 1,
             },
         });
 
@@ -103,8 +103,21 @@ return (
     <Box
       sx={{
         display: "flex",
-        alignItems: "baseline",
-        gap: 8,
+
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
+
+        alignItems: {
+          xs: "flex-start",
+          md: "baseline",
+        },
+
+        gap: {
+          xs: 5,
+          md: 8,
+        },
       }}
     >
       {/* Título */}
