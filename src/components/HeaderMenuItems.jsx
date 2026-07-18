@@ -28,7 +28,8 @@ const items = [
 
 const defaultBranding = {
   text: "#b9afaf",
-  background: "#0f0f0f",
+  background: "#421b1e",
+  activeText: "#421b1e",
 };
 
 export default function HeaderMenuItems({

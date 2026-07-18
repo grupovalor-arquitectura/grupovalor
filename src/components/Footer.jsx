@@ -75,27 +75,26 @@ export default function Footer({ branding }) {
       }}
     >
       {/* LOGO */}
-
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-start",
+        <Box
+          onClick={() => navigate("/")}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
             mb: {
               xs: 1,
               lg: 0,
             },
-        }}
-      >
-    <GVMono
-      style={{
-        width: 80,
-        height: "auto",
-        color: colors.primary,
-      }}
-    />
-
-      
-      </Box>
+            cursor: "pointer",
+          }}
+        >
+          <GVMono
+            style={{
+              width: 80,
+              height: "auto",
+              color: colors.primary,
+            }}
+          />
+        </Box>
 
       {/* OFICINA */}
 

@@ -2,24 +2,44 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
+
+  const [enabled, setEnabled] = useState(false);
+
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
   });
 
   useEffect(() => {
-  document.body.style.cursor = "none";
+    const mediaQuery = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    );
 
-  return () => {
-    document.body.style.cursor = "auto";
-  };
-}, []);
+    const update = () => {
+      const active = mediaQuery.matches;
+
+      setEnabled(active);
+      document.body.style.cursor = active ? "none" : "auto";
+    };
+
+    update();
+
+    mediaQuery.addEventListener("change", update);
+
+    return () => {
+      document.body.style.cursor = "auto";
+      mediaQuery.removeEventListener("change", update);
+    };
+  }, []);
 
   // none | down | right | up
   const [arrowDirection, setArrowDirection] =
     useState("none");
 
   useEffect(() => {
+
+    if (!enabled) return;
+
     let mouseX = 0;
     let mouseY = 0;
 
@@ -150,7 +170,9 @@ export default function CustomCursor() {
         handleScroll
       );
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <Box

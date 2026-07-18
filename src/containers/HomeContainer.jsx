@@ -154,6 +154,11 @@ export default function HomeContainer() {
               <Header
                 onMenuClick={toggleHeader}
                 isOpen={isHeaderOpen}
+                branding={{
+                  text: theme.text,
+                  background: theme.bg,
+                  activeText: theme.activeText,
+                }}
               />
             }
 

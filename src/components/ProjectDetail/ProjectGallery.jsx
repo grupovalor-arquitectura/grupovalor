@@ -118,6 +118,7 @@ export default function ProjectGallery({ project }) {
           bgcolor: "primary.main",
 
           px: 3,
+     
           pb: 8,
         }}
       >
@@ -132,6 +133,7 @@ export default function ProjectGallery({ project }) {
             objectFit: "cover",
             display: "block",
             mb: 2,
+            
           }}
         />
         ))}

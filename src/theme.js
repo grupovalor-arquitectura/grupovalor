@@ -5,36 +5,43 @@ export const brandTheme = {
     bg: "#421b1e",
     circle: "#b9afaf",
     text: "#b9afaf",
+    activeText: "#421b1e",
   },
 
   arquitectura: {
     bg: "#13473f",
     circle: "#a4ccc8",
     text: "#a4ccc8",
+    activeText: "#13473f",
+    
   },
 
   constructora: {
     bg: "#421b1e",
     circle: "#c16242",
     text: "#c16242",
+    activeText: "#421b1e",
   },
 
   promotora: {
     bg: "#2f374a",
     circle: "#b9afaf",
     text: "#b9afaf",
+    activeText: "#2f374a",
   },
 
   estrategia: {
     bg: "#421b1e",
     circle: "#ddb58b",
     text: "#ddb58b",
+    activeText: "#421b1e",
   },
 
   banca: {
     bg: "#421b1e",
     circle: "#94a7c5",
     text: "#94a7c5",
+    activeText: "#421b1e",
   },
 };
 
