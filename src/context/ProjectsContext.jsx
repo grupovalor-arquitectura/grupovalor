@@ -60,7 +60,7 @@ export function ProjectsProvider({ children }) {
           cachedFooter;
 
         // Mostrar cache inmediatamente
-        if ( hasCache ) {
+        if (hasCache) {
 
           setProjects(JSON.parse(cachedProjects));
           setArchiveProjects(JSON.parse(cachedArchive));
@@ -69,6 +69,8 @@ export function ProjectsProvider({ children }) {
           setHome(JSON.parse(cachedHome));
           setAbout(JSON.parse(cachedAbout));
           setFooter(JSON.parse(cachedFooter));
+
+          setLoading(false);
         }
 
         const siteConfig = await getSiteConfig();
@@ -76,35 +78,44 @@ export function ProjectsProvider({ children }) {
         const cachedVersion = localStorage.getItem(VERSION_KEY);
 
         
-       if (cachedVersion === currentVersion && hasCache) {
-          return;
-        }
+      if (cachedVersion === currentVersion && hasCache) {
+        setLoading(false);
+        return;
+      }
 
        const [
-          projectsData,
-          archiveData,
           companiesData,
           homeData,
-          aboutData,
           footerData,
         ] = await Promise.all([
-            getProjects(),
-            getArchive(),
-            getCompanies(),
-            getHomeContent(),
-            getAboutContent(),
-            getFooter(),
-          ]);
+          getCompanies(),
+          getHomeContent(),
+          getFooter(),
+        ]);
 
-        
-        setProjects(projectsData);
-        setArchiveProjects(archiveData);
         setCompanies(companiesData);
-
         setHome(homeData);
-        setAbout(aboutData);
         setFooter(footerData);
 
+        if (!hasCache) {
+            setLoading(false);
+          }
+
+        const [
+          projectsData,
+          archiveData,
+          aboutData,
+        ] = await Promise.all([
+          getProjects(),
+          getArchive(),
+          getAboutContent(),
+        ]);
+
+        setProjects(projectsData);
+        setArchiveProjects(archiveData);
+        setAbout(aboutData);
+
+        
         localStorage.setItem(
           PROJECTS_KEY,
           JSON.stringify(projectsData)
@@ -146,8 +157,7 @@ export function ProjectsProvider({ children }) {
         console.error("❌", error);
       } finally {
         console.log("Terminó la carga");
-        setLoading(false);
-      }
+}
     }
 
     loadProjects();
@@ -227,6 +237,7 @@ export function ProjectsProvider({ children }) {
     } catch (error) {
       console.error("Error recargando proyectos:", error);
     } finally {
+      console.log("🟢 setLoading(false)");
       setLoading(false);
     }
   };
