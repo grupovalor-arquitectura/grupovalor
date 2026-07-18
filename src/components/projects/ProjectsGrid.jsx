@@ -70,6 +70,7 @@ export default function ProjectsGrid({
                 >
                   <DesktopProjectCard
                     project={project}
+                    cardNumber={rowIndex * 2 + index + 1}
                   />
                 </Box>
               );

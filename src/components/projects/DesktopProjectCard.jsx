@@ -5,7 +5,11 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useReveal from "../../hooks/useReveal";
 
-export default function ProjectCard({ project }) {
+export default function DesktopProjectCard({
+  project,
+  cardNumber,
+}) {
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -68,7 +72,7 @@ export default function ProjectCard({ project }) {
             color: "background.default",
           }}
         >
-          {String(project.id).padStart(2, "0")}
+          {String(cardNumber).padStart(2, "0")}
         </Typography>
 
         <Typography
