@@ -3,14 +3,18 @@ import uploadImages from "./uploadImages";
 
 export default async function saveGallery({
   project,
-  gallery,
-  galleryFiles,
+  originalProject,
+  gallery = [],
+  galleryFiles = [],
 }) {
   // ==========================
   // Eliminar imágenes borradas
   // ==========================
 
-  const removedImages = project.gallery.filter(
+
+  const existingGallery = originalProject?.gallery ?? [];
+
+  const removedImages = existingGallery.filter(
     (image) => !gallery.includes(image)
   );
 
@@ -25,10 +29,13 @@ export default async function saveGallery({
   let uploadedImages = [];
 
   if (galleryFiles.length) {
+
     uploadedImages = await uploadImages({
       files: galleryFiles,
       folder: `images/${project.slug}/gallery`,
     });
+
+   
   }
 
   // ==========================

@@ -11,7 +11,13 @@ import PVMono from "../assets/PVMono.svg?react";
 import EVMono from "../assets/EVMono.svg?react";
 import BVMono from "../assets/BVMono.svg?react";
 
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
 
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 const monograms = {
   default: GVMono,
@@ -44,10 +50,18 @@ export default function VisualCirclesMobile({
   color = "#c16242",
   logoColor = "#421b1e",
 }) {
+
+  const navigate = useNavigate();
+
   const circlesRef = useRef([]);
   const centerRef = useRef(null);
   const Monogram = monograms[active] || monograms.default;
-  const navigate = useNavigate();
+
+  const glow = `
+    drop-shadow(0 0 6px ${hexToRgba(color, 0.45)})
+    drop-shadow(0 0 12px ${hexToRgba(color, 0.25)})
+  `;
+  
 
   useEffect(() => {
     circlesRef.current.forEach((circle, index) => {
@@ -59,14 +73,13 @@ export default function VisualCirclesMobile({
         ease: "sine.inOut",
       });
     });
-
-    gsap.to(centerRef.current, {
-      scale: 1.006,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
+      gsap.to(centerRef.current, {
+        scale: 1.1,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
   }, []);
 
   return (
@@ -83,26 +96,7 @@ export default function VisualCirclesMobile({
         overflow: "hidden",
       }}
     >
-      {/* Contornos */}
-
-      {circles.map((circle, index) => (
-        <Box
-          key={index}
-          ref={(el) => (circlesRef.current[index] = el)}
-          sx={{
-            position: "absolute",
-
-            width: 180,
-            height: 180,
-
-            borderRadius: "50%",
-
-            border: `1px solid ${color}`,
-
-            opacity: circle.opacity,
-          }}
-        />
-      ))}
+      
 
       {/* Círculo principal */}
 
@@ -127,7 +121,7 @@ export default function VisualCirclesMobile({
           justifyContent: "center",
           alignItems: "center",
 
-          boxShadow: `0 0 30px ${color}30`,
+          filter: glow,
           cursor: active !== "default" ? "pointer" : "default",
         }}
       >

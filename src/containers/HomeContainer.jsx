@@ -90,10 +90,6 @@ export default function HomeContainer() {
   if (error) {
     return <p>Error cargando el Home.</p>;
   }
-  
-  if (error) {
-    return <p>Error cargando el Home.</p>;
-  }
 
   return (
     <Box

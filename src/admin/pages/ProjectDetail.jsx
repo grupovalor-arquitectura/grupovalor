@@ -1,5 +1,6 @@
 
 import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
@@ -33,9 +34,11 @@ const emptyProject = {
 export default function ProjectDetail() {
 
   const navigate = useNavigate();
+
+  const location = useLocation();
   const { slug } = useParams();
 
-  const isNew = slug === "new";
+  const isNew = location.pathname.endsWith("/new");
 
   const { projects, reloadProjects, } = useProjects();
 
@@ -94,8 +97,10 @@ export default function ProjectDetail() {
     try {
       setSaving(true);
 
+    
       const updatedProject = await saveProject({
-        originalProject,
+        isNew,
+        originalProject: originalProject ?? emptyProject,
         project: {
           ...formData,
           slug: generateSlug(formData.title),

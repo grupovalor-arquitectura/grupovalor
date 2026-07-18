@@ -2,6 +2,9 @@ import saveCover from "./storage/saveCover";
 import saveGallery from "./storage/saveGallery";
 import updateProject from "./firestore/updateProject";
 
+import createProject from "./firestore/createProject";
+import getNextProjectId from "./firestore/getNextProjectId";
+
 /**
  * Guarda un proyecto.
  *
@@ -11,13 +14,21 @@ import updateProject from "./firestore/updateProject";
  */
 
 export default async function saveProject({
+
+  isNew,
   originalProject,
   project,
   coverFile,
   galleryFiles,
+
 }) {
 
+
   const data = { ...project };
+
+  if (isNew) {
+    data.id = await getNextProjectId();
+  }
 
   // ==========================
   // Cover
@@ -32,8 +43,10 @@ export default async function saveProject({
   // Gallery
   // ==========================
 
+
   data.gallery = await saveGallery({
-    project: originalProject,
+    project: data,
+    originalProject,
     gallery: data.gallery,
     galleryFiles,
   });
@@ -42,7 +55,11 @@ export default async function saveProject({
   // Firestore
   // ==========================
 
-  await updateProject(data);
+ if (isNew) {
+    await createProject(data);
+  } else {
+    await updateProject(data);
+  }
 
   return data;
 }

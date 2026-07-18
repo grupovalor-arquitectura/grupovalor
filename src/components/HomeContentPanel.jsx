@@ -2,14 +2,16 @@ import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function HomeContentPanel({
+
   active,
   content,
   ctaButton,
+
 }) {
 
-  if (!active || !content) return null;
-
   const navigate = useNavigate();
+
+  if (!active || !content) return null;
 
   const routes = {
     default: "/nosotros",
