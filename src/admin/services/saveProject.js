@@ -4,6 +4,8 @@ import updateProject from "./firestore/updateProject";
 
 import createProject from "./firestore/createProject";
 import getNextProjectId from "./firestore/getNextProjectId";
+import getNextProjectOrder from "./firestore/getNextProjectOrder";
+
 
 /**
  * Guarda un proyecto.
@@ -28,6 +30,9 @@ export default async function saveProject({
 
   if (isNew) {
     data.id = await getNextProjectId();
+    data.order = await getNextProjectOrder();
+
+   
   }
 
   // ==========================

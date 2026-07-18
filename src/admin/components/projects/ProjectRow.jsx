@@ -4,10 +4,30 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useProjects } from "../../../context/ProjectsContext";
 
+
 import deleteProject from "../../services/deleteProject";
 import ConfirmDialog from "../ui/ConfirmDialog";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export default function ProjectRow({ project }) {
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({
+    id: project.slug,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   const [openDelete, setOpenDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -17,26 +37,29 @@ export default function ProjectRow({ project }) {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-  try {
-    setDeleting(true);
+    try {
+      setDeleting(true);
 
-    await deleteProject(project);
+      await deleteProject(project);
 
-    await reloadProjects();
+      await reloadProjects();
 
-    setOpenDelete(false);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setDeleting(false);
-  }
-};
+      setOpenDelete(false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   return (
     <Box
+      ref={setNodeRef}
+      style=
+        {style}
       sx={{
         display: "grid",
-        gridTemplateColumns: "80px 80px 1fr 100px 100px",
+        gridTemplateColumns: "40px 80px 80px 1fr 100px 100px",
         gap: 4,
         alignItems: "center",
         py: 2,
@@ -44,14 +67,34 @@ export default function ProjectRow({ project }) {
         borderColor: "background.default",
       }}
     >
-      <Typography color="background.default">
-        {project.id}
-      </Typography>
+      <Box
+        {...attributes}
+        {...listeners}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "grab",
+          "&:active": {
+            cursor: "grabbing",
+          },
+        }}
+      >
+        <DragIndicatorIcon
+          fontSize="small"
+          sx={{ color: "background.default" }}
+        />
+      </Box>
 
       <Typography color="background.default">
         {project.order}
       </Typography>
 
+      <Typography color="background.default">
+        {project.id}
+      </Typography>
+
+  
       <Typography color="background.default">
         {project.title}
       </Typography>

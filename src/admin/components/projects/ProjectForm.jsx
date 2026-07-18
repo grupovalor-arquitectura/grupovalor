@@ -108,20 +108,6 @@ return (
         />
 
         <AdminTextField
-        label="ID"
-        type="number"
-        value={formData.id ?? ""}
-        disabled
-        />
-
-        <AdminTextField
-        label="Orden"
-        type="number"
-        value={formData.order}
-        onChange={(value) => onChange("order", value)}
-        />
-
-        <AdminTextField
         label="Año"
         type="number"
         value={formData.year}

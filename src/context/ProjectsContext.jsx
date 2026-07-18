@@ -6,6 +6,8 @@ import {
   useState,
 } from "react";
 
+
+
 import { getProjects } from "../services/projectsService";
 import { getArchive } from "../services/archiveService";
 import { getSiteConfig } from "../services/siteConfigService";
@@ -36,6 +38,7 @@ export function ProjectsProvider({ children }) {
   const [footer, setFooter] = useState(null);
   
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     async function loadProjects() {
@@ -72,16 +75,17 @@ export function ProjectsProvider({ children }) {
 
           setLoading(false);
         }
-
+       
+       
         const siteConfig = await getSiteConfig();
         const currentVersion = String(siteConfig.version);
         const cachedVersion = localStorage.getItem(VERSION_KEY);
 
         
-      if (cachedVersion === currentVersion && hasCache) {
-        setLoading(false);
-        return;
-      }
+       if (cachedVersion === currentVersion && hasCache) {
+          setLoading(false);
+          return;
+        }
 
        const [
           companiesData,
