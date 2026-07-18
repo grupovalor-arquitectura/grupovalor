@@ -28,3 +28,5 @@ dist-ssr
 
 scripts/serviceAccountKey.json
 scripts/*.json
+.vercel
+.env*
