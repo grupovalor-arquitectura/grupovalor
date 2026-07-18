@@ -8,7 +8,14 @@ import Divider from "./Divider";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 
-export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isReady}) {
+export default function BottomBar({
+
+  active,
+  onSelect,
+  isOpen,
+  onMenuClick
+
+}) {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -41,7 +48,6 @@ export default function BottomBar({ active, onSelect, isOpen, onMenuClick, isRea
           {/* 🔥 usa el onSelect del padre */}
           <BottomMenuItems 
             onSelect={onSelect} 
-            isReady={isReady}
           />
         </Box>
       </Box>

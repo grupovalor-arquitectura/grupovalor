@@ -24,8 +24,9 @@ const items = [
 ];
 
 export default function BottomMenuItems({
+
   onSelect,
-  isReady,
+
 }) {
   const [selected, setSelected] =
     useState(null);
@@ -39,12 +40,6 @@ export default function BottomMenuItems({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  useEffect(() => {
-    if (isReady) {
-      onSelect?.("default");
-    }
-  }, [isReady]);
-
   const renderChip = (item) => {
     // 🔥 Grupo Valor depende del menu abierto
     const isSelected =
@@ -56,8 +51,7 @@ export default function BottomMenuItems({
       <Box
         key={item.label}
         onClick={() => {
-          if (!isReady) return;
-
+         
           // 🔥 navegación
           if (item.isLink) {
             navigate(item.path);
@@ -101,15 +95,11 @@ export default function BottomMenuItems({
           px: 2,
           py: 0.5,
 
-          cursor: isReady
-            ? "pointer"
-            : "default",
+          cursor: "pointer",
 
-          opacity: isReady ? 1 : 0.4,
+          opacity: 1,
 
-          pointerEvents: isReady
-            ? "auto"
-            : "none",
+          pointerEvents: "auto",
 
           border: "1px solid",
 
