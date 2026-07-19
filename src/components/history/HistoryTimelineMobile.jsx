@@ -33,36 +33,60 @@ export default function HistoryTimelineMobile({
       {/* ORÍGENES */}
       <TimelineMoment moment={startMoment} />
 
-      {/* TIMELINE 1 */}
-      <TimelineTrack
-        endRef={null}
-        milestones={timeline1Milestones}
-        activeMilestone={activeMilestoneStart}
-        onNodeClick={(index) => {
-          setActiveMilestoneStart(index);
-}}
-      />
+      <Box
+        sx={{
+          position: "relative",
+          mt: {
+            xs: 8,
+            md: 0,
+          },
+        }}
+      >
+        <TimelineTrack
+          endRef={null}
+          milestones={timeline1Milestones}
+          activeMilestone={activeMilestoneStart}
+          onNodeClick={(index) => {
+            setActiveMilestoneStart(index);
+          }}
+        />
 
-      <TimelineMilestoneMobile
-        milestone={activeTimeline1}
-      />
+        <TimelineMilestoneMobile
+          milestone={activeTimeline1}
+        />
+      </Box>
+
 
       {/* CONSOLIDACIÓN */}
-      <TimelineHeader moment={consolidationMoment} />
 
-      {/* TIMELINE 2 */}
-      <TimelineTrack
-        endRef={null}
-        milestones={timeline2Milestones}
-        activeMilestone={activeMilestone}
-        onNodeClick={(index) => {
-            setActiveMilestone(index);
+      <Box
+        sx={{ mt: 15 }}
+      >
+        <TimelineHeader moment={consolidationMoment} />
+      </Box>
+
+      <Box
+        sx={{
+          position: "relative",
+          mt: {
+            xs: 6,
+            md: 0,
+          },
         }}
-      />
+      >
+        <TimelineTrack
+          endRef={null}
+          milestones={timeline2Milestones}
+          activeMilestone={activeMilestone}
+          onNodeClick={(index) => {
+            setActiveMilestone(index);
+          }}
+        />
 
-      <TimelineMilestoneMobile
-        milestone={activeTimeline2}
-      />
+        <TimelineMilestoneMobile
+          milestone={activeTimeline2}
+        />
+      </Box>
 
       {/* FUTURO */}
       <TimelineMoment moment={futureMoment} />

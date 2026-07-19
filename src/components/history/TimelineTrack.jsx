@@ -56,11 +56,14 @@ export default function TimelineTrack({
 
         width: "100%",
         height: {
-          xs: "400px",
+          xs: "100px",
           md: "100vh",
         },
 
-        overflow: "hidden",
+        overflow: {
+  xs: "visible",
+  md: "hidden",
+},
       }}
     >
       {/* línea */}
