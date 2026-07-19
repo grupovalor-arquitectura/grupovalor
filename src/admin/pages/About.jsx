@@ -7,6 +7,7 @@ import AboutForm from "../components/about/AboutForm";
 
 import updateAbout from "../services/firestore/updateAbout";
 import uploadImage from "../services/storage/uploadImage";
+import saveWithVersion from "../../services/saveWithVersion";
 
 export default function About() {
   const { about, reloadProjects } = useProjects();
@@ -79,7 +80,9 @@ export default function About() {
     setSaving(true);
 
     try {
-      await updateAbout(formData);
+      await saveWithVersion(() =>
+        updateAbout(formData)
+      );
 
       await reloadProjects();
 

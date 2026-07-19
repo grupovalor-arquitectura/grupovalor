@@ -6,6 +6,7 @@ import { useProjects } from "../../context/ProjectsContext";
 
 import CompanyForm from "../components/companies/CompanyForm";
 import updateCompany from "../services/firestore/updateCompany";
+import saveWithVersion from "../../services/saveWithVersion";
 
 export default function CompanyDetail() {
   const { slug } = useParams();
@@ -48,7 +49,10 @@ export default function CompanyDetail() {
 
   const handleSave = async () => {
     
-    await updateCompany(formData);
+    await saveWithVersion(() =>
+      updateCompany(formData)
+    );
+
 
     await reloadProjects();
 

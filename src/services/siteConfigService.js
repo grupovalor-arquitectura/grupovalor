@@ -1,4 +1,9 @@
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  increment,
+} from "firebase/firestore";
 import { db } from "../firebase/firestore";
 
 export async function getSiteConfig() {
@@ -10,4 +15,12 @@ export async function getSiteConfig() {
   }
 
   return snapshot.data();
+}
+
+export async function bumpSiteVersion() {
+  const docRef = doc(db, "config", "website");
+
+  await updateDoc(docRef, {
+    version: increment(1),
+  });
 }

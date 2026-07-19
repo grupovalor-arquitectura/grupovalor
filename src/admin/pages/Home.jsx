@@ -5,6 +5,7 @@ import { useProjects } from "../../context/ProjectsContext";
 
 import HomeForm from "../components/home/HomeForm";
 import updateHome from "../services/firestore/updateHome";
+import saveWithVersion from "../../services/saveWithVersion";
 
 export default function Home() {
   const { home, reloadProjects } = useProjects();
@@ -41,7 +42,9 @@ export default function Home() {
     setSaving(true);
 
     try {
-      await updateHome(formData);
+      await saveWithVersion(() =>
+        updateHome(formData)
+      );
 
       await reloadProjects();
 

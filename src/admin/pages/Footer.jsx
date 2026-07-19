@@ -6,6 +6,7 @@ import { useProjects } from "../../context/ProjectsContext";
 
 import FooterForm from "../components/footer/FooterForm";
 import updateFooter from "../services/firestore/updateFooter";
+import saveWithVersion from "../../services/saveWithVersion";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -44,7 +45,9 @@ export default function Footer() {
   setSaving(true);
 
     try {
-      await updateFooter(formData);
+      await saveWithVersion(() =>
+        updateFooter(formData)
+      );
 
       await reloadProjects();
 
