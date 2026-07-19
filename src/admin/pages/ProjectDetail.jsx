@@ -133,6 +133,8 @@ export default function ProjectDetail() {
     }
   }, [isNew, project]);
 
+  
+
   return (
     <ProjectForm
       formData={formData}

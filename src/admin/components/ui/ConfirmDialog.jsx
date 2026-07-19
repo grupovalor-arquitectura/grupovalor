@@ -23,10 +23,12 @@ export default function ConfirmDialog({
       onClose={loading ? undefined : onClose}
       maxWidth="xs"
       fullWidth
-      PaperProps={{
-        sx: {
-          bgcolor: "primary.main",
-          borderRadius: 2,
+      slotProps={{
+        paper: {
+          sx: {
+            bgcolor: "primary.main",
+            borderRadius: 2,
+          },
         },
       }}
     >

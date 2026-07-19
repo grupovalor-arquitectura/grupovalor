@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import saveArchive from "../services/saveArchive";
 import ArchiveForm from "../components/archive/ArchiveForm";
 
+import { useLocation } from "react-router-dom";
+
 
 const emptyArchive = {
   id: "",
@@ -21,6 +23,8 @@ const emptyArchive = {
   scale: "",
   gallery: [],
 };
+
+
 
 export default function ArchiveDetail() {
 
@@ -35,10 +39,7 @@ export default function ArchiveDetail() {
         (item) => item.id === Number(id)
     );
 
-    const [formData, setFormData] = useState(
-        isNew ? emptyArchive : archive
-    );
-
+    const [formData, setFormData] = useState(emptyArchive);
     const [originalArchive, setOriginalArchive] = useState(null);
     const [galleryFiles, setGalleryFiles] = useState([]);
     const [saving, setSaving] = useState(false);
@@ -72,10 +73,11 @@ export default function ArchiveDetail() {
             setSaving(true);
 
             await saveArchive({
-            originalArchive,
-            archive: formData,
-            galleryFiles,
-        });
+                isNew,
+                originalArchive,
+                archive: formData,
+                galleryFiles,
+            });
 
             await reloadProjects();
 
@@ -97,7 +99,11 @@ export default function ArchiveDetail() {
         }
         }, [archive, isNew]);
 
-   
+   console.log({
+        id,
+        isNew,
+        formData,
+        });
 
   return (
     <ArchiveForm

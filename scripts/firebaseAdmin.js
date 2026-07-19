@@ -18,4 +18,3 @@ initializeApp({
 export const db = getFirestore();
 export const bucket = getStorage().bucket();
 
-console.log("✅ Firebase Admin inicializado");

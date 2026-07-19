@@ -91,55 +91,32 @@ export default function ArchiveForm({
         Información general
       </Typography>
 
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "120px 120px",
-          gap: 3,
-          mb: 4,
-        }}
-      >
-        <AdminTextField
-          label="ID"
-          value={formData.id}
-          disabled={!isNew}
-          onChange={(e) =>
-            handleChange("id", Number(e.target.value))
-          }
-        />
-
-        <AdminTextField
-          label="Orden"
-          value={formData.order}
-          onChange={(e) =>
-            handleChange("order", Number(e.target.value))
-          }
-        />
-      </Box>
 
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "280px 1fr",
+          gridTemplateColumns: "1fr 1fr",
           gap: 4,
           mb: 4,
         }}
       >
-        <AdminTextField
-          label="Año"
-          value={formData.year}
-          onChange={(e) =>
-            handleChange("year", e.target.value)
-          }
-        />
 
         <AdminTextField
           label="Nombre"
           value={formData.title}
-          onChange={(e) =>
-            handleChange("title", e.target.value)
+          onChange={(value) =>
+            handleChange("title", value)
           }
         />
+        <AdminTextField
+          label="Año"
+          value={formData.year}
+          onChange={(value) =>
+            handleChange("year", value)
+          }
+        />
+
+        
       </Box>
 
       <Box
@@ -153,10 +130,11 @@ export default function ArchiveForm({
         <AdminTextField
           label="Ubicación"
           value={formData.location}
-          onChange={(e) =>
-        handleChange("location", e.target.value)
+          onChange={(value) =>
+            handleChange("location", value)
           }
-                />
+        />
+
         <AdminSelect
             label="Tipo"
             value={formData.type}
@@ -178,21 +156,23 @@ export default function ArchiveForm({
         }}
       >
         <AdminSelect
-            label="Categoría"
-            value={formData.category}
-            onChange={(value) => handleChange("category", value)}
-            options={projectCategories.map((category) => ({
-                value: category,
-                label: category,
-            }))}
-            />
+          label="Categoría"
+          value={formData.category}
+          onChange={(value) => handleChange("category", value)}
+          options={projectCategories.map((category) => ({
+              value: category,
+              label: category,
+          }))}
+        />
+
         <AdminTextField
           label="Escala"
           value={formData.scale}
-          onChange={(e) =>
-            handleChange("scale", e.target.value)
+          onChange={(value) =>
+            handleChange("scale", value)
           }
         />
+
       </Box>
 
       {/* ==========================

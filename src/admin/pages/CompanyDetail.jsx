@@ -20,7 +20,6 @@ export default function CompanyDetail() {
       (item) => item.slug === slug
     );
 
-    console.log(company);
 
     if (company) {
       setFormData(company);
@@ -48,9 +47,7 @@ export default function CompanyDetail() {
   };
 
   const handleSave = async () => {
-    console.log("FORMDATA");
-    console.log(formData);
-
+    
     await updateCompany(formData);
 
     await reloadProjects();

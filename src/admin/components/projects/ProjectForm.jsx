@@ -9,6 +9,7 @@ import {
 import AdminTextField from "../ui/AdminTextField";
 import AdminSelect from "../ui/AdminSelect";
 import ImageUploadButton from "../ui/ImageUploadButton";
+import AdminCheckboxGroup from "../ui/AdminCheckboxGroup";
 
 
 export default function ProjectForm({
@@ -56,6 +57,13 @@ export default function ProjectForm({
         { value: "Histórico", label: "Histórico" },
     ];
 
+    const filterOptions = [
+        { value: "sale", label: "En venta | Renta" },
+        { value: "construction", label: "En construcción" },
+        { value: "planning", label: "En estructuración" },
+        { value: "history", label: "Históricos" },
+    ];
+
 return (
   <Box
     sx={{
@@ -78,62 +86,69 @@ return (
     ======================= */}
 
     <Box sx={{ mb: 8 }}>
-    <Typography
-        variant="h5"
-        sx={{
-        color: "background.default",
-        mb: 4,
-        }}
-    >
-        Información general
-    </Typography>
+        <Typography
+            variant="h5"
+            sx={{
+            color: "background.default",
+            mb: 4,
+            }}
+        >
+            Información general
+        </Typography>
 
-    <Box
-        sx={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
-        gap: 4,
-        }}
-    >
-        <AdminTextField
-        label="Nombre"
-        value={formData.title}
-        onChange={(value) => onChange("title", value)}
-        />
+        <Box
+            sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: 4,
+            }}
+        >
+            <AdminTextField
+                label="Nombre"
+                value={formData.title}
+                onChange={(value) => onChange("title", value)}
+            />
 
-        <AdminTextField
-        label="Slug"
-        value={formData.slug}
-        disabled
-        />
+            <AdminTextField
+                label="Slug"
+                value={formData.slug}
+                disabled
+            />
 
-        <AdminTextField
-        label="Año"
-        type="number"
-        value={formData.year}
-        onChange={(value) => onChange("year", value)}
-        />
+            <AdminTextField
+                label="Año"
+                type="number"
+                value={formData.year}
+                onChange={(value) => onChange("year", value)}
+            />
 
-        <AdminTextField
-        label="Ubicación"
-        value={formData.location}
-        onChange={(value) => onChange("location", value)}
-        />
+            <AdminTextField
+                label="Ubicación"
+                value={formData.location}
+                onChange={(value) => onChange("location", value)}
+            />
 
-        <AdminSelect
-        label="Tipo"
-        value={formData.type}
-        options={typeOptions}
-        onChange={(value) => onChange("type", value)}
-        />
+            <AdminSelect
+                label="Tipo"
+                value={formData.type}
+                options={typeOptions}
+                onChange={(value) => onChange("type", value)}
+            />
 
-        <AdminSelect
-        label="Estado"
-        value={formData.status}
-        options={statusOptions}
-        onChange={(value) => onChange("status", value)}
-        />
-    </Box>
+            <AdminSelect
+                label="Estado"
+                value={formData.status}
+                options={statusOptions}
+                onChange={(value) => onChange("status", value)}
+            />
+
+            <AdminCheckboxGroup
+                label="Filtros"
+                value={formData.filters ?? []}
+                options={filterOptions}
+                onChange={(value) => onChange("filters", value)}
+            />
+        </Box>
     </Box>
 
    {/* =======================

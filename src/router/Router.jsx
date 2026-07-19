@@ -95,11 +95,6 @@ export default function Router() {
           />
 
           <Route
-            path="/admin/archive/new"
-            element={<ArchiveDetail />}
-          />
-
-          <Route
             path="/admin/companies"
             element={<Companies />}
           />

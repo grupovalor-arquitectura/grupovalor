@@ -130,7 +130,7 @@ export default function TimelineTrack({
             >
               <Box
                 onClick={() => {
-                  console.log("🚨 TIMELINE TRACK NUEVO", index);
+                 
                   onNodeClick?.(index);
                 }}
                 sx={{

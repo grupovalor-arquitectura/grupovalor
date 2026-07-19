@@ -3,15 +3,20 @@ import uploadImages from "./uploadImages";
 import generateSlug from "../../utils/generateSlug";
 
 export default async function saveArchiveGallery({
+
+  originalArchive,
   archive,
   gallery,
   galleryFiles,
+
 }) {
   // ==========================
   // Eliminar imágenes borradas
   // ==========================
 
-  const removedImages = archive.gallery.filter(
+  const previousGallery = originalArchive?.gallery ?? [];
+
+  const removedImages = previousGallery.filter(
     (image) => !gallery.includes(image)
   );
 

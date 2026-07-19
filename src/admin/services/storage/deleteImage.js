@@ -15,7 +15,7 @@ export default async function deleteImage(url) {
    
   if (!url) return;
 
-  console.log("Deleting:", url);
+ 
 
 
   try {
@@ -23,8 +23,6 @@ export default async function deleteImage(url) {
     const path = decodeURIComponent(
       url.split("/o/")[1].split("?")[0]
     );
-
-    console.log("Path:", path);
 
     const imageRef = ref(storage, path);
 
