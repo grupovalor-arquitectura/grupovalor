@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
 import saveProject from "../services/saveProject";
+import saveWithVersion from "../../services/saveWithVersion";
 
 import ProjectForm from "../components/projects/ProjectForm";
 import generateSlug from "../utils/generateSlug";
@@ -98,16 +99,18 @@ export default function ProjectDetail() {
       setSaving(true);
 
     
-      const updatedProject = await saveProject({
-        isNew,
-        originalProject: originalProject ?? emptyProject,
-        project: {
-          ...formData,
-          slug: generateSlug(formData.title),
-        },
-        coverFile,
-        galleryFiles,
-      });
+      const updatedProject = await saveWithVersion(() =>
+        saveProject({
+          isNew,
+          originalProject: originalProject ?? emptyProject,
+          project: {
+            ...formData,
+            slug: generateSlug(formData.title),
+          },
+          coverFile,
+          galleryFiles,
+        })
+      );
 
       await reloadProjects();
 

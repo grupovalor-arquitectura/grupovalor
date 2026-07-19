@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
-
 
 import { useProjects } from "../../context/ProjectsContext";
 import { useNavigate } from "react-router-dom";
 
 import saveArchive from "../services/saveArchive";
 import ArchiveForm from "../components/archive/ArchiveForm";
-
-import { useLocation } from "react-router-dom";
+import saveWithVersion from "../../services/saveWithVersion";
 
 
 const emptyArchive = {
@@ -23,8 +20,6 @@ const emptyArchive = {
   scale: "",
   gallery: [],
 };
-
-
 
 export default function ArchiveDetail() {
 
@@ -72,15 +67,16 @@ export default function ArchiveDetail() {
         try {
             setSaving(true);
 
-            await saveArchive({
-                isNew,
-                originalArchive,
-                archive: formData,
-                galleryFiles,
-            });
+            await saveWithVersion(() =>
+                saveArchive({
+                    isNew,
+                    originalArchive,
+                    archive: formData,
+                    galleryFiles,
+                })
+            );
 
             await reloadProjects();
-
              navigate("/admin/archive");
             } catch (error) {
                 console.error(error);
