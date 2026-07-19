@@ -16,6 +16,8 @@ import { sendContactForm } from "../../services/contactService";
 
 import ChipButton from "../../admin/components/ui/ChipButton";
 
+
+
 const companyOptions = [
   "Grupo Valor",
   "Valor Arquitectura",
@@ -68,10 +70,8 @@ const fieldSx = {
         };
 
 export default function ContactForm() {
-    
-    const [status, setStatus] = useState("idle");
 
-    const [form, setForm] = useState({
+    const initialForm = {
         name: "",
         email: "",
         phone: "",
@@ -80,8 +80,11 @@ export default function ContactForm() {
         message: "",
         privacy: false,
         newsletter: false,
-        });
+    };
+    
+    const [status, setStatus] = useState("idle");
 
+    const [form, setForm] = useState(initialForm);
 
     const [errors, setErrors] = useState({});
 
@@ -138,8 +141,12 @@ export default function ContactForm() {
         try {
             setStatus("sending");
 
+            console.log("Formulario enviado:", form);
+
             await sendContactForm(form);
 
+            setForm(initialForm);
+            setErrors({});
             setStatus("success");
         } catch (error) {
             console.error(error);

@@ -22,17 +22,22 @@ export default function TimelineMoment({
       sx={{
         width: "100%",
         height: {
-          xs: "85vh",
+          xs: "auto",
           md: "100vh",
+        },
+
+        minHeight: {
+          xs: "85vh",
+          md: 0,
         },
 
         display: "flex",
         alignItems: "center",
 
         pt: {
-      xs: 20,   // prueba primero con este valor
-      md: 0,
-    },
+          xs: 20,   
+          md: 0,
+        },
 
         pl: {
           xs: 4,

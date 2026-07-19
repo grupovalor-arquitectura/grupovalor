@@ -16,7 +16,6 @@ async function resolveImage(path) {
 
 export async function getProjects() {
 
-  console.log("🔥 LEYENDO PROJECTS DESDE FIRESTORE");
   try {
     const snapshot = await getDocs(collection(db, "projects"));
 

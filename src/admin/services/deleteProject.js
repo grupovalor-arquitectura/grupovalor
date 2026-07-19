@@ -3,9 +3,6 @@ import deleteProjectDocument from "./firestore/deleteProjectDocument";
 
 export default async function deleteProject(project) {
 
-    console.log("=== DELETE PROJECT ===");
-    console.log("Cover:", project.coverImage);
-    console.log("Gallery:", project.gallery);
   try {
     // ==========================
     // Cover

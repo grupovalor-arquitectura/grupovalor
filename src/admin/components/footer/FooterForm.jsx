@@ -71,6 +71,14 @@ export default function FooterForm({
             handleChange("office.phone", value)
           }
         />
+
+        <AdminTextField
+          label="WhatsApp"
+          value={formData.office?.whatsapp || ""}
+          onChange={(value) =>
+            handleChange("office.whatsapp", value)
+          }
+        />
       </Box>
 
       {/* =======================================================

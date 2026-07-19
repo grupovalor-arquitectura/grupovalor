@@ -59,9 +59,6 @@ const folders = fs
     fs.statSync(path.join(PROJECTS_PATH, folder)).isDirectory()
   );
 
-console.log("\n===============================");
-console.log("RENOMBRANDO CARPETAS");
-console.log("===============================\n");
 
 let renamed = 0;
 let skipped = 0;

@@ -44,15 +44,6 @@ export default function CompanyPage() {
     ...assets,
   };
 
-    for (const key of Object.keys(company)) {
-      console.log(
-        `Clave: >${key}<`,
-        "Longitud:",
-        key.length,
-        "Valor:",
-        company[key]
-      );
-    }
 
   return (
 

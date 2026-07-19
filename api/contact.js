@@ -24,8 +24,9 @@ export default async function handler(req, res) {
     } = req.body;
 
     await resend.emails.send({
-      from: "Grupo Valor <onboarding@resend.dev>",
-      to: "grupovalor.database@gmail.com",
+      from: "Grupo Valor <atencionalcliente@grupovalor.com.co>",
+      to: "atencionalcliente@grupovalor.com.co",
+      replyTo: email,
       subject: "Grupo Valor | Nuevo contacto desde el sitio web",
 
       html: contactEmailTemplate({
@@ -43,7 +44,6 @@ export default async function handler(req, res) {
       success: true,
       message: "Correo enviado correctamente.",
     });
-
   } catch (error) {
     console.error("Error enviando correo:", error);
 

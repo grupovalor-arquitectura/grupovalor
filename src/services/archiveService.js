@@ -17,7 +17,7 @@ async function resolveImage(imagePath) {
 }
 
 export async function getArchive() {
-  console.log("🔥 LEYENDO ARCHIVE DESDE FIRESTORE");
+
 
   try {
     const snapshot = await getDocs(collection(db, "archive"));

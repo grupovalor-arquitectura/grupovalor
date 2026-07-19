@@ -110,7 +110,7 @@ export default function About() {
     );
   }
 
-  console.log(formData);
+  
 
   return (
     <AboutForm

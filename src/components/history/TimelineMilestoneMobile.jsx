@@ -7,44 +7,39 @@ export default function TimelineMilestoneMobile({
 
   return (
     <Box
-    sx={{
+      sx={{
         position: "relative",
 
         width: "100%",
-        height: "50vh",
+        height: 480,
 
-        mt: "-300px",
+        mt: 0,
 
         backgroundImage: `url(${milestone.image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
 
-        display: "flex",
-        alignItems: "flex-start",
-
         zIndex: 1,
-    }}
+      }}
     >
       {/* Overlay */}
       <Box
         sx={{
           position: "absolute",
           inset: 0,
-          background:
-            "rgba(66,27,30,0.45)",
+          background: "rgba(66,27,30,0.45)",
         }}
       />
 
       {/* Contenido */}
       <Box
         sx={{
-          position: "relative",
-          zIndex: 1,
+          position: "absolute",
+          zIndex: 2,
 
-          width: "85%",
-
-          px: 4,
-          pt: 30,
+          left: 32,
+          right: 32,
+          bottom: 48,
         }}
       >
         <Typography

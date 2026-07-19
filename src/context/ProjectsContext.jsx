@@ -241,7 +241,7 @@ export function ProjectsProvider({ children }) {
     } catch (error) {
       console.error("Error recargando proyectos:", error);
     } finally {
-      console.log("🟢 setLoading(false)");
+      console.log("setLoading(false)");
       setLoading(false);
     }
   };

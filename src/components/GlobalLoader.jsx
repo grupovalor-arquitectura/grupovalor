@@ -8,7 +8,7 @@ export default function GlobalLoader() {
 
   const { loading } = useProjects();
 
-  console.log("GlobalLoader loading:", loading);
+  
   
   const container = useRef(null);
 

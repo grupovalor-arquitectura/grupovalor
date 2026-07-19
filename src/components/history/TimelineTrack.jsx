@@ -56,11 +56,14 @@ export default function TimelineTrack({
 
         width: "100%",
         height: {
-          xs: "400px",
+          xs: "100px",
           md: "100vh",
         },
 
-        overflow: "hidden",
+        overflow: {
+  xs: "visible",
+  md: "hidden",
+},
       }}
     >
       {/* línea */}
@@ -130,7 +133,7 @@ export default function TimelineTrack({
             >
               <Box
                 onClick={() => {
-                  console.log("🚨 TIMELINE TRACK NUEVO", index);
+                 
                   onNodeClick?.(index);
                 }}
                 sx={{
