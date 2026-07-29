@@ -110,14 +110,33 @@ export default function HomeContainer() {
           width: "100%",
           height: "100vh",
 
-          backgroundImage: `url(${heroImage})`,
+          backgroundImage: `
+            linear-gradient(
+              to left,
+              rgba(20, 11, 11, 0.70) 0%,
+              rgba(20, 11, 11, 0.60) 10%,
+              rgba(20, 11, 11, 0.55) 18%,
+              rgba(20, 11, 11, 0.35) 25%,
+              rgba(20, 11, 11, 0.20) 30%,
+              rgba(20, 11, 11, 0) 35%
+            ),
+
+            linear-gradient(
+                to right,
+              rgba(20, 11, 11, 0.70) 0%,
+              rgba(20, 11, 11, 0.60) 10%,
+              rgba(20, 11, 11, 0.55) 18%,
+              rgba(20, 11, 11, 0.35) 25%,
+              rgba(20, 11, 11, 0.20) 30%,
+              rgba(20, 11, 11, 0) 35%
+            ),
+            url(${heroImage})
+          `,
           backgroundSize: "cover",
           backgroundPosition: "center",
 
           opacity: heroImage ? 0.5 : 0,
           transition: "opacity .8s ease",
-
-          filter: `brightness(0.75)`,
 
           zIndex: 0,
           pointerEvents: "none",

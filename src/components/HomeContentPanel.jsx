@@ -99,6 +99,7 @@ export default function HomeContentPanel({
             color: "primary.main",
             opacity: 0,
             fontSize: { xs: 14, md: 15 },
+            fontWeight: 700,
             mb: 2,
             transform: "translateY(10px)",
             animation: "fadeUp 0.55s ease-out 0.28s forwards",
