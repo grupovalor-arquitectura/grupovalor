@@ -73,6 +73,10 @@ export default function Home() {
     );
   }
 
+  console.log(Object.keys(formData));
+  console.log(formData.constructoraValor);
+  console.log(formData.constructuraValor);
+
   return (
     <HomeForm
       formData={formData}

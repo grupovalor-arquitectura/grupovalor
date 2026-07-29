@@ -216,12 +216,12 @@ export default function CustomCursor() {
           width:
             arrowDirection !== "none"
               ? "60px"
-              : "80px",
+              : "48px",
 
           height:
             arrowDirection !== "none"
               ? "60px"
-              : "80px",
+              : "48px",
 
           // FORMA
           borderRadius:
@@ -230,18 +230,26 @@ export default function CustomCursor() {
               : "50%",
 
           // STROKE
-          border: "2px solid #c16242",
+          border:
+            arrowDirection !== "none"
+              ? "2px solid #c16242"
+              : "none",
+
+          backgroundColor:
+            arrowDirection === "none"
+              ? "#c16242"
+              : "transparent",
 
           // MORPH
           borderTop:
             arrowDirection !== "none"
               ? "none"
-              : "2px solid #c16242",
+              : "none",
 
           borderRight:
             arrowDirection !== "none"
               ? "none"
-              : "2px solid #c16242",
+              : "none",
 
           // ROTACIONES
           transform:
