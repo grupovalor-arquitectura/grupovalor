@@ -13,7 +13,8 @@ export default function BottomBar({
   active,
   onSelect,
   isOpen,
-  onMenuClick
+  onMenuClick,
+  isTransitioning,
 
 }) {
 
@@ -48,6 +49,7 @@ export default function BottomBar({
           {/* 🔥 usa el onSelect del padre */}
           <BottomMenuItems 
             onSelect={onSelect} 
+            disabled={isTransitioning}
           />
         </Box>
       </Box>

@@ -47,6 +47,8 @@ export default function HomeContainer() {
 
   const [activeSection, setActiveSection] = useState(null);
 
+  const [isTransitioning, setIsTransitioning] = useState(true);
+
   const [heroImage] = useState(() => {
     return heroBackgrounds[
       Math.floor(Math.random() * heroBackgrounds.length)
@@ -186,6 +188,10 @@ export default function HomeContainer() {
                 active={activeSection}
                 color={theme.circle}
                 textColor={theme.text}
+                onTransitionEnd={() => {
+                  console.log("Animación terminada");
+                  setIsTransitioning(false);
+                }}
               />
             )
           }
@@ -199,6 +205,7 @@ export default function HomeContainer() {
               }
               isOpen={isBottomOpen}
               onMenuClick={toggleBottom}
+              isTransitioning={isTransitioning}
             />
           }
         />

@@ -20,6 +20,7 @@ export default function VisualCircles({
   active = null,
   color = "#b9afaf",
   textColor = "#421b1e",
+  onTransitionEnd,
 }) {
 
   const navigate = useNavigate();
@@ -107,6 +108,7 @@ export default function VisualCircles({
           const delay = 1.5 + Math.abs(c.pos) * 0.3;
           const isActive = active === c.key && c.key !== null;
           const Logo = logos[c.key];
+          const isLastCircle = c.pos === 3;
 
           return (
             <g key={i}>
@@ -132,7 +134,15 @@ export default function VisualCircles({
                    "fill-opacity 0.5 cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease",
 
                   filter: isActive ? glow : "none",
-                }}
+                 }}
+                onAnimationEnd={(e) => {
+                  if (
+                    isLastCircle &&
+                    e.animationName.startsWith("waveMove")
+                  ) {
+                    onTransitionEnd?.();
+                  }
+                 }}
               />
 
               {isActive && Logo && (

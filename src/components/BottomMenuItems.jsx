@@ -26,6 +26,7 @@ const items = [
 export default function BottomMenuItems({
 
   onSelect,
+  disabled = false,
 
 }) {
   const [selected, setSelected] =
@@ -51,21 +52,26 @@ export default function BottomMenuItems({
       <Box
         key={item.label}
         onClick={() => {
-         
-          // 🔥 navegación
+
+          // Permitir siempre los enlaces
           if (item.isLink) {
             navigate(item.path);
             return;
           }
 
-          // 🔥 Grupo Valor
+          // Bloquear la interacción durante la animación inicial
+          if (disabled) {
+            return;
+          }
+
+          // Grupo Valor
           if (item.key === "default") {
             const nextExpanded =
               !isExpanded;
 
             setIsExpanded(nextExpanded);
 
-            // 🔥 cerrar menu
+            // cerrar menu
             if (!nextExpanded) {
               setSelected(null);
 
@@ -75,7 +81,7 @@ export default function BottomMenuItems({
             return;
           }
 
-          // 🔥 toggle submarcas
+          // toggle submarcas
           if (selected === item.key) {
             setSelected(null);
 
@@ -84,7 +90,7 @@ export default function BottomMenuItems({
             return;
           }
 
-          // 🔥 nueva selección
+          // nueva selección
           setSelected(item.key);
 
           onSelect?.(item.key);
@@ -95,9 +101,15 @@ export default function BottomMenuItems({
           px: 2,
           py: 0.5,
 
-          cursor: "pointer",
+          cursor:
+            disabled && !item.isLink
+              ? "default"
+              : "pointer",
 
-          opacity: 1,
+          opacity:
+            disabled && !item.isLink
+              ? 0.45
+              : 1,
 
           pointerEvents: "auto",
 
@@ -111,11 +123,12 @@ export default function BottomMenuItems({
             ? "primary.main"
             : "transparent",
 
-          transition:
-            "all 0.25s ease",
+          transition: "all 0.35s ease",
 
           "&:hover": {
-            borderColor: "primary.main",
+            borderColor: disabled && !item.isLink
+              ? "rgba(255,255,255,0.4)"
+              : "primary.main",
           },
         }}
       >
@@ -159,13 +172,13 @@ export default function BottomMenuItems({
         gap: 1.5,
       }}
         >
-      {/* 🔹 PROYECTOS */}
+      {/* PROYECTOS */}
       {!isMobile && renderChip(items[1])}
 
-      {/* 🔹 GRUPO VALOR */}
+      {/* GRUPO VALOR */}
       {renderChip(items[0])}
 
-      {/* 🔥 SUBMARCAS */}
+      {/* SUBMARCAS */}
       {isExpanded && (
         <Box
           sx={{
