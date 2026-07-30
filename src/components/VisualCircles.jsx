@@ -1,6 +1,11 @@
 import { Box } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import {
+  getHasPlayedHeroIntro,
+  setHasPlayedHeroIntro,
+} from "../utils/heroIntro";
 
 import LogoGV from "../assets/LogoGV.svg?react";
 import LogoAV from "../assets/LogoAV.svg?react";
@@ -16,44 +21,80 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+const circles = [
+  { pos: -3, key: "promotora" },
+  { pos: -2, key: "constructora" },
+  { pos: -1, key: "arquitectura" },
+  { pos: 0, key: "default" },
+  { pos: 1, key: "estrategia" },
+  { pos: 2, key: "banca" },
+  { pos: 3, key: null },
+];
+
+const logos = {
+  default: LogoGV,
+  arquitectura: LogoAV,
+  constructora: LogoCV,
+  promotora: LogoPV,
+  estrategia: LogoEV,
+  banca: LogoBV,
+};
+
+const companySlugs = {
+  default: "/nosotros",
+  arquitectura: "/empresas/arquitectura-valor",
+  constructora: "/empresas/constructora-valor",
+  promotora: "/empresas/promotora-valor",
+  estrategia: "/empresas/estrategia-valor",
+  banca: "/empresas/banca-valor",
+};
+
+
 export default function VisualCircles({
   active = null,
   color = "#b9afaf",
   textColor = "#421b1e",
   onTransitionEnd,
 }) {
-
   const navigate = useNavigate();
-  
   const circleColor = color;
 
-  const circles = [
-    { pos: -3, key: "promotora" },
-    { pos: -2, key: "constructora" },
-    { pos: -1, key: "arquitectura" },
-    { pos: 0, key: "default" },
-    { pos: 1, key: "estrategia" },
-    { pos: 2, key: "banca" },
-    { pos: 3, key: null },
-  ];
+  // "entered" controla si los círculos están desplegados en su
+  // posición de onda o colapsados en el centro (estado inicial).
+  // Arranca en false en CADA montaje y pasa a true un frame después,
+  // de modo que la transición transform 0 -> target SIEMPRE tenga
+  // un cambio real que animar, sin importar cuántas veces el
+  // componente se haya montado/desmontado antes ni en qué estado
+  // haya quedado la última vez. Esto reemplaza la dependencia de
+  // que un @keyframes "forwards" se mantenga vivo indefinidamente.
+  
+  
+  const [entered, setEntered] = useState(false);
+  const [playIntro, setPlayIntro] = useState(!getHasPlayedHeroIntro());
 
-  const logos = {
-    default: LogoGV,
-    arquitectura: LogoAV,
-    constructora: LogoCV,
-    promotora: LogoPV,
-    estrategia: LogoEV,
-    banca: LogoBV,
-  };
+  const hasFiredTransitionEnd = useRef(false);
 
-  const companySlugs = {
-    default: "/nosotros",
-    arquitectura: "/empresas/arquitectura-valor",
-    constructora: "/empresas/constructora-valor",
-    promotora: "/empresas/promotora-valor",
-    estrategia: "/empresas/estrategia-valor",
-    banca: "/empresas/banca-valor",
-  };
+  useEffect(() => {
+    hasFiredTransitionEnd.current = false;
+
+    if (!getHasPlayedHeroIntro()) {
+      setEntered(false);
+
+      const raf1 = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setEntered(true);
+          setHasPlayedHeroIntro(true);
+          setTimeout(() => {
+            onTransitionEnd?.();
+          }, 3900);
+        });
+      });
+
+      return () => cancelAnimationFrame(raf1);
+    }
+
+    setEntered(true);
+  }, []);
 
   const glow = `
     drop-shadow(0 0 6px ${hexToRgba(circleColor, 0.45)})
@@ -82,18 +123,6 @@ export default function VisualCircles({
           from: { opacity: 0 },
           to: { opacity: 1 },
         },
-
-        ...Object.fromEntries(
-          [-3, -2, -1, 1, 2, 3].map((pos) => [
-            `@keyframes waveMove-${pos}`,
-            {
-              "0%": { transform: "translateX(0)" },
-              "100%": {
-                transform: `translateX(${pos * 120}px)`,
-              },
-            },
-          ])
-        ),
       }}
     >
       <svg
@@ -103,15 +132,30 @@ export default function VisualCircles({
         preserveAspectRatio="xMidYMid meet"
       >
         {/* BASE */}
-
-        {circles.map((c, i) => {
+        {circles.map((c) => {
           const delay = 1.5 + Math.abs(c.pos) * 0.3;
-          const isActive = active === c.key && c.key !== null;
+          // "entered" se exige aquí a propósito: un círculo NUNCA debe
+          // poder pintarse relleno/activo mientras todavía está en
+          // camino a su posición. Si esto no estuviera, una carrera
+          // entre "active" resolviéndose y "entered" pasando a true
+          // deja un círculo con fillOpacity 1 pero transform: translateX(0),
+          // es decir, relleno y atascado en el centro (el bug reportado).
+          const isActive = entered && active === c.key && c.key !== null;
           const Logo = logos[c.key];
           const isLastCircle = c.pos === 3;
 
+          // La posición ya NO depende de un keyframe que corrió una
+          // vez: se recalcula en cada render a partir de "entered".
+          const targetX = entered ? c.pos * 120 : 0;
+
+          const breathAnimation = !entered
+            ? "none"
+            : c.pos === 0
+              ? "breath 4s ease-in-out infinite"
+              : `breath 4s ease-in-out infinite ${delay + 4}s`;
+
           return (
-            <g key={i}>
+            <g key={c.pos}>
               <circle
                 cx={800}
                 cy={300}
@@ -122,27 +166,30 @@ export default function VisualCircles({
                 strokeWidth={1}
                 style={{
                   transformOrigin: "800px 300px",
-                  animation:
-                    c.pos === 0
-                      ? "breath 4s ease-in-out infinite"
-                      : `
-                        waveMove-${c.pos} 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards ${delay}s,
-                        breath 4s ease-in-out infinite ${delay + 4}s
+                  transform: `translateX(${targetX}px)`,
+                 transition: playIntro
+                    ? `
+                        transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s,
+                        fill-opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.4s ease
+                      `
+                    : `
+                        fill-opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.4s ease
                       `,
-
-                  transition:
-                   "fill-opacity 0.5 cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease",
-
+                  animation: breathAnimation,
                   filter: isActive ? glow : "none",
-                 }}
-                onAnimationEnd={(e) => {
+                }}
+                onTransitionEnd={(e) => {
                   if (
                     isLastCircle &&
-                    e.animationName.startsWith("waveMove")
+                    e.propertyName === "transform" &&
+                    !hasFiredTransitionEnd.current
                   ) {
+                    hasFiredTransitionEnd.current = true;
                     onTransitionEnd?.();
                   }
-                 }}
+                }}
               />
 
               {isActive && Logo && (
@@ -170,8 +217,8 @@ export default function VisualCircles({
           );
         })}
 
-        {/*  OVERLAY */}
-        {active && (
+        {/* OVERLAY */}
+        {entered && active && (
           (() => {
             const c = circles.find((c) => c.key === active);
             if (!c) return null;
