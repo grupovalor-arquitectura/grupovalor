@@ -15,6 +15,11 @@ export default function TimelineTrackMobile({
         flexDirection: "column",
         gap: 5,
 
+        // Red de seguridad: si algún ancestro más arriba tiene el
+        // mismo problema de flex que arreglamos abajo, esto evita que
+        // el desborde se propague hasta la página.
+        overflowX: "hidden",
+        maxWidth: "100%",
       }}
     >
       {/* TIMELINE */}
@@ -25,6 +30,14 @@ export default function TimelineTrackMobile({
           height: 84,
           display: "flex",
           alignItems: "center",
+
+          // Este Box es hijo de un flex (el wrapper de arriba). Sin
+          // minWidth: 0, un flex item nunca se encoge por debajo del
+          // ancho intrínseco de su contenido — y el contenido de acá
+          // adentro (el track de nodos) es "width: max-content", muy
+          // ancho. Eso empujaba a este contenedor a estirarse y
+          // desbordar la página en vez de quedarse acotado a 100%.
+          minWidth: 0,
         }}
       >
         {/* Línea */}
@@ -42,9 +55,15 @@ export default function TimelineTrackMobile({
         <Box
           sx={{
             width: "100%",
+            minWidth: 0,
             overflowX: "auto",
             overflowY: "hidden",
             zIndex: 2,
+
+            // -webkit-overflow-scrolling: touch da inercia nativa en
+            // iOS Safari — sin esto, el scroll táctil se siente
+            // "duro" y puede cortarse a mitad de gesto.
+            WebkitOverflowScrolling: "touch",
 
             "&::-webkit-scrollbar": {
               display: "none",

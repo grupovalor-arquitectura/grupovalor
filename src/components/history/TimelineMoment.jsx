@@ -8,7 +8,9 @@ import {
 export default function TimelineMoment({ 
 
   moment, 
-  circleRef }) {
+  circleRef,
+  backgroundColor = "transparent",
+}) {
 
 
   const theme = useTheme();
@@ -21,6 +23,7 @@ export default function TimelineMoment({
     <Box
       sx={{
         width: "100%",
+        backgroundColor,
         height: {
           xs: "auto",
           md: "100vh",

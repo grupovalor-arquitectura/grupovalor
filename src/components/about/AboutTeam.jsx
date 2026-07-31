@@ -303,10 +303,9 @@ export default function AboutTeam({ team }) {
                         sx={{
                             width: {
                             xs: "100%",
-                            md: 220,
-                            },
+                            md: leader.id === 6 ? 600 : 220 },
 
-                            aspectRatio: "3 / 4",
+                            aspectRatio: leader.id === 6 ? "16 / 9" : "3 / 4",
 
                             objectFit: "cover",
 
@@ -342,6 +341,7 @@ export default function AboutTeam({ team }) {
                         },
 
                         lineHeight: 1.45,
+                        whiteSpace: "pre-line",
 
                         width: {
                             xs: "100%",

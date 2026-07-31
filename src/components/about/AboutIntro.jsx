@@ -4,8 +4,8 @@ export default function AboutIntro({ title, description }) {
   return (
     <Box
       sx={{
-        bgcolor: "background.default",
-        color: "primary.main",
+        bgcolor: "primary.main",
+        color: "background.default",
 
         px: {
           xs: 4,
@@ -26,7 +26,7 @@ export default function AboutIntro({ title, description }) {
         <Typography
           variant="h2"
           sx={{
-            color: "primary.main",
+            color: "background.default",
             mb: 4,
             lineHeight: 1,
             fontWeight: 700,
@@ -38,7 +38,7 @@ export default function AboutIntro({ title, description }) {
         <Typography
           variant="body1"
           sx={{
-            color: "primary.main",
+            color: "background.default",
             opacity: 0.9,
             lineHeight: 1.8,
           }}

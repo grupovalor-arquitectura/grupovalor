@@ -4,6 +4,7 @@ import { historyData } from "../../data/historyData";
 
 import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
+import TimelineNodeArrow from "./TimelineNodeArrow";
 
 export default function TimelineTrack({
   startAnchorRef,
@@ -126,8 +127,8 @@ export default function TimelineTrack({
           )
         )}
 
-        {/* NODO FINAL (disparador) — siempre en fill, sin año.
-            No participa de activeMilestone: su único trabajo es
+        {/* NODO FINAL (disparador) — en fill, con flecha en vez de
+            año. No participa de activeMilestone: su único trabajo es
             llevar al usuario al siguiente momento de la historia. */}
         {onEndNodeClick && (
           <Box
@@ -147,7 +148,9 @@ export default function TimelineTrack({
                 cursor: "pointer",
               }}
             >
-              <TimelineNode label="" active />
+              <TimelineNode active>
+                <TimelineNodeArrow />
+              </TimelineNode>
             </Box>
           </Box>
         )}

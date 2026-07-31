@@ -112,6 +112,14 @@ export default function HistoryTimeline({startRef}) {
   };
 
   const handleNext = () => {
+    // Estando en el último año, la flecha hace lo mismo que el nodo
+    // trigger: baja al siguiente momento. El índice no avanza, así
+    // que el contenido del último año sigue visible.
+    if (activeMilestone === timeline2Milestones.length - 1) {
+      scrollToBlock(futureBlockRef);
+      return;
+    }
+
     setActiveMilestone(prev =>
       Math.min(
         prev + 1,
@@ -127,6 +135,11 @@ export default function HistoryTimeline({startRef}) {
   };
 
   const handleNextStart = () => {
+    if (activeMilestoneStart === timeline1Milestones.length - 1) {
+      scrollToBlock(block2Ref);
+      return;
+    }
+
     setActiveMilestoneStart(prev =>
       Math.min(
         prev + 1,
@@ -203,6 +216,7 @@ export default function HistoryTimeline({startRef}) {
      <TimelineMoment
         moment={startMoment}
         circleRef={originMomentRef}
+        backgroundColor="background.default"
       />
 
     {!isMobile && (
@@ -287,10 +301,6 @@ export default function HistoryTimeline({startRef}) {
           zIndex: 30,
         }}
         direction="next"
-        disabled={
-          activeMilestoneStart ===
-          timeline1Milestones.length - 1
-        }
         onClick={handleNextStart}
       />
     </Box>
@@ -304,6 +314,23 @@ export default function HistoryTimeline({startRef}) {
           mt: "0vh",
         }}
       >
+
+        {/* Fondo claro del bloque de consolidación. Llega hasta la
+            línea de nodos (100vh del header + 33vh del track = 133vh),
+            que es justo donde empieza la imagen, así que no la tapa.
+            zIndex 0 lo deja por debajo de imagen (1), nodos (3) y
+            contenido (20). */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "133vh",
+            backgroundColor: "primary.main",
+            zIndex: 0,
+          }}
+        />
 
         <TimelineHeader
           moment={consolidationMoment}
@@ -360,10 +387,6 @@ export default function HistoryTimeline({startRef}) {
             zIndex: 30,
           }}
           direction="next"
-          disabled={
-            activeMilestone ===
-            timeline2Milestones.length - 1
-          }
           onClick={handleNext}
         />
     </Box>

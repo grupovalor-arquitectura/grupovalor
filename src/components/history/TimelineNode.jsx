@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 export default function TimelineNode({
   label,
   active = false,
+  children,
 }) {
   return (
     <Box
@@ -54,14 +55,18 @@ export default function TimelineNode({
     >
 
 
-      <Typography
-        sx={{
-          zIndex: 2,
-          fontWeight: 700,
-        }}
-      >
-        {label}
-      </Typography>
+      {children ? (
+        children
+      ) : (
+        <Typography
+          sx={{
+            zIndex: 2,
+            fontWeight: 700,
+          }}
+        >
+          {label}
+        </Typography>
+      )}
     </Box>
   );
 }
