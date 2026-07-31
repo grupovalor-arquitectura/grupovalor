@@ -67,6 +67,18 @@ export default function HistoryTimeline({startRef}) {
   const timeline2StartRef = useRef(null);
 
   const futureMomentRef = useRef(null);
+  const futureBlockRef = useRef(null);
+
+  // Los nodos finales de cada timeline llevan al siguiente momento
+  // de la historia. Usamos scrollIntoView con behavior smooth para
+  // que el desplazamiento se sienta continuo con el resto de la
+  // página, en vez de un salto.
+  const scrollToBlock = (ref) => {
+    ref.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   const tunnel1 = useTunnel({
     startRef: originMomentRef,
@@ -212,6 +224,8 @@ export default function HistoryTimeline({startRef}) {
       <TimelineTrackStart
         startAnchorRef={timeline1StartRef}
         activeMilestone={activeMilestoneStart}
+        onNodeClick={setActiveMilestoneStart}
+        onEndNodeClick={() => scrollToBlock(block2Ref)}
       />
 
       <TimelineContentStart
@@ -302,6 +316,8 @@ export default function HistoryTimeline({startRef}) {
           endRef={timeline2StartRef}
           milestones={timeline2Milestones}
           activeMilestone={activeMilestone}
+          onNodeClick={setActiveMilestone}
+          onEndNodeClick={() => scrollToBlock(futureBlockRef)}
         />
 
         <TimelineContent
@@ -354,10 +370,12 @@ export default function HistoryTimeline({startRef}) {
 
     {/* BLOQUE FUTURO */}
 
-    <TimelineMoment
-      moment={futureMoment}
-      circleRef={futureMomentRef}
-    />
+    <Box ref={futureBlockRef}>
+      <TimelineMoment
+        moment={futureMoment}
+        circleRef={futureMomentRef}
+      />
+    </Box>
   </Box>
 );
 }

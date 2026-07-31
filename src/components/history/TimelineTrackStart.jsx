@@ -9,6 +9,8 @@ export default function TimelineTrack({
   startAnchorRef,
   endRef,
   activeMilestone,
+  onNodeClick,
+  onEndNodeClick,
 }) {
   const NODE_SPACING = 160;
 
@@ -69,7 +71,7 @@ export default function TimelineTrack({
           left: anchorX,
 
           width:
-            timeline1Milestones.length *
+            (timeline1Milestones.length + 1) *
             NODE_SPACING,
 
           height: "100%",
@@ -99,15 +101,55 @@ export default function TimelineTrack({
                   NODE_SPACING,
               }}
             >
-              <TimelineNode
-                label={milestone.year}
-                active={
-                  index ===
-                  activeMilestone
-                }
-              />
+              {/* Al hacer click sólo cambiamos el índice activo: el
+                  desplazamiento hasta la posición pinneada (anchorX)
+                  ya lo resuelve el translateX del track, que se
+                  recalcula a partir de activeMilestone y anima con su
+                  propia transition. */}
+              <Box
+                onClick={() => {
+                  onNodeClick?.(index);
+                }}
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <TimelineNode
+                  label={milestone.year}
+                  active={
+                    index ===
+                    activeMilestone
+                  }
+                />
+              </Box>
             </Box>
           )
+        )}
+
+        {/* NODO FINAL (disparador) — siempre en fill, sin año.
+            No participa de activeMilestone: su único trabajo es
+            llevar al usuario al siguiente momento de la historia. */}
+        {onEndNodeClick && (
+          <Box
+            sx={{
+              position: "absolute",
+
+              top: "calc(33vh - 42px)",
+
+              left:
+                timeline1Milestones.length *
+                NODE_SPACING,
+            }}
+          >
+            <Box
+              onClick={onEndNodeClick}
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              <TimelineNode label="" active />
+            </Box>
+          </Box>
         )}
       </Box>
     </Box>

@@ -12,6 +12,7 @@ export default function TimelineTrack({
   milestones,
   activeMilestone,
   onNodeClick,
+  onEndNodeClick,
 }) {
 
   const theme = useTheme();
@@ -38,16 +39,8 @@ export default function TimelineTrack({
     : trackOffset;
 
   const bind = useDrag(({ movement: [mx] }) => {
-    console.log(mx);
-
-   setDragOffset(mx * 10);
+    setDragOffset(mx * 10);
   });
-
-  console.log({
-  trackOffset,
-  dragOffset,
-  currentOffset,
-});
 
   return (
     <Box
@@ -98,7 +91,7 @@ export default function TimelineTrack({
           left: 0,
 
           width:
-            milestones.length *
+            (milestones.length + 1) *
             NODE_SPACING,
 
           height: "100%",
@@ -147,6 +140,35 @@ export default function TimelineTrack({
               </Box>
             </Box>
           )
+        )}
+
+        {/* NODO FINAL (disparador) — siempre en fill, sin año.
+            No participa de activeMilestone: su único trabajo es
+            llevar al usuario al siguiente momento de la historia. */}
+        {onEndNodeClick && (
+          <Box
+            sx={{
+              position: "absolute",
+
+              top: {
+                xs: 58,
+                md: "calc(33vh - 42px)",
+              },
+
+              left:
+                milestones.length *
+                NODE_SPACING,
+            }}
+          >
+            <Box
+              onClick={onEndNodeClick}
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              <TimelineNode label="" active />
+            </Box>
+          </Box>
         )}
       </Box>
     </Box>
