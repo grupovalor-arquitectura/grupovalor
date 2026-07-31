@@ -30,7 +30,7 @@ export default function HomeContentPanel({
         transform: "translateY(-50%)",
         left: 0,
         right: 0,
-        px: { xs: 2, md: 4 },
+        px: { xs: 2, md: 7 },
         display: "flex",
         justifyContent: "flex-end",
         pointerEvents: "none",
