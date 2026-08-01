@@ -22,11 +22,17 @@ export default function TimelineTrack({
     theme.breakpoints.down("md")
   );
 
+  // Mismo criterio que TimelineTrackStart: el 32% de escritorio deja
+  // demasiado hueco en anchos tipo iPad (900-1200px).
+  const isTablet = useMediaQuery(
+    theme.breakpoints.between("md", "lg")
+  );
+
   const NODE_SPACING = isMobile ? 120 : 160;
 
   const anchorX = isMobile
     ? window.innerWidth * 0.1
-    : window.innerWidth * 0.318;
+    : window.innerWidth * (isTablet ? 0.10 : 0.318);
 
   const trackOffset =
     anchorX -

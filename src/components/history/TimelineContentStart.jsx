@@ -13,9 +13,22 @@ export default function TimelineContentStart({
         position: "absolute",
         top: {
           xs: "130vh",
-          md: "160vh",
+          // El panel debe quedar 200px por encima de donde en
+          // realidad tiene que arrancar la línea (por el mt:-200px
+          // de más abajo), así que sumamos esos 200px al punto real
+          // donde termina el nodo: 88vh (55vh momento + 33vh fila de
+          // nodos) + 42px (mitad del nodo, 84px) + 200px = 88vh+242px.
+          md: "calc(88vh + 242px)",
+          lg: "160vh",
         },
-        left: `calc(31.8% + 42px)`,  
+        // Mismo criterio que el resto del layout (10% en tablet,
+        // 31.8% en desktop real) — antes este 31.8% quedaba fijo sin
+        // importar el ancho, y en tablet el texto se desalineaba del
+        // círculo/túnel igual que nos había pasado con el túnel.
+        left: {
+          md: "calc(10% + 42px)",
+          lg: "calc(31.8% + 42px)",
+        },
         width: 320,
         zIndex: 20,
     }}

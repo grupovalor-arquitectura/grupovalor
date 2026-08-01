@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import { historyData } from "../../data/historyData";
 
@@ -15,8 +16,17 @@ export default function TimelineTrack({
 }) {
   const NODE_SPACING = 160;
 
+  const theme = useTheme();
+
+  // Rango "tablet": entre md (900px) y lg (1200px). El 32% que se usa
+  // en escritorio real deja un hueco enorme en anchos como el de un
+  // iPad (1024px) — ahí usamos un porcentaje bastante más chico.
+  const isTablet = useMediaQuery(
+    theme.breakpoints.between("md", "lg")
+  );
+
   const anchorX =
-    window.innerWidth * 0.318;
+    window.innerWidth * (isTablet ? 0.10 : 0.318);
 
   const timeline1Section =
   historyData.sections.find(

@@ -85,13 +85,20 @@ export default function TimelineHeader({
       backgroundColor,
       height: {
         xs: "70vh",
-        md: "100vh",
+        md: "55vh",
+        lg: "100vh",
       },
       display: "flex",
       alignItems: "center",
       pl: {
         xs: 4,
-        md: "32%",
+        md: "10%",
+        lg: "32%",
+      },
+      pt: {
+        xs: 0,
+        md: 10,
+        lg: 0,
       },
 
       
