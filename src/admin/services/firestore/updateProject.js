@@ -4,6 +4,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../../../firebase/firestore";
+import saveWithVersion from "../../../services/saveWithVersion";
 
 export default async function updateProject(project) {
   if (!project?.id) {
@@ -16,5 +17,8 @@ export default async function updateProject(project) {
     String(project.id)
   );
 
-  await updateDoc(projectRef, project);
+  // Mismo caso que createProject: envolvemos el updateDoc con
+  // saveWithVersion para que la edición bumpee config/website.version
+  // y el sitio público sepa que debe refrescar su cache.
+  return saveWithVersion(() => updateDoc(projectRef, project));
 }

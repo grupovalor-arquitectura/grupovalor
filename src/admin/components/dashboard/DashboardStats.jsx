@@ -43,14 +43,21 @@ function StatCard({ title, value }) {
 export default function DashboardStats() {
   const {
     projects,
-    archiveProjects,
   } = useProjects();
+
+  const saleCount = projects.filter((project) =>
+    project.filters?.includes("sale")
+  ).length;
+
+  const constructionCount = projects.filter((project) =>
+    project.filters?.includes("construction")
+  ).length;
 
   return (
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: "repeat(3, 1fr)",
         gap: 4,
         mb: 8,
       }}
@@ -61,8 +68,13 @@ export default function DashboardStats() {
       />
 
       <StatCard
-        title="Total Archivo"
-        value={archiveProjects.length}
+        title="En venta | Renta"
+        value={saleCount}
+      />
+
+      <StatCard
+        title="En construcción"
+        value={constructionCount}
       />
     </Box>
   );

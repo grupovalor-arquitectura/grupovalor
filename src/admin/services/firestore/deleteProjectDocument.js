@@ -4,6 +4,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../../../firebase/firestore";
+import saveWithVersion from "../../../services/saveWithVersion";
 
 export default async function deleteProjectDocument(project) {
   if (!project?.id) {
@@ -16,5 +17,5 @@ export default async function deleteProjectDocument(project) {
     String(project.id)
   );
 
-  await deleteDoc(projectRef);
+  return saveWithVersion(() => deleteDoc(projectRef));
 }

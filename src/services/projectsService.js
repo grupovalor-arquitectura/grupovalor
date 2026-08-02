@@ -32,8 +32,9 @@ export async function getProjects() {
       })
     );
 
-  
-    return projects.sort((a, b) => a.order - b.order);
+    // Orden descendente: el proyecto con el order más alto (el más
+    // reciente) se muestra primero. Decisión del cliente.
+    return projects.sort((a, b) => b.order - a.order);
   } catch (error) {
     console.error("Error obteniendo proyectos:", error);
     throw error;

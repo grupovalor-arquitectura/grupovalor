@@ -9,7 +9,6 @@ import {
 
 
 import { getProjects } from "../services/projectsService";
-import { getArchive } from "../services/archiveService";
 import { getSiteConfig } from "../services/siteConfigService";
 import { getCompanies } from "../services/companiesService";
 import { getHomeContent } from "../services/homeService";
@@ -20,7 +19,6 @@ import { getFooter } from "../services/footerService";
 const ProjectsContext = createContext();
 
 const PROJECTS_KEY = "gv_projects";
-const ARCHIVE_KEY = "gv_archive";
 const VERSION_KEY = "gv_site_version";
 const COMPANIES_KEY = "gv_companies";
 
@@ -30,7 +28,6 @@ const FOOTER_KEY = "gv_footer";
 
 export function ProjectsProvider({ children }) {
   const [projects, setProjects] = useState([]);
-  const [archiveProjects, setArchiveProjects] = useState([]);
   const [companies, setCompanies] = useState([]);
 
   const [home, setHome] = useState(null);
@@ -47,32 +44,38 @@ export function ProjectsProvider({ children }) {
       try {
         // Leer cache
         const cachedProjects = localStorage.getItem(PROJECTS_KEY);
-        const cachedArchive = localStorage.getItem(ARCHIVE_KEY);
         const cachedCompanies = localStorage.getItem(COMPANIES_KEY);
 
         const cachedHome = localStorage.getItem(HOME_KEY);
         const cachedAbout = localStorage.getItem(ABOUT_KEY);
         const cachedFooter = localStorage.getItem(FOOTER_KEY);
 
-        const hasCache =
+        // Cada pieza se hidrata de forma independiente, sin depender de
+        // que las demás keys también existan.
+        if (cachedProjects) setProjects(JSON.parse(cachedProjects));
+        if (cachedCompanies) setCompanies(JSON.parse(cachedCompanies));
+        if (cachedHome) setHome(JSON.parse(cachedHome));
+        if (cachedAbout) setAbout(JSON.parse(cachedAbout));
+        if (cachedFooter) setFooter(JSON.parse(cachedFooter));
+
+        const hasAnyCache = Boolean(
+          cachedProjects ||
+            cachedCompanies ||
+            cachedHome ||
+            cachedAbout ||
+            cachedFooter
+        );
+
+        const hasFullCache = Boolean(
           cachedProjects &&
-          cachedArchive &&
-          cachedCompanies &&
-          cachedHome &&
-          cachedAbout &&
-          cachedFooter;
+            cachedCompanies &&
+            cachedHome &&
+            cachedAbout &&
+            cachedFooter
+        );
 
-        // Mostrar cache inmediatamente
-        if (hasCache) {
-
-          setProjects(JSON.parse(cachedProjects));
-          setArchiveProjects(JSON.parse(cachedArchive));
-          setCompanies(JSON.parse(cachedCompanies));
-
-          setHome(JSON.parse(cachedHome));
-          setAbout(JSON.parse(cachedAbout));
-          setFooter(JSON.parse(cachedFooter));
-
+        // Mostrar cache inmediatamente (lo que exista)
+        if (hasAnyCache) {
           setLoading(false);
         }
        
@@ -82,7 +85,7 @@ export function ProjectsProvider({ children }) {
         const cachedVersion = localStorage.getItem(VERSION_KEY);
 
         
-       if (cachedVersion === currentVersion && hasCache) {
+       if (cachedVersion === currentVersion && hasFullCache) {
           setLoading(false);
           return;
         }
@@ -101,33 +104,25 @@ export function ProjectsProvider({ children }) {
         setHome(homeData);
         setFooter(footerData);
 
-        if (!hasCache) {
+        if (!hasAnyCache) {
             setLoading(false);
           }
 
         const [
           projectsData,
-          archiveData,
           aboutData,
         ] = await Promise.all([
           getProjects(),
-          getArchive(),
           getAboutContent(),
         ]);
 
         setProjects(projectsData);
-        setArchiveProjects(archiveData);
         setAbout(aboutData);
 
         
         localStorage.setItem(
           PROJECTS_KEY,
           JSON.stringify(projectsData)
-        );
-
-        localStorage.setItem(
-          ARCHIVE_KEY,
-          JSON.stringify(archiveData)
         );
 
         localStorage.setItem(
@@ -181,14 +176,12 @@ export function ProjectsProvider({ children }) {
 
       const [
         projectsData,
-        archiveData,
         companiesData,
         homeData,
         aboutData,
         footerData,
       ] = await Promise.all([
         getProjects(),
-        getArchive(),
         getCompanies(),
         getHomeContent(),
         getAboutContent(),
@@ -196,7 +189,6 @@ export function ProjectsProvider({ children }) {
       ]);
 
       setProjects(projectsData);
-      setArchiveProjects(archiveData);
       setCompanies(companiesData);
 
       setHome(homeData);
@@ -206,11 +198,6 @@ export function ProjectsProvider({ children }) {
       localStorage.setItem(
         PROJECTS_KEY,
         JSON.stringify(projectsData)
-      );
-
-      localStorage.setItem(
-        ARCHIVE_KEY,
-        JSON.stringify(archiveData)
       );
 
       localStorage.setItem(
@@ -248,7 +235,6 @@ export function ProjectsProvider({ children }) {
 
   const value = {
     projects,
-    archiveProjects,
     featuredProjects,
     companies,
     home,

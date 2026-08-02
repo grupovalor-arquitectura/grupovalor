@@ -13,14 +13,6 @@ const filters = [
     label: "En venta | Renta",
   },
   {
-    id: "construction",
-    label: "En construcción",
-  },
-  {
-    id: "planning",
-    label: "En estructuración",
-  },
-  {
     id: "history",
     label: "Históricos",
   },
