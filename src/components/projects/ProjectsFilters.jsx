@@ -23,7 +23,7 @@ export default function ProjectsFilters({
   onChange,
 }) {
   const [hovered, setHovered] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const renderChip = (filter, isTrigger = false) => {
     const active = isTrigger

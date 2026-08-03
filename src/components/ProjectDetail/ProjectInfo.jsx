@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectInfo({ project }) {
@@ -51,7 +52,7 @@ export default function ProjectInfo({ project }) {
     };
     }, []);
 
-  const rows = [
+  const rawRows = [
     {
       label: "Ubicación",
       value: project.location,
@@ -88,11 +89,17 @@ export default function ProjectInfo({ project }) {
         >
           {project.website.label}
         </Link>
-      ) : (
-        "-"
-      ),
+      ) : null,
     },
   ];
+
+  // Cualquier campo sin dato (null, undefined, o string vacío) se
+  // excluye por completo en vez de mostrar la fila con un guion.
+  const rows = rawRows.filter((row) => {
+    if (row.value === null || row.value === undefined) return false;
+    if (typeof row.value === "string" && row.value.trim() === "") return false;
+    return true;
+  });
 
  return (
   <Box
@@ -123,7 +130,7 @@ export default function ProjectInfo({ project }) {
 
         gap: {
           xs: 4,
-          md: 10,
+          md: 33,
         },
       }}
     >
@@ -181,7 +188,7 @@ export default function ProjectInfo({ project }) {
 
             fontSize: {
               xs: "1rem",
-              md: "1rem",
+              md: "1.5rem",
             },
 
             whiteSpace: "pre-line",

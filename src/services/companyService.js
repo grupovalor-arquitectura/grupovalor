@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 
-const firestoreIdMap = {
+export const firestoreIdMap = {
   "arquitectura-valor": "arquitecturaValor",
   "constructora-valor": "constructoraValor",
   "promotora-valor": "promotoraValor",
