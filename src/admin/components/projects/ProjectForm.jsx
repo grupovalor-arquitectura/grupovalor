@@ -22,6 +22,7 @@ export default function ProjectForm({
   onChange,
   onWebsiteChange,
   onCoverSelect,
+  onDeleteCoverImage,
   onGallerySelect,
   onSave,
   onCancel,
@@ -41,13 +42,18 @@ export default function ProjectForm({
 
     const typeOptions = [
         { value: "Mixto", label: "Mixto" },
+        { value: "Comercio", label: "Comercio" },
         { value: "Residencial", label: "Residencial" },
         { value: "Vivienda", label: "Vivienda" },
         { value: "Vivienda VIS", label: "Vivienda VIS" },
+        { value: "Vivienda para renta", label: "Vivienda para renta" },
         { value: "Club Residencial", label: "Club Residencial" },
         { value: "Co-living", label: "Co-living" },
         { value: "Desarrollo de uso mixto", label: "Desarrollo de uso mixto" },
         { value: "Remodelación Residencial", label: "Remodelación Residencial" },
+        { value: "Institucional", label: "Institucional" },
+        { value: "Bienestar", label: "Bienestar" },
+        { value: "Desarrollo Hotelero", label: "Desarrollo Hotelero" },
     ];
 
     const statusOptions = [
@@ -59,8 +65,6 @@ export default function ProjectForm({
 
     const filterOptions = [
         { value: "sale", label: "En venta | Renta" },
-        { value: "construction", label: "En construcción" },
-        { value: "planning", label: "En estructuración" },
         { value: "history", label: "Históricos" },
     ];
 
@@ -126,6 +130,12 @@ return (
                 label="Ubicación"
                 value={formData.location}
                 onChange={(value) => onChange("location", value)}
+            />
+
+            <AdminTextField
+                label="Tamaño"
+                value={formData.tamaño}
+                onChange={(value) => onChange("tamaño", value)}
             />
 
             <AdminSelect
@@ -263,24 +273,46 @@ return (
         }}
     >
         {(coverFile || formData.coverImage) ? (
-            <Box
-                component="img"
-                src={
-                coverFile
-                    ? URL.createObjectURL(coverFile)
-                    : formData.coverImage
-                }
-                alt="Portada"
-                sx={{
-                width: "100%",
-                aspectRatio: "16 / 10",
-                objectFit: "cover",
-                borderRadius: 2,
-                border: "1px solid",
-                borderColor: "divider",
-                bgcolor: "grey.100",
-                }}
-            />
+            <Box sx={{ position: "relative" }}>
+                <Box
+                    component="img"
+                    src={
+                    coverFile
+                        ? URL.createObjectURL(coverFile)
+                        : formData.coverImage
+                    }
+                    alt="Portada"
+                    sx={{
+                    width: "100%",
+                    aspectRatio: "16 / 10",
+                    objectFit: "cover",
+                    borderRadius: 2,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    bgcolor: "grey.100",
+                    display: "block",
+                    }}
+                />
+
+                <Button
+                    variant="contained"
+                    color="error"
+                    size="small"
+                    onClick={onDeleteCoverImage}
+                    sx={{
+                    position: "absolute",
+                    top: 8,
+                    right: 8,
+                    minWidth: 36,
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    p: 0,
+                    }}
+                >
+                    ×
+                </Button>
+            </Box>
             ) : (
             <Box
                 sx={{

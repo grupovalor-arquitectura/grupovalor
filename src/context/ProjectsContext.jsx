@@ -163,7 +163,12 @@ export function ProjectsProvider({ children }) {
   }, []);
 
   const featuredProjects = useMemo(
-    () => projects.filter((project) => project.featured),
+    () =>
+      projects
+        .filter((project) => project.featured)
+        .sort(
+          (a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0)
+        ),
     [projects]
   );
 

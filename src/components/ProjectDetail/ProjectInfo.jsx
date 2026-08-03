@@ -6,7 +6,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectInfo({ project }) {
@@ -130,7 +129,7 @@ export default function ProjectInfo({ project }) {
 
         gap: {
           xs: 4,
-          md: 33,
+          md: 16,
         },
       }}
     >
@@ -188,7 +187,7 @@ export default function ProjectInfo({ project }) {
 
             fontSize: {
               xs: "1rem",
-              md: "1.5rem",
+              md: "1rem",
             },
 
             whiteSpace: "pre-line",
@@ -203,7 +202,17 @@ export default function ProjectInfo({ project }) {
 
         {/* Información */}
 
-        <Box sx={{ mt: 8 }}>
+        <Box
+          sx={{
+            mt: 8,
+
+            maxWidth: {
+              md: 480,
+              lg: 540,
+              xl: 600,
+            },
+          }}
+        >
           {rows.map((row, index) => (
             <Box key={row.label}>
               <Box

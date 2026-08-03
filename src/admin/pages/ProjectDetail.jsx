@@ -1,4 +1,3 @@
-
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -8,6 +7,7 @@ import saveProject from "../services/saveProject";
 import saveWithVersion from "../../services/saveWithVersion";
 
 import ProjectForm from "../components/projects/ProjectForm";
+import ConfirmDialog from "../components/ui/ConfirmDialog";
 import generateSlug from "../utils/generateSlug";
 
 const emptyProject = {
@@ -77,6 +77,11 @@ export default function ProjectDetail() {
     setCoverFile(file);
   };
 
+  const handleDeleteCoverImage = () => {
+    setCoverFile(null);
+    setFormData((prev) => ({ ...prev, coverImage: null }));
+  };
+
   const handleGallerySelect = (files) => {
     setGalleryFiles((prev) => [...prev, ...files]);
   };
@@ -94,7 +99,9 @@ export default function ProjectDetail() {
     );
   };
 
-  const handleSave = async () => {
+  const [duplicateProject, setDuplicateProject] = useState(null);
+
+  const performSave = async () => {
     try {
       setSaving(true);
 
@@ -126,6 +133,29 @@ export default function ProjectDetail() {
     }
   };
 
+  const handleSave = () => {
+    const slug = generateSlug(formData.title);
+
+    // Cualquier otro proyecto (id distinto) que ya tenga este mismo
+    // slug. No bloquea el guardado — Meraki ya comparte slug a
+    // propósito — pero avisa antes de crear un duplicado por accidente.
+    const duplicate = projects.find(
+      (item) => item.slug === slug && item.id !== formData.id
+    );
+
+    if (duplicate) {
+      setDuplicateProject(duplicate);
+      return;
+    }
+
+    performSave();
+  };
+
+  const handleConfirmDuplicate = () => {
+    setDuplicateProject(null);
+    performSave();
+  };
+
   useEffect(() => {
     if (isNew) {
       setOriginalProject(emptyProject);
@@ -139,20 +169,34 @@ export default function ProjectDetail() {
   
 
   return (
-    <ProjectForm
-      formData={formData}
-      coverFile={coverFile}
-      galleryFiles={galleryFiles}
-      saving={saving}
-      isNew={isNew}
-      onChange={handleChange}
-      onWebsiteChange={handleWebsiteChange}
-      onCoverSelect={handleCoverSelect}
-      onGallerySelect={handleGallerySelect}
-      onSave={handleSave}
-      onCancel={() => navigate("/admin/projects")}
-      onDeleteGalleryImage={handleDeleteGalleryImage}
-      onDeleteNewGalleryImage={handleDeleteNewGalleryImage}
-    />
+    <>
+      <ProjectForm
+        formData={formData}
+        coverFile={coverFile}
+        galleryFiles={galleryFiles}
+        saving={saving}
+        isNew={isNew}
+        onChange={handleChange}
+        onWebsiteChange={handleWebsiteChange}
+        onCoverSelect={handleCoverSelect}
+        onDeleteCoverImage={handleDeleteCoverImage}
+        onGallerySelect={handleGallerySelect}
+        onSave={handleSave}
+        onCancel={() => navigate("/admin/projects")}
+        onDeleteGalleryImage={handleDeleteGalleryImage}
+        onDeleteNewGalleryImage={handleDeleteNewGalleryImage}
+      />
+
+      <ConfirmDialog
+        open={Boolean(duplicateProject)}
+        title="Nombre de proyecto duplicado"
+        message={`Ya existe un proyecto con este mismo nombre/slug: "${duplicateProject?.title}" (slug: "${duplicateProject?.slug}"). Si continúas, los dos proyectos van a compartir la misma URL pública en /proyectos/${duplicateProject?.slug}. ¿Guardar de todas formas?`}
+        confirmText="Guardar de todas formas"
+        cancelText="Cancelar"
+        loading={saving}
+        onConfirm={handleConfirmDuplicate}
+        onClose={() => setDuplicateProject(null)}
+      />
+    </>
   );
 }

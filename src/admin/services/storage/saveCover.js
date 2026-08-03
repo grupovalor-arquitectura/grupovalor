@@ -3,24 +3,29 @@ import uploadImage from "./uploadImage";
 
 export default async function saveCover({
   project,
+  originalProject,
   coverFile,
 }) {
-  // No cambió la portada
-  if (!coverFile) {
-    return project.coverImage;
+  // Se subió un archivo nuevo: reemplaza cualquier portada anterior.
+  if (coverFile) {
+    if (originalProject?.coverImage) {
+      await deleteImage(originalProject.coverImage);
+    }
+
+    return await uploadImage({
+      file: coverFile,
+      folder: `images/${project.slug}`,
+      fileName: "cover",
+    });
   }
 
-  // Eliminar portada anterior
-  if (project.coverImage) {
-    await deleteImage(project.coverImage);
+  // No hay archivo nuevo, pero la portada se borró explícitamente desde
+  // el form (formData.coverImage quedó vacío comparado con la original).
+  if (!project.coverImage && originalProject?.coverImage) {
+    await deleteImage(originalProject.coverImage);
+    return null;
   }
 
-  // Subir nueva portada
-  const coverUrl = await uploadImage({
-    file: coverFile,
-    folder: `images/${project.slug}`,
-    fileName: "cover",
-  });
-
-  return coverUrl;
+  // Sin cambios.
+  return project.coverImage;
 }

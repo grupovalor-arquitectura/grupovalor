@@ -10,7 +10,7 @@ import getNextProjectOrder from "./firestore/getNextProjectOrder";
 /**
  * Guarda un proyecto.
  *
- * - Sube portada si cambió.
+ * - Sube portada si cambió, o la borra si se quitó sin reemplazo.
  * - Sincroniza la galería.
  * - Actualiza Firestore.
  */
@@ -41,6 +41,7 @@ export default async function saveProject({
 
   data.coverImage = await saveCover({
     project,
+    originalProject,
     coverFile,
   });
 

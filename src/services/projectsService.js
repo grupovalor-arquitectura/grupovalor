@@ -1,21 +1,11 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../firebase/firebase";
+import { resolveImage } from "./resolveImage";
 
-async function resolveImage(path) {
-  if (!path) return "";
-
-  try {
-    return await getDownloadURL(ref(storage, path));
-  } catch (error) {
-    console.error(`No se pudo resolver la imagen: ${path}`, error);
-    return "";
-  }
-}
-
+// Usado por Home (destacados) y el dashboard admin, donde sí hace falta
+// la lista completa. La vitrina pública /proyectos ya NO usa esta
+// función — usa getProjectsPage() en su lugar (ver projectsPageService.js).
 export async function getProjects() {
-
   try {
     const snapshot = await getDocs(collection(db, "projects"));
 
@@ -26,14 +16,13 @@ export async function getProjects() {
         return {
           ...project,
           coverImage: await resolveImage(project.coverImage),
-          gallery: await Promise.all((project.gallery ?? []).map(resolveImage)
-),
+          gallery: await Promise.all(
+            (project.gallery ?? []).map(resolveImage)
+          ),
         };
       })
     );
 
-    // Orden descendente: el proyecto con el order más alto (el más
-    // reciente) se muestra primero. Decisión del cliente.
     return projects.sort((a, b) => b.order - a.order);
   } catch (error) {
     console.error("Error obteniendo proyectos:", error);
