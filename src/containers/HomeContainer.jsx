@@ -18,9 +18,9 @@ import { getHasPlayedHeroIntro } from "../utils/heroIntro";
 import { useMediaQuery } from "@mui/material";
 import VisualCirclesMobile from "../components/VisualCirclesMobile";
 
-import Fondo1 from "../assets/33DC-AEREAGENERAL.png";
-import Fondo2 from "../assets/wacari.png"
-import Fondo3 from "../assets/escritorio.png"
+import Fondo1 from "../assets/33DC-AEREAGENERAL.webp";
+import Fondo2 from "../assets/wacari.webp";
+import Fondo3 from "../assets/escritorio.webp";
 
 import useMenu from "../hooks/useMenu";
 
@@ -66,34 +66,35 @@ export default function HomeContainer() {
 
   // Independiente del preload de las 3 candidatas (que solo controla
   // activeSection). Este es específico de LA imagen que realmente se
-  // va a mostrar, y es lo que sincroniza que el fondo y los círculos
-  // aparezcan juntos en vez de que los círculos se vean "solos" mientras
-  // la foto todavía está bajando por red.
+  // va a mostrar, y sincroniza que el fondo y los círculos aparezcan
+  // juntos. Tiene un timeout de seguridad: si por lo que sea el evento
+  // de carga nunca llega, igual se muestra a los 2.5s en vez de
+  // quedarse bloqueado para siempre.
   const [heroLoaded, setHeroLoaded] = useState(false);
 
   useEffect(() => {
-    // Preload con prioridad alta: le pide al navegador que baje esta
-    // imagen lo antes posible, en vez de competir con el resto de
-    // recursos de la página en orden de aparición normal.
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = heroImage;
-    link.fetchPriority = "high";
-    document.head.appendChild(link);
+    let settled = false;
+
+    const markLoaded = () => {
+      if (settled) return;
+      settled = true;
+      setHeroLoaded(true);
+    };
 
     const img = new Image();
+
+    // onload/onerror se asignan ANTES de fijar src — si se hace al
+    // revés, una imagen ya cacheada puede terminar de cargar en el
+    // instante entre asignar src y poner el onload, perdiendo el
+    // evento por completo.
+    img.onload = markLoaded;
+    img.onerror = markLoaded;
     img.src = heroImage;
 
-    if (img.complete) {
-      setHeroLoaded(true);
-    } else {
-      img.onload = () => setHeroLoaded(true);
-      img.onerror = () => setHeroLoaded(true);
-    }
+    const safetyTimeout = setTimeout(markLoaded, 2500);
 
     return () => {
-      document.head.removeChild(link);
+      clearTimeout(safetyTimeout);
     };
   }, [heroImage]);
 

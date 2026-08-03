@@ -22,10 +22,10 @@ import sharp from "sharp";
 // ==========================
 
 const INPUT_DIR =
-  "C:\\Users\\saraa\\OneDrive\\Documents\\Proyectos\\02_Externos\\Felipe\\Grupo Valor\\01_Assets\\site_fotos";
+  "C:\\Users\\saraa\\OneDrive\\Documents\\Proyectos\\02_Externos\\Felipe\\Grupo Valor\\01_Assets\\fondos";
 
 const OUTPUT_DIR =
-  "C:\\Users\\saraa\\OneDrive\\Documents\\Proyectos\\02_Externos\\Felipe\\Grupo Valor\\01_Assets\\site_fotos_optimizado";
+  "C:\\Users\\saraa\\OneDrive\\Documents\\Proyectos\\02_Externos\\Felipe\\Grupo Valor\\01_Assets\\fondos";
 
 const MAX_DIMENSION = 2400; // px, lado más largo. No agranda imágenes chicas.
 const FORMAT = "webp"; // "webp" | "jpeg"
