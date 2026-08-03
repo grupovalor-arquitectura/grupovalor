@@ -4,6 +4,17 @@ import gsap from "gsap";
 
 import { useProjects } from "../context/ProjectsContext";
 
+// Escala global del loader. 1 = tamaño original. Baja este número para
+// achicarlo (ej. 0.6 = 60% del tamaño original), todo lo demás se
+// recalcula proporcionalmente.
+const SCALE = 0.6;
+
+const CIRCLE_SIZE = 100 * SCALE;
+const CIRCLE_OFFSET = -85 * SCALE;
+const CONTAINER_WIDTH = 900 * SCALE;
+const CONTAINER_HEIGHT = 220 * SCALE;
+const OPEN = [-100, -50, 0, 50, 100].map((v) => v * SCALE);
+
 export default function GlobalLoader() {
 
   const { loading } = useProjects();
@@ -19,8 +30,6 @@ export default function GlobalLoader() {
 
     const ctx = gsap.context(() => {
         const circles = gsap.utils.toArray(".loader-circle");
-
-        const OPEN = [-100, -50, 0, 50, 100];
 
         gsap.set(circles, {
         x: 0,
@@ -66,8 +75,8 @@ export default function GlobalLoader() {
       <Box
         sx={{
           position: "relative",
-          width: 900,
-          height: 220,
+          width: CONTAINER_WIDTH,
+          height: CONTAINER_HEIGHT,
         }}
       >
         {Array.from({ length: 5 }).map((_, i) => (
@@ -80,11 +89,11 @@ export default function GlobalLoader() {
               left: "50%",
               top: "50%",
 
-              width: 100,
-              height: 100,
+              width: CIRCLE_SIZE,
+              height: CIRCLE_SIZE,
 
-              marginLeft: "-85px",
-              marginTop: "-85px",
+              marginLeft: `${CIRCLE_OFFSET}px`,
+              marginTop: `${CIRCLE_OFFSET}px`,
 
               borderRadius: "50%",
               border: "1.5px solid",

@@ -64,6 +64,39 @@ export default function HomeContainer() {
     ];
   });
 
+  // Independiente del preload de las 3 candidatas (que solo controla
+  // activeSection). Este es específico de LA imagen que realmente se
+  // va a mostrar, y es lo que sincroniza que el fondo y los círculos
+  // aparezcan juntos en vez de que los círculos se vean "solos" mientras
+  // la foto todavía está bajando por red.
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    // Preload con prioridad alta: le pide al navegador que baje esta
+    // imagen lo antes posible, en vez de competir con el resto de
+    // recursos de la página en orden de aparición normal.
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = heroImage;
+    link.fetchPriority = "high";
+    document.head.appendChild(link);
+
+    const img = new Image();
+    img.src = heroImage;
+
+    if (img.complete) {
+      setHeroLoaded(true);
+    } else {
+      img.onload = () => setHeroLoaded(true);
+      img.onerror = () => setHeroLoaded(true);
+    }
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [heroImage]);
+
   const muiTheme = useTheme();
 
   const theme =
@@ -153,7 +186,7 @@ export default function HomeContainer() {
           backgroundSize: "cover",
           backgroundPosition: "center",
 
-          opacity: heroImage ? 0.5 : 0,
+          opacity: heroLoaded ? 0.5 : 0,
           transition: "opacity .8s ease",
 
           zIndex: 0,
