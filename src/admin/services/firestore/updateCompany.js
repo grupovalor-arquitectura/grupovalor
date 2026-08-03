@@ -4,6 +4,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../../../firebase/firestore";
+import saveWithVersion from "../../../services/saveWithVersion";
 
 export default async function updateCompany(company) {
   if (!company?.id) {
@@ -18,5 +19,5 @@ export default async function updateCompany(company) {
 
   const { id, ...companyData } = company;
 
-  await updateDoc(companyRef, companyData);
+  return saveWithVersion(() => updateDoc(companyRef, companyData));
 }

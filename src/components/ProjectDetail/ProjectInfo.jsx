@@ -51,7 +51,7 @@ export default function ProjectInfo({ project }) {
     };
     }, []);
 
-  const rows = [
+  const rawRows = [
     {
       label: "Ubicación",
       value: project.location,
@@ -88,11 +88,17 @@ export default function ProjectInfo({ project }) {
         >
           {project.website.label}
         </Link>
-      ) : (
-        "-"
-      ),
+      ) : null,
     },
   ];
+
+  // Cualquier campo sin dato (null, undefined, o string vacío) se
+  // excluye por completo en vez de mostrar la fila con un guion.
+  const rows = rawRows.filter((row) => {
+    if (row.value === null || row.value === undefined) return false;
+    if (typeof row.value === "string" && row.value.trim() === "") return false;
+    return true;
+  });
 
  return (
   <Box
@@ -123,7 +129,7 @@ export default function ProjectInfo({ project }) {
 
         gap: {
           xs: 4,
-          md: 10,
+          md: 16,
         },
       }}
     >
@@ -196,7 +202,17 @@ export default function ProjectInfo({ project }) {
 
         {/* Información */}
 
-        <Box sx={{ mt: 8 }}>
+        <Box
+          sx={{
+            mt: 8,
+
+            maxWidth: {
+              md: 480,
+              lg: 540,
+              xl: 600,
+            },
+          }}
+        >
           {rows.map((row, index) => (
             <Box key={row.label}>
               <Box

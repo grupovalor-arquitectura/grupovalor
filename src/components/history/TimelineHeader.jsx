@@ -18,6 +18,7 @@ export default function TimelineHeader({
   startRef,
   circles, 
   visibleCircles,
+  backgroundColor = "transparent",
 
 }) {
 
@@ -81,15 +82,23 @@ export default function TimelineHeader({
   <Box
     sx={{
       width: "100%",
+      backgroundColor,
       height: {
         xs: "70vh",
-        md: "100vh",
+        md: "55vh",
+        lg: "100vh",
       },
       display: "flex",
       alignItems: "center",
       pl: {
         xs: 4,
-        md: "32%",
+        md: "10%",
+        lg: "32%",
+      },
+      pt: {
+        xs: 0,
+        md: 10,
+        lg: 0,
       },
 
       
@@ -162,7 +171,7 @@ export default function TimelineHeader({
             fontWeight: 700,
             lineHeight: 1,
             color: "transparent",
-            WebkitTextStroke: "1px #C76A45",
+            WebkitTextStroke: "1px #421b1e",
             textTransform: "lowercase",
             }}
         >
@@ -189,7 +198,7 @@ export default function TimelineHeader({
           fontWeight: 700,
           lineHeight: 0.95,
 
-          color: "#D9C8C5",
+          color: "background.default",
 
           maxWidth: {
             xs: "85%",
@@ -217,7 +226,7 @@ export default function TimelineHeader({
             md: "460px",
           },
 
-          color: "#D9C8C5",
+          color: "background.default",
 
           fontSize: "0.95rem",
           lineHeight: 1.6,

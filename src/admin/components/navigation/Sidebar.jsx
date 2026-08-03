@@ -32,11 +32,6 @@ export default function Sidebar() {
       />
 
       <NavItem
-        label="Archivo"
-        to="/admin/archive"
-      />
-
-      <NavItem
         label="Empresas"
         to="/admin/companies"
       />

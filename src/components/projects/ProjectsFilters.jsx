@@ -13,14 +13,6 @@ const filters = [
     label: "En venta | Renta",
   },
   {
-    id: "construction",
-    label: "En construcción",
-  },
-  {
-    id: "planning",
-    label: "En estructuración",
-  },
-  {
     id: "history",
     label: "Históricos",
   },
@@ -31,7 +23,7 @@ export default function ProjectsFilters({
   onChange,
 }) {
   const [hovered, setHovered] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const renderChip = (filter, isTrigger = false) => {
     const active = isTrigger

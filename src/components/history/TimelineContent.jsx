@@ -11,8 +11,19 @@ export default function TimelineContent({
    <Box
      sx={{
         position: "absolute",
-        top: "160vh",
-        left: `calc(31.8% + 42px)`,  
+        top: {
+          // Misma fórmula que en TimelineContentStart: 88vh (55vh
+          // header + 33vh fila de nodos) + 42px (mitad del nodo) +
+          // 200px (compensar el mt:-200px de la línea, más abajo).
+          md: "calc(88vh + 242px)",
+          lg: "160vh",
+        },
+        // Mismo criterio que el resto del layout (10% en tablet,
+        // 31.8% en desktop real).
+        left: {
+          md: "calc(10% + 42px)",
+          lg: "calc(31.8% + 42px)",
+        },
         width: 320,
         zIndex: 20,
     }}

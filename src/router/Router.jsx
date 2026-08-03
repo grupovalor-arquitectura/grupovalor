@@ -28,8 +28,6 @@ import Login from "../admin/pages/Login";
 import Dashboard from "../admin/pages/Dashboard";
 import ProjectsAdmin from "../admin/pages/Projects";
 import ProjectDetailAdmin from "../admin/pages/ProjectDetail";
-import Archive from "../admin/pages/Archive";
-import ArchiveDetail from "../admin/pages/ArchiveDetail"
 import Companies from "../admin/pages/Companies";
 import HomeAdmin from "../admin/pages/Home";
 import FooterAdmin from "../admin/pages/Footer";
@@ -82,16 +80,6 @@ export default function Router() {
           <Route
             path="/admin/projects/:slug"
             element={<ProjectDetailAdmin />}
-          />
-
-          <Route
-            path="/admin/archive"
-            element={<Archive />}
-          />
-
-          <Route
-            path="/admin/archive/:id"
-            element={<ArchiveDetail />}
           />
 
           <Route

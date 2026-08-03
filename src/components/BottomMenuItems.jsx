@@ -42,10 +42,13 @@ export default function BottomMenuItems({
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const renderChip = (item) => {
-    // 🔥 Grupo Valor depende del menu abierto
+    // Grupo Valor va en fill cuando NO hay ninguna compañía
+    // seleccionada (estado "default"), sin importar si el submenú
+    // de marcas está abierto o cerrado. isExpanded sólo controla
+    // la VISIBILIDAD de los chips de marcas, no el estado "activo".
     const isSelected =
       item.key === "default"
-        ? isExpanded
+        ? selected === null
         : selected === item.key;
 
     return (

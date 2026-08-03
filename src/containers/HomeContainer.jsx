@@ -13,6 +13,8 @@ import HomeContentPanel from "../components/HomeContentPanel";
 import FeaturedProjects from "../components/FeaturedProjects";
 import MobileMenu from "../components/MobileMenu";
 
+import { getHasPlayedHeroIntro } from "../utils/heroIntro";
+
 import { useMediaQuery } from "@mui/material";
 import VisualCirclesMobile from "../components/VisualCirclesMobile";
 
@@ -47,8 +49,15 @@ export default function HomeContainer() {
 
   const [activeSection, setActiveSection] = useState(null);
 
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(
+    !getHasPlayedHeroIntro()
+  );
 
+  useEffect(() => {
+  console.log("isTransitioning:", isTransitioning);
+}, [isTransitioning]);
+
+ 
   const [heroImage] = useState(() => {
     return heroBackgrounds[
       Math.floor(Math.random() * heroBackgrounds.length)
@@ -87,6 +96,15 @@ export default function HomeContainer() {
 
     preloadHero();
   }, []);
+
+  // La interactividad de los chips ya no depende de que el navegador
+  // dispare "transitionend" en un círculo específico ~3.8s después del
+  // montaje (delay 2.4s + duración 1.4s de la última onda). Ese evento
+  // podía no llegar de forma confiable al remontar el Home, dejando
+  // "isTransitioning" en true para siempre y bloqueando todos los
+  // clicks de las chips (por eso Grupo Valor se quedaba "activo").
+  // Un timer de React es determinista: siempre se ejecuta, sin
+  // importar el timing real de pintura/layout del navegador.
 
 
   if (error) {
@@ -208,7 +226,7 @@ export default function HomeContainer() {
                 color={theme.circle}
                 textColor={theme.text}
                 onTransitionEnd={() => {
-                  console.log("Animación terminada");
+                  console.log("onTransitionEnd recibido");
                   setIsTransitioning(false);
                 }}
               />

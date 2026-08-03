@@ -50,7 +50,7 @@ export default function DashboardActions() {
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: "1fr",
         gap: 4,
         mb: 8,
       }}
@@ -58,11 +58,6 @@ export default function DashboardActions() {
       <ActionButton
         title="Agregar proyecto"
         onClick={() => navigate("/admin/projects/new")}
-      />
-
-      <ActionButton
-        title="Agregar archivo"
-        onClick={() => navigate("/admin/archive/new")}
       />
     </Box>
   );

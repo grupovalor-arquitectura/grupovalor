@@ -53,21 +53,28 @@ export default function Footer({ branding }) {
       sx={{
         display: {
           xs: "flex",
+          md: "grid",
           lg: "grid",
         },
 
         flexDirection: "column",
 
+        // Tablet: 3 columnas (Logo / Oficina / Navegación). El CTA se
+        // oculta en este breakpoint (ver más abajo), así que no hace
+        // falta reservarle columna acá.
         gridTemplateColumns: {
+          md: "1fr 1fr 1fr",
           lg: "180px 340px 1fr 320px",
         },
 
         rowGap: {
           xs: 5,
+          md: 6,
           lg: 0,
         },
 
         columnGap: {
+          md: 4,
           lg: 6,
         },
 
@@ -193,10 +200,12 @@ export default function Footer({ branding }) {
           flexDirection: "column",
           alignItems: {
             xs: "flex-start",
+            md: "flex-end",
             lg: "flex-end",
           },
           textAlign: {
             xs: "left",
+            md: "right",
             lg: "right",
           },
           gap: 1,
@@ -208,6 +217,7 @@ export default function Footer({ branding }) {
              sx={{
               justifyContent: {
                 xs: "flex-start",
+                md: "flex-end",
                 lg: "flex-end",
               },
             }}
@@ -231,7 +241,11 @@ export default function Footer({ branding }) {
 
       <Box
         sx={{
-          display: "flex",
+          display: {
+            xs: "flex",
+            md: "none",
+            lg: "flex",
+          },
           justifyContent: {
             xs: "flex-start",
             lg: "flex-end",

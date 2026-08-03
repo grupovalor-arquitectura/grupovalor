@@ -67,6 +67,18 @@ export default function HistoryTimeline({startRef}) {
   const timeline2StartRef = useRef(null);
 
   const futureMomentRef = useRef(null);
+  const futureBlockRef = useRef(null);
+
+  // Los nodos finales de cada timeline llevan al siguiente momento
+  // de la historia. Usamos scrollIntoView con behavior smooth para
+  // que el desplazamiento se sienta continuo con el resto de la
+  // página, en vez de un salto.
+  const scrollToBlock = (ref) => {
+    ref.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   const tunnel1 = useTunnel({
     startRef: originMomentRef,
@@ -100,6 +112,14 @@ export default function HistoryTimeline({startRef}) {
   };
 
   const handleNext = () => {
+    // Estando en el último año, la flecha hace lo mismo que el nodo
+    // trigger: baja al siguiente momento. El índice no avanza, así
+    // que el contenido del último año sigue visible.
+    if (activeMilestone === timeline2Milestones.length - 1) {
+      scrollToBlock(futureBlockRef);
+      return;
+    }
+
     setActiveMilestone(prev =>
       Math.min(
         prev + 1,
@@ -115,6 +135,11 @@ export default function HistoryTimeline({startRef}) {
   };
 
   const handleNextStart = () => {
+    if (activeMilestoneStart === timeline1Milestones.length - 1) {
+      scrollToBlock(block2Ref);
+      return;
+    }
+
     setActiveMilestoneStart(prev =>
       Math.min(
         prev + 1,
@@ -124,7 +149,16 @@ export default function HistoryTimeline({startRef}) {
   };
 
   const TUNNEL_SIZE = 84;
-  const anchorX = window.innerWidth * 0.318;
+
+  // Mismo criterio que en TimelineTrack/TimelineTrackStart: el 32%
+  // deja demasiado hueco en anchos tipo iPad (900-1200px). Sin este
+  // ajuste acá, el túnel queda desalineado del texto/círculo que sí
+  // usan el criterio nuevo.
+  const isTablet = useMediaQuery(
+    theme.breakpoints.between("md", "lg")
+  );
+
+  const anchorX = window.innerWidth * (isTablet ? 0.10 : 0.318);
 
   useLayoutEffect(() => {
     if (!originMomentRef.current) return;
@@ -174,7 +208,15 @@ export default function HistoryTimeline({startRef}) {
     sx={{
       position: "relative",
       overflow: "hidden",
-      minHeight: "410vh", // Lo ajustaremos cuando terminemos toda la estructura
+      // "auto" en tablet: con block1/block2/futuro ya achicados para
+      // este breakpoint, este mínimo (pensado sólo para desktop) se
+      // quedó forzando espacio vacío de más al final. En desktop el
+      // contenido real siempre superó los 410vh igual, así que ahí
+      // nunca se notó.
+      minHeight: {
+        md: "auto",
+        lg: "410vh",
+      },
     }}
   >
     {/* BLOQUE INICIO + TIMELINE 1 */}
@@ -185,12 +227,18 @@ export default function HistoryTimeline({startRef}) {
       
         position: "relative",
         width: "100%",
-        height: "200vh",
+        // 128vh en tablet (momento 55vh + track 100vh, con la imagen
+        // recortada a 40vh en vez de 67vh) vs 200vh en desktop.
+        height: {
+          md: "128vh",
+          lg: "200vh",
+        },
       }}
     >
      <TimelineMoment
         moment={startMoment}
         circleRef={originMomentRef}
+        backgroundColor="background.default"
       />
 
     {!isMobile && (
@@ -212,6 +260,8 @@ export default function HistoryTimeline({startRef}) {
       <TimelineTrackStart
         startAnchorRef={timeline1StartRef}
         activeMilestone={activeMilestoneStart}
+        onNodeClick={setActiveMilestoneStart}
+        onEndNodeClick={() => scrollToBlock(block2Ref)}
       />
 
       <TimelineContentStart
@@ -227,14 +277,16 @@ export default function HistoryTimeline({startRef}) {
 
           top: {
             xs: "108vh",
-            md: "133vh",
+            md: "88vh",
+            lg: "133vh",
           },
           left: 0,
 
           width: "100%",
           height: {
             xs: "92vh",
-            md: "67vh",
+            md: "40vh",
+            lg: "67vh",
           },
 
           backgroundImage: `url(${timeline1Milestones[activeMilestoneStart].image})`,
@@ -247,38 +299,38 @@ export default function HistoryTimeline({startRef}) {
         }}
       />
 
-      <NavigationButton
-        sx={{
-          position: "absolute",
-          left: 50,
-          top: {
-            xs: "140vh",
-            md: "170vh",
-          },
-          zIndex: 30,
-        }}
-        direction="prev"
-        disabled={activeMilestoneStart === 0}
-        onClick={handlePreviousStart}
-      />
+      {!isTablet && (
+        <NavigationButton
+          sx={{
+            position: "absolute",
+            left: 50,
+            top: {
+              xs: "140vh",
+              lg: "170vh",
+            },
+            zIndex: 30,
+          }}
+          direction="prev"
+          disabled={activeMilestoneStart === 0}
+          onClick={handlePreviousStart}
+        />
+      )}
 
-      <NavigationButton
-        sx={{
-          position: "absolute",
-          right: 50,
-          top: {
-            xs: "140vh",
-            md: "170vh",
-          },
-          zIndex: 30,
-        }}
-        direction="next"
-        disabled={
-          activeMilestoneStart ===
-          timeline1Milestones.length - 1
-        }
-        onClick={handleNextStart}
-      />
+      {!isTablet && (
+        <NavigationButton
+          sx={{
+            position: "absolute",
+            right: 50,
+            top: {
+              xs: "140vh",
+              lg: "170vh",
+            },
+            zIndex: 30,
+          }}
+          direction="next"
+          onClick={handleNextStart}
+        />
+      )}
     </Box>
 
       {/* BLOQUE CONSOLIDACIÓN + TIMELINE 2 */}
@@ -288,8 +340,41 @@ export default function HistoryTimeline({startRef}) {
         sx={{
           position: "relative",
           mt: "0vh",
+          // Sin esto, la altura real del bloque sale del flujo normal
+          // (header 55vh + track 100vh = 155vh), pero la foto sólo
+          // llega a 128vh (88vh + 40vh) — quedaban 27vh de espacio
+          // vacío de más antes de que empezara la siguiente sección.
+          // OJO: los breakpoints de MUI cascan hacia arriba — poner
+          // sólo "md" también afectaba a "lg" (desktop), rompiendo el
+          // layout ahí. "lg: auto" lo resetea explícitamente para que
+          // el bloque vuelva a sacar su altura del contenido normal.
+          height: {
+            md: "128vh",
+            lg: "auto",
+          },
         }}
       >
+
+        {/* Fondo claro del bloque de consolidación. Llega hasta la
+            línea de nodos, que es justo donde empieza la imagen, así
+            que no la tapa. En tablet el header mide 55vh (no 100vh),
+            así que la línea de nodos cae en 88vh en vez de 133vh.
+            zIndex 0 lo deja por debajo de imagen (1), nodos (3) y
+            contenido (20). */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: {
+              md: "88vh",
+              lg: "133vh",
+            },
+            backgroundColor: "primary.main",
+            zIndex: 0,
+          }}
+        />
 
         <TimelineHeader
           moment={consolidationMoment}
@@ -302,6 +387,8 @@ export default function HistoryTimeline({startRef}) {
           endRef={timeline2StartRef}
           milestones={timeline2Milestones}
           activeMilestone={activeMilestone}
+          onNodeClick={setActiveMilestone}
+          onEndNodeClick={() => scrollToBlock(futureBlockRef)}
         />
 
         <TimelineContent
@@ -312,10 +399,16 @@ export default function HistoryTimeline({startRef}) {
         <Box
           sx={{
             position: "absolute",
-            top: "133vh",
+            top: {
+              md: "88vh",
+              lg: "133vh",
+            },
             left: 0,
             width: "100%",
-            height: "67vh",
+            height: {
+              md: "40vh",
+              lg: "67vh",
+            },
             backgroundImage: `url(${milestone.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -324,40 +417,42 @@ export default function HistoryTimeline({startRef}) {
           }}
         />
 
-        <NavigationButton
-          sx={{
-            position: "absolute",
-            left: 50,
-            top: "170vh",
-            zIndex: 30,
-          }}
-          direction="prev"
-          disabled={activeMilestone === 0}
-          onClick={handlePrevious}
-        />
+        {!isTablet && (
+          <NavigationButton
+            sx={{
+              position: "absolute",
+              left: 50,
+              top: "170vh",
+              zIndex: 30,
+            }}
+            direction="prev"
+            disabled={activeMilestone === 0}
+            onClick={handlePrevious}
+          />
+        )}
 
-        <NavigationButton
-          sx={{
-            position: "absolute",
-            right: 50,
-            top: "170vh",
-            zIndex: 30,
-          }}
-          direction="next"
-          disabled={
-            activeMilestone ===
-            timeline2Milestones.length - 1
-          }
-          onClick={handleNext}
-        />
+        {!isTablet && (
+          <NavigationButton
+            sx={{
+              position: "absolute",
+              right: 50,
+              top: "170vh",
+              zIndex: 30,
+            }}
+            direction="next"
+            onClick={handleNext}
+          />
+        )}
     </Box>
 
     {/* BLOQUE FUTURO */}
 
-    <TimelineMoment
-      moment={futureMoment}
-      circleRef={futureMomentRef}
-    />
+    <Box ref={futureBlockRef}>
+      <TimelineMoment
+        moment={futureMoment}
+        circleRef={futureMomentRef}
+      />
+    </Box>
   </Box>
 );
 }

@@ -73,7 +73,7 @@ export default function ProjectsTable() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "40px 80px 80px 1fr 100px 100px",
+          gridTemplateColumns: "40px 80px 1fr 100px 100px",
           gap: 4,
           alignItems: "center",
           pb: 2,
@@ -85,10 +85,6 @@ export default function ProjectsTable() {
 
         <Typography color="background.default">
           Orden
-        </Typography>
-
-        <Typography color="background.default">
-          ID
         </Typography>
 
         <Typography color="background.default">

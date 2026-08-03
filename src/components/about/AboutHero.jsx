@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+import ScrollIndicator from "../ScrollIndicator/ScrollIndicator";
+
 export default function AboutHero({ heroImage }) {
   const theme = useTheme();
 
@@ -46,38 +48,39 @@ export default function AboutHero({ heroImage }) {
         />
       )}
 
-  
-
-        {/* Overlay */}
-        <Box
+      {/* Overlay */}
+      <Box
         sx={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 1,
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
 
-            background: {
+          background: {
             xs: `
-                linear-gradient(
+              linear-gradient(
                 to bottom,
                 rgba(0,0,0,.65) 0%,
                 rgba(0,0,0,.45) 12%,
                 rgba(0,0,0,.22) 28%,
                 rgba(0,0,0,.08) 42%,
                 rgba(0,0,0,0) 58%
-                )
+              )
             `,
             md: `
-                linear-gradient(
+              linear-gradient(
                 to bottom,
                 rgba(0,0,0,.60) 0%,
                 rgba(0,0,0,.18) 24%,
                 rgba(0,0,0,.06) 50%,
                 rgba(0,0,0,0) 90%
-                )
+              )
             `,
-            },
+          },
         }}
-        />
+      />
+
+      {/* Indicador de scroll */}
+      <ScrollIndicator />
     </Box>
   );
 }

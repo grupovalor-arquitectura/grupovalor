@@ -1,25 +1,28 @@
-import { useEffect, useState } from "react";
-import { getCompany } from "../services/companyService";
+import { useMemo } from "react";
+import { useProjects } from "../context/ProjectsContext";
+import { firestoreIdMap } from "../services/companyService";
 
+/**
+ * Antes hacía su propio fetch a Firestore (getCompany) cada vez que se
+ * visitaba una página de empresa, sin cache, bloqueando el render.
+ * Las compañías ya se cargan y cachean una sola vez en ProjectsContext
+ * (gv_companies) apenas se entra a cualquier página del sitio, así que
+ * acá solo hace falta buscar dentro de esa lista que ya está en memoria.
+ */
 export default function useCompany(slug) {
-  const [company, setCompany] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { companies, loading } = useProjects();
 
-  useEffect(() => {
-    async function loadCompany() {
-      try {
-        const data = await getCompany(slug);
-        setCompany(data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
+  const company = useMemo(() => {
+    const documentId = firestoreIdMap[slug];
+    if (!documentId) return null;
 
-    loadCompany();
-  }, [slug]);
+    return companies.find((item) => item.id === documentId) ?? null;
+  }, [companies, slug]);
+
+  const error =
+    !loading && companies.length > 0 && !company
+      ? new Error("La empresa no existe.")
+      : null;
 
   return {
     company,

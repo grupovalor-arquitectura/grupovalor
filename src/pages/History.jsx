@@ -48,7 +48,7 @@ export default function History() {
         startRef={historyStartRef}
       />
 
-      <Footer />
+      <Footer historyTheme />
     </>
   );
 }

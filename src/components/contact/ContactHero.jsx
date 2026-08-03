@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import contactHero from "../../assets/contact-hero.jpg";
+import ScrollIndicator from "../ScrollIndicator/ScrollIndicator";
 
 export default function ContactHero() {
   const theme = useTheme();
@@ -75,6 +76,7 @@ export default function ContactHero() {
           },
         }}
       />
+       <ScrollIndicator />
     </Box>
   );
 }

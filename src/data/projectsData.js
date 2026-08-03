@@ -4,7 +4,7 @@ export const projectsData  = {
 
         {
             id: 1,
-            order: 1,
+            order: 58,
 
             title: "33 DC",
             slug: "33dc",
@@ -32,6 +32,8 @@ export const projectsData  = {
                 url: "https://33dc.com.co",
             },
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -41,7 +43,7 @@ export const projectsData  = {
 
         {
             id: 2,
-            order: 2,
+            order: 65,
 
             title: "W94",
             slug: "w94",
@@ -70,6 +72,8 @@ export const projectsData  = {
                 url: "https://plura.co/wacari/",
             },
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -79,7 +83,7 @@ export const projectsData  = {
 
         {
             id: 3,
-            order: 3,
+            order: 61,
 
             title: "Reserva del Turpial",
             slug: "reserva-del-turpial",
@@ -109,6 +113,8 @@ export const projectsData  = {
                 url: "https://reservadelturpial.com/",
             },
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -118,7 +124,7 @@ export const projectsData  = {
 
         {
             id: 4,
-            order: 4,
+            order: 68,
 
             title: "Reserva Central",
             slug: "reserva-central",
@@ -147,6 +153,8 @@ export const projectsData  = {
                 url: "https://reservacentral.co/",
                 },
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -156,7 +164,7 @@ export const projectsData  = {
 
         {
             id: 5,
-            order: 5,
+            order: 59,
 
             title: "Meraki Club & Residences",
             slug: "meraki",
@@ -185,6 +193,8 @@ export const projectsData  = {
                 url: "https://www.merakiclub.com",
             },
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -194,7 +204,47 @@ export const projectsData  = {
 
         {
             id: 6,
-            order: 6,
+            order: 63,
+
+            title: "Meraki Club & Residences",
+            slug: "meraki",
+
+            status: "En construcción",
+
+            filters: [
+                "sale",
+                "construction"
+            ],
+
+            type: "Club Residencial",
+
+            year: 2026,
+
+            location: "Serena del Mar, Cartagena",
+
+            description:
+                "Meraki Club & Residences es un proyecto residencial de lujo ubicado en Serena del Mar, Cartagena. Concebido bajo el concepto de club residencial, integra apartamentos exclusivos con más de 10.000 m² de amenidades diseñadas para el bienestar, el deporte, la gastronomía y la vida social. Rodeado por el campo de golf y un entorno natural privilegiado, ofrece una propuesta que combina arquitectura contemporánea, exclusividad y una experiencia de vida inspirada en el Caribe colombiano.",
+
+            shortDescription:  
+                "Club residencial de lujo en Serena del Mar que integra apartamentos exclusivos con amenidades premium en un entorno natural privilegiado.",
+
+            website: {
+                label: "Visitar proyecto",
+                url: "https://www.merakiclub.com",
+            },
+
+            tamaño: "444 apartamentos",
+
+            coverImage: null,
+
+            gallery: [],
+
+            featured: true,
+        },
+
+        {
+            id: 7,
+            order: 67,
 
             title: "Kiwara",
             slug: "kiwara",
@@ -220,6 +270,8 @@ export const projectsData  = {
 
             website: null,
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -228,8 +280,8 @@ export const projectsData  = {
         }, 
 
         {
-            id: 7,
-            order: 7,
+            id: 8,
+            order: 48,
 
             title: "APTO PR 1201",
             slug: "apto-pr-1201",
@@ -254,6 +306,8 @@ export const projectsData  = {
 
             website: null,
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -262,8 +316,8 @@ export const projectsData  = {
         },
 
         {
-            id: 8,
-            order: 8,
+            id: 9,
+            order: 42,
 
             title: "Irotama Reservado",
             slug: "irotama-reservado",
@@ -288,6 +342,8 @@ export const projectsData  = {
 
             website: null,
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -296,8 +352,8 @@ export const projectsData  = {
         }, 
 
         {
-            id: 9,
-            order: 9,
+            id: 10,
+            order: 60,
 
             title: "Valenti",
             slug: "valenti",
@@ -323,6 +379,8 @@ export const projectsData  = {
 
             website: null,
 
+            tamaño: "444 apartamentos",
+
             coverImage: null,
 
             gallery: [],
@@ -332,427 +390,5 @@ export const projectsData  = {
 
     ],
 
-    archive: [
-        {
-            id: 1,
-            order: 1,
-            title: "Valenti",
-            location: "Bogotá D.C.",
-            year: "2018–2023",
-            category: "residential",
-            type: "Vivienda VIS",
-            scale: "512 aptos · 2 torres",
-        },
-        {
-            id: 1,
-            order: 2,
-            title: "Moraro 44",
-            location: "Bucaramanga",
-            year: "2014–2017",
-            category: "residential",
-            type: "Vivienda",
-            scale: "41 aptos",
-        },
-        {
-            id: 1,
-            order: 3,
-            title: "Morari 105",
-            location: "Bogotá D.C.",
-            year: "2015–2017",
-            category: "residential",
-            type: "Vivienda",
-            scale: "50 aptos",
-        },
-        {
-            id: 1,
-            order: 4,
-            title: "Studio 106",
-            location: "Bogotá D.C.",
-            year: "2014–2016",
-            category: "residential",
-            type: "Vivienda",
-            scale: "52 aptos",
-        },
-        {
-            id: 1,
-            order: 5,
-            title: "Irotama Reservado",
-            location: "Santa Marta",
-            year: "2013–2016",
-            category: "residential",
-            type: "Vivienda lujo / operación mixta hotel",
-            scale: "149 aptos",
-        },
-        {
-            id: 1,
-            order: 6,
-            title: "Ciudad del Sol",
-            location: "Barrancabermeja",
-            year: "2014–2016",
-            category: "residential",
-            type: "Vivienda",
-            scale: "750 aptos",
-        },
-        {
-            id: 1,
-            order: 7,
-            title: "Baia 138",
-            location: "Bogotá D.C.",
-            year: "2013–2015",
-            category: "residential",
-            type: "Vivienda",
-            scale: "88 aptos",
-        },
-        {
-            id: 1,
-            order: 8,
-            title: "Portal 40",
-            location: "Bogotá D.C.",
-            year: "2014–2015",
-            category: "residential",
-            type: "Vivienda para renta",
-            scale: "80 aptos",
-        },
-        {
-            id: 1,
-            order: 9,
-            title: "Rosales 169",
-            location: "Bogotá D.C.",
-            year: "2012–2014",
-            category: "residential",
-            type: "Vivienda",
-            scale: "6 aptos",
-        },
-        {
-            id: 1,
-            order: 10,
-            title: "Green Towers",
-            location: "Barranquilla",
-            year: "2011–2014",
-            category: "commercial",
-            type: "Oficinas / Comercio",
-            scale: "19.500 m² oficinas",
-        },
-        {
-            id: 1,
-            order: 11,
-            title: "Hotel Estelar Alto Prado",
-            location: "Barranquilla",
-            year: "2009–2012",
-            category: "hospitality",
-            type: "Hotelería",
-            scale: "306 habitaciones",
-        },
-        {
-            id: 1,
-            order: 12,
-            title: "Sierras del Este",
-            location: "Bogotá D.C.",
-            year: "2007–2012",
-            category: "residential",
-            type: "Vivienda",
-            scale: "450 aptos · 3 etapas",
-        },
-        {
-            id: 1,
-            order: 13,
-            title: "Portal de Belárcazar",
-            location: "Bogotá D.C.",
-            year: "2009–2011",
-            category: "mixed",
-            type: "Vivienda / Comercio",
-            scale: "101 aptos",
-        },
-        {
-            id: 1,
-            order: 14,
-            title: "Villa Santorini",
-            location: "Bogotá D.C.",
-            year: "2007–2010",
-            category: "residential",
-            type: "Vivienda",
-            scale: "112 aptos",
-        },
-        {
-            id: 1,
-            order: 15,
-            title: "Jazz Apartments",
-            location: "Bogotá D.C.",
-            year: "2009–2010",
-            category: "residential",
-            type: "Vivienda",
-            scale: "28 aptos",
-        },
-        {
-            id: 1,
-            order: 16,
-            title: "San Rafael",
-            location: "Bogotá D.C.",
-            year: "2009–2010",
-            category: "residential",
-            type: "Vivienda",
-            scale: "128 aptos",
-        },
-        {
-            id: 1,
-            order: 17,
-            title: "Chico 97 – W Loft",
-            location: "Bogotá D.C.",
-            year: "2007–2009",
-            category: "residential",
-            type: "Vivienda",
-            scale: "112 aptos",
-        },
-        {
-            id: 1,
-            order: 18,
-            title: "Portal de la Javeriana I y II",
-            location: "Bogotá D.C.",
-            year: "2005–2008",
-            category: "residential",
-            type: "Vivienda estudiantil para renta",
-            scale: "384 aptos · Pionero en Colombia",
-        },
-        {
-            id: 1,
-            order: 19,
-            title: "Aqua",
-            location: "Bogotá D.C.",
-            year: "2006–2008",
-            category: "residential",
-            type: "Vivienda",
-            scale: "20 aptos",
-        },
-        {
-            id: 1,
-            order: 20,
-            title: "Portal de la 55",
-            location: "Bogotá D.C.",
-            year: "2004–2007",
-            category: "residential",
-            type: "Vivienda",
-            scale: "145 aptos",
-        },
-        {
-            id: 1,
-            order: 21,
-            title: "Calleja Resort",
-            location: "Bogotá D.C.",
-            year: "2004–2006",
-            category: "residential",
-            type: "Vivienda",
-            scale: "99 aptos · 3 etapas",
-        },
-        {
-            id: 1,
-            order: 22,
-            title: "Santa Bárbara 122",
-            location: "Bogotá D.C.",
-            year: "2004–2005",
-            category: "residential",
-            type: "Vivienda",
-            scale: "48 aptos",
-        },
-        {
-            id: 1,
-            order: 23,
-            title: "Mirador del Moderno",
-            location: "Bogotá D.C.",
-            year: "2004–2005",
-            category: "residential",
-            type: "Vivienda",
-            scale: "88 aptos",
-        },
-        {
-            id: 1,
-            order: 24,
-            title: "Samanes y Uninorte",
-            location: "Santiago de Buga",
-            year: "2013–2015",
-            category: "residential",
-            type: "Vivienda",
-            scale: "1.000 aptos · 2 etapas",
-        },
-        {
-            id: 1,
-            order: 25,
-            title: "Condominio Villacodem",
-            location: "Villavicencio",
-            year: "1993",
-            category: "residential",
-            type: "Vivienda",
-            scale: "290 aptos + unifamiliares",
-        },
-        {
-            id: 1,
-            order: 26,
-            title: "Bulevar Codem",
-            location: "Villavicencio",
-            year: "1997",
-            category: "residential",
-            type: "Vivienda",
-            scale: "310 unidades",
-        },
-        {
-            id: 1,
-            order: 27,
-            title: "Balcones de Santiago",
-            location: "Villavicencio",
-            year: "1996",
-            category: "residential",
-            type: "Vivienda",
-            scale: "56 aptos",
-        },
-        {
-            id: 1,
-            order: 28,
-            title: "Mirador de los Reyes",
-            location: "Villavicencio",
-            year: "1996",
-            category: "residential",
-            type: "Vivienda unifamiliar",
-            scale: "320 unidades",
-        },
-        {
-            id: 1,
-            order: 29,
-            title: "Altos de Villacodem",
-            location: "Villavicencio",
-            year: "1995",
-            category: "residential",
-            type: "Vivienda",
-            scale: "200 aptos",
-        },
-        {
-            id: 1,
-            order: 30,
-            title: "Conjunto Santa Helena I y II",
-            location: "Bucaramanga",
-            year: "1986–1988",
-            category: "residential",
-            type: "Vivienda unifamiliar",
-            scale: "100 unidades",
-        },
-        {
-            id: 1,
-            order: 31,
-            title: "Santa Helena de la Sierra",
-            location: "Bucaramanga",
-            year: "1989",
-            category: "residential",
-            type: "Vivienda unifamiliar",
-            scale: "52 unidades",
-        },
-        {
-            id: 1,
-            order: 32,
-            title: "La Flora",
-            location: "Bogotá D.C.",
-            year: "1991",
-            category: "residential",
-            type: "Vivienda",
-            scale: "40 aptos",
-        },
-        {
-            id: 1,
-            order: 33,
-            title: "Lomalinda",
-            location: "Bogotá D.C.",
-            year: "1988",
-            category: "residential",
-            type: "Vivienda",
-            scale: "18 aptos",
-        },
-        {
-            id: 1,
-            order: 34,
-            title: "Edificio El Rosal",
-            location: "Bogotá D.C.",
-            year: "1985",
-            category: "residential",
-            type: "Vivienda",
-            scale: "—",
-        },
-        {
-            id: 1,
-            order: 35,
-            title: "Nueva Sede Embajada China",
-            location: "Bogotá D.C.",
-            year: "2020 – Ejecución",
-            category: "institutional",
-            type: "Institucional / Diseño arquitectónico",
-            scale: "—",
-        },
-        {
-            id: 1,
-            order: 36,
-            title: "Piso 3 C.C. Galerías",
-            location: "Bogotá D.C.",
-            year: "2011–2016",
-            category: "commercial",
-            type: "Comercio",
-            scale: "6.000 m²",
-        },
-        {
-            id: 1,
-            order: 37,
-            title: "Peñalisa Mall",
-            location: "Ricaurte, Cundinamarca",
-            year: "2013–2015",
-            category: "commercial",
-            type: "Comercio",
-            scale: "26.000 m²",
-        },
-        {
-            id: 1,
-            order: 38,
-            title: "Institución Educativa Campo de la Cruz",
-            location: "Atlántico",
-            year: "2014–2016",
-            category: "educational",
-            type: "Educativo",
-            scale: "5.700 m²",
-        },
-        {
-            id: 1,
-            order: 39,
-            title: "Edificio CIIP – U. Jorge Tadeo Lozano",
-            location: "Bogotá D.C.",
-            year: "2013–2015",
-            category: "institutional",
-            type: "Institucional",
-            scale: "1.765 m²",
-        },
-        {
-            id: 1,
-            order: 40,
-            title: "Wellness Center – Kutay",
-            location: "Cartagena de Indias",
-            year: "2013–2015",
-            category: "hospitality",
-            type: "Bienestar / Hospitalidad",
-            scale: "32 unidades",
-        },
-        {
-            id: 1,
-            order: 41,
-            title: "Centro Comercial Punto Suba",
-            location: "Bogotá D.C.",
-            year: "1995",
-            category: "commercial",
-            type: "Comercio",
-            scale: "—",
-        },
-        {
-            id: 1,
-            order: 42,
-            title: "Torre Avenida 82",
-            location: "Bogotá D.C.",
-            year: "1995",
-            category: "commercial",
-            type: "Oficinas / Comercio",
-            scale: "—",
-        },
-    ]
 
 }

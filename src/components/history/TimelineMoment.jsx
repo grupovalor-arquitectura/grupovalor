@@ -8,7 +8,9 @@ import {
 export default function TimelineMoment({ 
 
   moment, 
-  circleRef }) {
+  circleRef,
+  backgroundColor = "transparent",
+}) {
 
 
   const theme = useTheme();
@@ -21,9 +23,11 @@ export default function TimelineMoment({
     <Box
       sx={{
         width: "100%",
+        backgroundColor,
         height: {
           xs: "auto",
-          md: "100vh",
+          md: "55vh",
+          lg: "100vh",
         },
 
         minHeight: {
@@ -35,13 +39,15 @@ export default function TimelineMoment({
         alignItems: "center",
 
         pt: {
-          xs: 20,   
-          md: 0,
+          xs: 20,
+          md: 10,
+          lg: 0,
         },
 
         pl: {
           xs: 4,
-          md: "32%",
+          md: "10%",
+          lg: "32%",
         },
       }}
     >

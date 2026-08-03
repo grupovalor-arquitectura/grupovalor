@@ -1,15 +1,55 @@
+import { Box, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
+
+import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
-  Box,
-  Typography,
-} from "@mui/material";
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
 
 import { useProjects } from "../../../context/ProjectsContext";
-import { useNavigate } from "react-router-dom";
+import updateFeaturedOrders from "../../services/firestore/updateFeaturedOrders";
+import FeaturedProjectRow from "./FeaturedProjectRow";
 
 export default function DashboardFeatured() {
+  const { featuredProjects, reloadProjects } = useProjects();
 
-  const navigate = useNavigate();
-  const { featuredProjects } = useProjects();
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(featuredProjects);
+  }, [featuredProjects]);
+
+  async function handleDragEnd(event) {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = items.findIndex(
+      (item) => item.slug === active.id
+    );
+
+    const newIndex = items.findIndex(
+      (item) => item.slug === over.id
+    );
+
+    const reordered = arrayMove(items, oldIndex, newIndex);
+
+    const updatedItems = reordered.map((project, index) => ({
+      ...project,
+      featuredOrder: index + 1,
+    }));
+
+    setItems(updatedItems);
+
+    try {
+      await updateFeaturedOrders(updatedItems);
+      await reloadProjects();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Box
@@ -20,59 +60,40 @@ export default function DashboardFeatured() {
       <Typography
         variant="h4"
         sx={{
-          mb: 4,
+          mb: 1,
           color: "background.default",
         }}
       >
         Proyectos destacados
       </Typography>
 
-      {featuredProjects.map((project) => (
-        <Box
-          key={project.id}
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "2fr 1fr auto",
+      <Typography
+        variant="body2"
+        sx={{
+          mb: 4,
+          color: "background.default",
+          opacity: 0.7,
+        }}
+      >
+        Arrastra para cambiar el orden en que aparecen en el Home.
+      </Typography>
 
-            py: 2,
-
-            borderBottom: "1px solid",
-            borderColor: "background.default",
-
-            alignItems: "center",
-          }}
+      <DndContext
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={items.map((p) => p.slug)}
+          strategy={verticalListSortingStrategy}
         >
-          <Typography
-            sx={{
-              color: "background.default",
-            }}
-          >
-            {project.title}
-          </Typography>
-
-          <Typography
-            sx={{
-              color: "background.default",
-            }}
-          >
-            {project.company}
-          </Typography>
-
-          <Typography
-            onClick={() => navigate(`/admin/projects/${project.slug}`)}
-            sx={{
-                color: "background.default",
-                cursor: "pointer",
-
-                "&:hover": {
-                    opacity: 0.6,
-                },
-            }}
-        >
-            Editar
-        </Typography>
-        </Box>
-      ))}
+          {items.map((project) => (
+            <FeaturedProjectRow
+              key={project.slug}
+              project={project}
+            />
+          ))}
+        </SortableContext>
+      </DndContext>
     </Box>
   );
 }

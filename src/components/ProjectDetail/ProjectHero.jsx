@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+import ScrollIndicator from "../ScrollIndicator/ScrollIndicator"
+
 export default function ProjectHero({ project }) {
   const theme = useTheme();
 
@@ -77,6 +79,7 @@ export default function ProjectHero({ project }) {
           },
         }}
       />
+      <ScrollIndicator />
     </Box>
   );
 }

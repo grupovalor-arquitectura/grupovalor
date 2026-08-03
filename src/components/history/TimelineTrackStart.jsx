@@ -1,19 +1,32 @@
 import { Box } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import { historyData } from "../../data/historyData";
 
 import TimelineNode from "./TimelineNode";
 import TimelineMarker from "./TimelineMarker";
+import TimelineNodeArrow from "./TimelineNodeArrow";
 
 export default function TimelineTrack({
   startAnchorRef,
   endRef,
   activeMilestone,
+  onNodeClick,
+  onEndNodeClick,
 }) {
   const NODE_SPACING = 160;
 
+  const theme = useTheme();
+
+  // Rango "tablet": entre md (900px) y lg (1200px). El 32% que se usa
+  // en escritorio real deja un hueco enorme en anchos como el de un
+  // iPad (1024px) — ahí usamos un porcentaje bastante más chico.
+  const isTablet = useMediaQuery(
+    theme.breakpoints.between("md", "lg")
+  );
+
   const anchorX =
-    window.innerWidth * 0.318;
+    window.innerWidth * (isTablet ? 0.10 : 0.318);
 
   const timeline1Section =
   historyData.sections.find(
@@ -69,7 +82,7 @@ export default function TimelineTrack({
           left: anchorX,
 
           width:
-            timeline1Milestones.length *
+            (timeline1Milestones.length + 1) *
             NODE_SPACING,
 
           height: "100%",
@@ -99,15 +112,57 @@ export default function TimelineTrack({
                   NODE_SPACING,
               }}
             >
-              <TimelineNode
-                label={milestone.year}
-                active={
-                  index ===
-                  activeMilestone
-                }
-              />
+              {/* Al hacer click sólo cambiamos el índice activo: el
+                  desplazamiento hasta la posición pinneada (anchorX)
+                  ya lo resuelve el translateX del track, que se
+                  recalcula a partir de activeMilestone y anima con su
+                  propia transition. */}
+              <Box
+                onClick={() => {
+                  onNodeClick?.(index);
+                }}
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                <TimelineNode
+                  label={milestone.year}
+                  active={
+                    index ===
+                    activeMilestone
+                  }
+                />
+              </Box>
             </Box>
           )
+        )}
+
+        {/* NODO FINAL (disparador) — en fill, con flecha en vez de
+            año. No participa de activeMilestone: su único trabajo es
+            llevar al usuario al siguiente momento de la historia. */}
+        {onEndNodeClick && (
+          <Box
+            sx={{
+              position: "absolute",
+
+              top: "calc(33vh - 42px)",
+
+              left:
+                timeline1Milestones.length *
+                NODE_SPACING,
+            }}
+          >
+            <Box
+              onClick={onEndNodeClick}
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              <TimelineNode active>
+                <TimelineNodeArrow />
+              </TimelineNode>
+            </Box>
+          </Box>
         )}
       </Box>
     </Box>
