@@ -9,6 +9,7 @@ import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsFilters from "../components/projects/ProjectsFilters";
 import ProjectsGrid from "../components/projects/ProjectsGrid";
 import ProjectCard from "../components/ProjectCard";
+import SEO from "../components/SEO";
 
 import { getProjectsPage } from "../services/projectsPageService";
 
@@ -89,6 +90,12 @@ export default function Projects() {
 
   return (
     <InnerPageLayout headerBackground="primary.main">
+      <SEO
+        title="Proyectos"
+        description="Explora los proyectos inmobiliarios desarrollados por Grupo Valor."
+        path="/proyectos"
+      />
+
       <Box
         sx={{
           bgcolor: "primary.main",

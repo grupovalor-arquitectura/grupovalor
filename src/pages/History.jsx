@@ -6,6 +6,7 @@ import TimelineIntro from "../components/history/TimelineIntro";
 import TimelineFuture from "../components/history/TimelineFuture";
 import ConnectionTunnel from "../components/history/ConnectionTunnel";
 import MobileMenu from "../components/MobileMenu";
+import SEO from "../components/SEO";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -24,6 +25,12 @@ export default function History() {
 
   return (
     <>
+      <SEO
+        title="Historia"
+        description="Conoce la historia y trayectoria de Grupo Valor en el desarrollo de proyectos inmobiliarios."
+        path="/historia"
+      />
+
       <Box
         sx={{
           px: { xs: 2, md: 7 },

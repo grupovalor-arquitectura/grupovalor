@@ -12,6 +12,7 @@ import ServicesSection from "../components/company/ServicesSection";
 import LeadersSection from "../components/company/LeadersSection";
 import Footer from "../components/Footer";
 import MobileMenu from "../components/MobileMenu";
+import SEO from "../components/SEO";
 
 export default function CompanyPage() {
 
@@ -44,10 +45,22 @@ export default function CompanyPage() {
     ...assets,
   };
 
+  const companyTitle = companyData.name || slug;
+  const companyDescription =
+    companyData.header?.intro ||
+    companyData.header?.tagline ||
+    `Conoce ${companyTitle}, empresa del Grupo Valor.`;
+
 
   return (
 
     <CompanyLayout>
+      <SEO
+        title={companyTitle}
+        description={companyDescription}
+        path={`/empresas/${slug}`}
+      />
+
       <Box
         sx={{
           position: "absolute",

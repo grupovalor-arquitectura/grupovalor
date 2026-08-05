@@ -9,6 +9,7 @@ import ProjectInfo from "../components/ProjectDetail/ProjectInfo";
 import ProjectGallery from "../components/ProjectDetail/ProjectGallery";
 import ProjectNavigation from "../components/ProjectDetail/ProjectNavigation";
 import ProjectVideo from "../components/ProjectDetail/ProjectVideo";
+import SEO from "../components/SEO";
 
 import { useProjects } from "../context/ProjectsContext";
 
@@ -28,11 +29,23 @@ export default function ProjectDetail() {
 
   if (loading || !project) return null;
 
+  const projectTitle = project.title || slug;
+  const projectDescription =
+    project.shortDescription ||
+    project.description ||
+    `Conoce el proyecto ${projectTitle} de Grupo Valor.`;
+
   return (
     <InnerPageLayout
       overlayHeader
       headerBackground="primary.main"
     >
+      <SEO
+        title={projectTitle}
+        description={projectDescription}
+        path={`/proyectos/${slug}`}
+      />
+
       <ProjectHero project={project} />
 
       <ProjectInfo project={project} />

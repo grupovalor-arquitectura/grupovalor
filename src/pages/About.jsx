@@ -7,6 +7,7 @@ import AboutHero from "../components/about/AboutHero";
 import AboutIntro from "../components/about/AboutIntro";
 import AboutTeam from "../components/about/AboutTeam";
 import AboutTextSection from "../components/about/AboutTextSection";
+import SEO from "../components/SEO";
 
 import { useProjects } from "../context/ProjectsContext";
 
@@ -37,6 +38,12 @@ return (
       overlayHeader
       headerBackground="primary.main"
     >
+      <SEO
+        title="Nosotros"
+        description="Conoce al equipo, la misión y la visión de Grupo Valor."
+        path="/nosotros"
+      />
+
       <AboutHero heroImage={about.teamIntro.image} />
       
       <AboutIntro

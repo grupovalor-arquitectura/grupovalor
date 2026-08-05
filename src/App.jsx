@@ -1,3 +1,4 @@
+import { HelmetProvider } from "react-helmet-async";
 import {
   ThemeProvider,
   CssBaseline,
@@ -9,12 +10,14 @@ import GlobalLoader from "./components/GlobalLoader";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <HelmetProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-      <Router />
-      <GlobalLoader />
-    </ThemeProvider>
+        <Router />
+        <GlobalLoader />
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

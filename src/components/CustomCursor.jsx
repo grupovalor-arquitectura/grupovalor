@@ -1,14 +1,17 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
 
   const [enabled, setEnabled] = useState(false);
 
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  // La posición ya no vive en estado de React — se escribe directo en
+  // el DOM vía esta ref en cada mousemove. En Safari, el ciclo
+  // "setState -> re-render -> paint" combinado con una transition CSS
+  // de suavizado generaba un delay perceptible entre el mouse real y
+  // el cursor. Escribir el transform directo, sin transition, hace que
+  // el cursor siga al mouse 1:1 en los tres navegadores.
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(
@@ -137,10 +140,12 @@ export default function CustomCursor() {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      setPosition({
-        x: mouseX,
-        y: mouseY,
-      });
+      // Escritura directa al DOM, sin setState ni transition — sigue
+      // al mouse en el mismo frame, sin el delay que se veía en Safari.
+      if (containerRef.current) {
+        containerRef.current.style.transform =
+          `translate3d(${mouseX - 40}px, ${mouseY - 40}px, 0)`;
+      }
 
       updateCursorState();
     };
@@ -176,6 +181,7 @@ export default function CustomCursor() {
 
   return (
     <Box
+      ref={containerRef}
       sx={{
         position: "fixed",
 
@@ -193,17 +199,9 @@ export default function CustomCursor() {
         alignItems: "center",
         justifyContent: "center",
 
-        // CENTRAR EL CURSOR
-        transform: `
-          translate3d(
-            ${position.x - 40}px,
-            ${position.y - 40}px,
-            0
-          )
-        `,
-
-        transition:
-          "transform 0.08s linear",
+        // Posición inicial fuera de pantalla hasta el primer
+        // mousemove, para no mostrar un flash en la esquina (0,0).
+        transform: "translate3d(-100px, -100px, 0)",
 
         willChange: "transform",
       }}
