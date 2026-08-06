@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     await resend.emails.send({
       from: "Grupo Valor <atencionalcliente@grupovalor.com.co>",
-      to: "grupovalor.database@gmail.com", 
+      to: "atencionalcliente@grupovalor.com.co", 
       replyTo: email,
       subject: "Grupo Valor | Nuevo contacto desde el sitio web",
 
