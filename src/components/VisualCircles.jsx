@@ -180,13 +180,13 @@ export default function VisualCircles({
               animation: "fadeInLogo 0.6s ease-in forwards",
             }}
           >
-            <Logo
-              x={800 - 90}
-              y={300 - 30}
-              width={180}
-              height={60}
-              style={{ color: "#421b1e" }}
-            />
+            <g transform={`translate(${800 - 90}, ${300 - 30})`}>
+              <Logo
+                width={180}
+                height={60}
+                style={{ color: "#421b1e" }}
+              />
+            </g>
           </g>
         )}
       </g>

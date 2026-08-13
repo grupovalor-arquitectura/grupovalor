@@ -43,6 +43,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "firebase-admin": "^14.2.0",
     "globals": "^17.5.0",
+    "puppeteer": "^25.6.0",
     "sharp": "^0.35.3",
     "vite": "^8.0.10"
   }

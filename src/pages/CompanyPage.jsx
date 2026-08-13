@@ -31,7 +31,7 @@ export default function CompanyPage() {
   }
 
   if (error) {
-    return <h1>Error cargando la empresa.</h1>;
+  return <h1>Error: {error.message}</h1>;
   }
 
   if (!company) {

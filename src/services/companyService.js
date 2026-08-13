@@ -5,7 +5,7 @@ export const firestoreIdMap = {
   "arquitectura-valor": "arquitecturaValor",
   "constructora-valor": "constructoraValor",
   "promotora-valor": "promotoraValor",
-  "estrategia-valor": "estrategiaValor",
+  "estrategias-valor": "estrategiaValor",
   "banca-valor": "bancaValor",
 };
 

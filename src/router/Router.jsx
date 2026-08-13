@@ -39,6 +39,8 @@ import AdminLayout from "../admin/layouts/AdminLayout";
 import ProtectedRoute from "../admin/routes/ProtectedRoute";
 import ScrollManager from "./ScrollManager";
 
+
+
 export default function Router() {
   return (
     <BrowserRouter>
@@ -50,6 +52,15 @@ export default function Router() {
         =========================== */}
 
         <Route path="/login" element={<Login />} />
+
+        {/* ===========================
+            CAPTURA TEMPORAL (aislada, sin SiteLayout)
+            ===========================
+            A propósito FUERA del bloque de SiteLayout: así no
+            hereda el nav, el footer, ni ningún loader global que
+            SiteLayout renderice mientras carga. Bórrala junto con
+            CaptureCircles.jsx cuando termines de capturar.
+        =========================== */}
 
         {/* ===========================
             CMS
@@ -160,7 +171,9 @@ export default function Router() {
             path="privacidad"
             element={<Privacy />}
           />
+
         </Route>
+        
 
       </Routes>
     </BrowserRouter>

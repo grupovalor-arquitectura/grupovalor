@@ -90,36 +90,31 @@ export function ProjectsProvider({ children }) {
           return;
         }
 
-       const [
+        // Un solo Promise.all para TODO — projects ya no queda
+        // encolado detrás de una segunda tanda secuencial. Mismo
+        // patrón que ya usa reloadProjects().
+        const [
+          projectsData,
           companiesData,
           homeData,
+          aboutData,
           footerData,
         ] = await Promise.all([
+          getProjects(),
           getCompanies(),
           getHomeContent(),
+          getAboutContent(),
           getFooter(),
         ]);
 
+        setProjects(projectsData);
         setCompanies(companiesData);
         setHome(homeData);
+        setAbout(aboutData);
         setFooter(footerData);
 
-        if (!hasAnyCache) {
-            setLoading(false);
-          }
+        setLoading(false);
 
-        const [
-          projectsData,
-          aboutData,
-        ] = await Promise.all([
-          getProjects(),
-          getAboutContent(),
-        ]);
-
-        setProjects(projectsData);
-        setAbout(aboutData);
-
-        
         localStorage.setItem(
           PROJECTS_KEY,
           JSON.stringify(projectsData)

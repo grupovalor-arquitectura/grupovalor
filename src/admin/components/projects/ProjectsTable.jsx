@@ -9,11 +9,13 @@ import { arrayMove } from "@dnd-kit/sortable";
 import updateProjectOrders from "../../services/firestore/updateProjectOrders";
 import { useProjects } from "../../../context/ProjectsContext";
 import ProjectRow from "./ProjectRow";
+import AdminTextField from "../ui/AdminTextField";
 
 export default function ProjectsTable() {
   const { projects, reloadProjects } = useProjects();
 
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
   console.log(
@@ -26,6 +28,21 @@ export default function ProjectsTable() {
 
   setItems([...projects].sort((a, b) => a.order - b.order));
 }, [projects]);
+
+  const normalize = (value) =>
+    (value || "")
+      .toString()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+  const filteredItems = search.trim()
+    ? items.filter((project) =>
+        normalize(project.title).includes(normalize(search))
+      )
+    : items;
+
+  const isFiltering = search.trim().length > 0;
 
   async function handleDragEnd(event) {
     const { active, over } = event;
@@ -68,6 +85,16 @@ export default function ProjectsTable() {
         Proyectos
       </Typography>
 
+      {/* Buscador */}
+
+      <Box sx={{ mb: 5, maxWidth: 360 }}>
+        <AdminTextField
+          label="Buscar por nombre"
+          value={search}
+          onChange={(value) => setSearch(value)}
+        />
+      </Box>
+
       {/* Header */}
 
       <Box
@@ -106,6 +133,20 @@ export default function ProjectsTable() {
         </Typography>
       </Box>
 
+      {/* Sin resultados */}
+
+      {isFiltering && filteredItems.length === 0 && (
+        <Typography
+          sx={{
+            color: "background.default",
+            opacity: 0.6,
+            py: 4,
+          }}
+        >
+          No se encontraron proyectos con ese nombre.
+        </Typography>
+      )}
+
       {/* Filas */}
 
     <DndContext
@@ -113,13 +154,14 @@ export default function ProjectsTable() {
       onDragEnd={handleDragEnd}
     >
       <SortableContext
-        items={items.map((p) => p.slug)}
+        items={filteredItems.map((p) => p.slug)}
         strategy={verticalListSortingStrategy}
       >
-        {items.map((project) => (
+        {filteredItems.map((project) => (
           <ProjectRow
             key={project.slug}
             project={project}
+            dragDisabled={isFiltering}
           />
         ))}
       </SortableContext>

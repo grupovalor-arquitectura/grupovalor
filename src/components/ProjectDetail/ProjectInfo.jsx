@@ -129,7 +129,7 @@ export default function ProjectInfo({ project }) {
 
         gap: {
           xs: 4,
-          md: 16,
+          md: 20,
         },
       }}
     >
@@ -139,8 +139,8 @@ export default function ProjectInfo({ project }) {
         sx={{
           width: {
             xs: "100%",
-            md: 220,
-            lg: 260,
+            md: 320,
+            lg: 380,
           },
 
           flexShrink: 0,

@@ -19,7 +19,7 @@ const items = [
   { label: "Arquitectura Valor", key: "arquitectura" },
   { label: "Constructora Valor", key: "constructora" },
   { label: "Promotora Valor", key: "promotora" },
-  { label: "Estrategia Valor", key: "estrategia" },
+  { label: "Estrategias Valor", key: "estrategia" },
   { label: "Banca Valor", key: "banca" },
 ];
 

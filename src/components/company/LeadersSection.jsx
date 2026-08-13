@@ -9,7 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function LeadersSection({ company }) {
 
-    const leaders = company.leaders;
+    const leaders = (company.leaders || []).filter(
+        (leader) => leader?.name?.trim()
+    );
 
     const { leadersBackground, leadersText, } = company.branding;
 
@@ -153,8 +155,8 @@ export default function LeadersSection({ company }) {
             top: -20,
             left: -100,
             width: {
-                xs: 200,
-                md: 500,
+                xs: 145,
+                md: 361,
             },
 
             color: leadersText,
@@ -178,8 +180,8 @@ export default function LeadersSection({ company }) {
             right: -100,
             bottom: -20,
             width: {
-                xs: 200,
-                md: 500,
+                xs: 145,
+                md: 361,
             },
 
             color: leadersText,
@@ -211,7 +213,9 @@ export default function LeadersSection({ company }) {
             sx={{
             display: "flex",
             justifyContent:
-                index % 2 === 0
+                leaders.length === 1
+                ? "center"
+                : index % 2 === 0
                 ? "flex-end"
                 : "flex-start",
 

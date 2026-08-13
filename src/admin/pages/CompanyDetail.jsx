@@ -47,6 +47,46 @@ export default function CompanyDetail() {
     });
   };
 
+  // =======================================================
+  // LÍDERES
+  // =======================================================
+
+  const handleLeaderChange = (index, field, value) => {
+    setFormData((prev) => {
+      const leaders = [...(prev.leaders || [])];
+
+      leaders[index] = {
+        ...leaders[index],
+        [field]: value,
+      };
+
+      return { ...prev, leaders };
+    });
+  };
+
+  const handleAddLeader = () => {
+    setFormData((prev) => ({
+      ...prev,
+      leaders: [
+        ...(prev.leaders || []),
+        {
+          id: crypto.randomUUID(),
+          name: "",
+          role: "",
+          quote: "",
+        },
+      ],
+    }));
+  };
+
+  const handleRemoveLeader = (index) => {
+    setFormData((prev) => {
+      const leaders = [...(prev.leaders || [])];
+      leaders.splice(index, 1);
+      return { ...prev, leaders };
+    });
+  };
+
   const handleSave = async () => {
     
     await saveWithVersion(() =>
@@ -82,6 +122,9 @@ export default function CompanyDetail() {
     <CompanyForm
       formData={formData}
       handleChange={handleChange}
+      onLeaderChange={handleLeaderChange}
+      onAddLeader={handleAddLeader}
+      onRemoveLeader={handleRemoveLeader}
       onSave={handleSave}
       onCancel={handleCancel}
     />

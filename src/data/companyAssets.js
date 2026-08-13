@@ -23,7 +23,7 @@ export const companyAssets = {
     illustration: IllustrationAV,
   },
 
-  "estrategia-valor": {
+  "estrategias-valor": {
     logo: LogoEV,
     illustration: IllustrationAV,
   },
