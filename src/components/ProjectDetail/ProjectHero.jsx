@@ -1,12 +1,21 @@
+import { useMemo } from "react";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import ScrollIndicator from "../ScrollIndicator/ScrollIndicator"
+import { pickFallbackImage } from "../../utils/fallbackProjectImage";
 
 export default function ProjectHero({ project }) {
   const theme = useTheme();
 
-  const hasCover = Boolean(project?.coverImage);
+  // Misma imagen de respaldo (determinística por proyecto) que usan
+  // las tarjetas de "Proyectos": si el proyecto no tiene coverImage,
+  // el hero ya no queda vacío y además coincide con lo que el
+  // usuario vio en la tarjeta antes de entrar al detalle.
+  const heroImage = useMemo(
+    () => project?.coverImage || pickFallbackImage(project?.slug || project?.id),
+    [project?.coverImage, project?.slug, project?.id]
+  );
 
   return (
     <Box
@@ -30,10 +39,10 @@ export default function ProjectHero({ project }) {
         backgroundColor: theme.palette.background.default,
       }}
     >
-      {hasCover && (
+      {heroImage && (
         <Box
           component="img"
-          src={project.coverImage}
+          src={heroImage}
           alt={project.title}
           sx={{
             width: "100%",

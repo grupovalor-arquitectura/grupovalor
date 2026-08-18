@@ -5,26 +5,7 @@ import { useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useReveal from "../../hooks/useReveal";
 
-import fallbackImage1 from "../../assets/IMG_4898.PNG";
-import fallbackImage2 from "../../assets/IMG_4899.PNG";
-import fallbackImage3 from "../../assets/IMG_4900.PNG";
-
-// Imágenes que se usan cuando un proyecto no tiene coverImage propia.
-const fallbackImages = [fallbackImage1, fallbackImage2, fallbackImage3];
-
-// Se elige de forma determinística a partir de un identificador del
-// proyecto (no con Math.random) para que cada proyecto siempre
-// muestre la misma imagen de respaldo y no "salte" entre renders.
-function pickFallbackImage(seed) {
-  const str = String(seed ?? "");
-
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash * 31 + str.charCodeAt(i)) % fallbackImages.length;
-  }
-
-  return fallbackImages[Math.abs(hash) % fallbackImages.length];
-}
+import { pickFallbackImage } from "../../utils/fallbackProjectImage";
 
 export default function DesktopProjectCard({
   project,
