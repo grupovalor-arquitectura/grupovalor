@@ -1,4 +1,26 @@
 {
+  "redirects": [
+    {
+      "source": "/proyectos.html",
+      "destination": "/proyectos",
+      "permanent": true
+    },
+    {
+      "source": "/todos.html",
+      "destination": "/proyectos",
+      "permanent": true
+    },
+    {
+      "source": "/nosotros.html",
+      "destination": "/nosotros",
+      "permanent": true
+    },
+    {
+      "source": "/politicas.html",
+      "destination": "/privacidad",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

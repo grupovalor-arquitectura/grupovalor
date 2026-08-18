@@ -10,6 +10,7 @@ export default function MenuTrigger({ icon, onClick }) {
         justifyContent: "center",
         cursor: "pointer",
         p: 1, // mejor área clickeable
+        ml: -2,
       }}
     >
       {icon}

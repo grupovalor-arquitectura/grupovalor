@@ -61,19 +61,19 @@ export default function ProjectHero({ project }) {
             xs: `
               linear-gradient(
                 to bottom,
-                rgba(0,0,0,.7) 0%,
-                rgba(0,0,0,.45) 10%,
-                rgba(0,0,0,.2) 18%,
-                rgba(0,0,0,0) 30%
+                rgba(0,0,0,.85) 0%,
+                rgba(0,0,0,.6) 12%,
+                rgba(0,0,0,.3) 22%,
+                rgba(0,0,0,0) 36%
               )
             `,
             md: `
               linear-gradient(
                 to bottom,
-                rgba(0,0,0,.65) 0%,
-                rgba(0,0,0,.4) 15%,
-                rgba(0,0,0,.15) 30%,
-                rgba(0,0,0,0) 45%
+                rgba(0,0,0,.8) 0%,
+                rgba(0,0,0,.55) 18%,
+                rgba(0,0,0,.25) 34%,
+                rgba(0,0,0,0) 52%
               )
             `,
           },
