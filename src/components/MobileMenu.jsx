@@ -22,7 +22,7 @@ const items = [
   },
 
   {
-    label: "Grupo Valor",
+    label: "Empresas",
     expandable: true,
   },
 
@@ -47,7 +47,10 @@ const companies = [
   },
   {
     label: "Estrategias Valor",
-    path: "/empresas/estrategia-valor",
+    // Link externo: esta empresa no tiene página interna, va directo
+    // al sitio de Estrategias Comerciales.
+    path: "https://www.estrategiascomerciales.co/",
+    external: true,
   },
   {
     label: "Banca Valor",
@@ -164,42 +167,72 @@ export default function MobileMenu({
                       color: colors.text ?? defaultBranding.text,
                     }}
                   >
-                    Grupo Valor
+                    Empresas
                   </Typography>
                 </Box>
 
                 <Collapse in={companiesOpen}>
-                  {companies.map((company) => (
-                    <Box
-                      key={company.path}
-                      component={NavLink}
-                      to={company.path}
-                      onClick={onClose}
-                      sx={{
-                        width: "100%",
-                        py: 2,
-                        px: 4,
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        textDecoration: "none",
-                        borderBottom: "1px solid rgba(255,255,255,.05)",
-                      }}
-                    >
-                      {({ isActive }) => (
-                        <Typography
-                          sx={{
-                            fontSize: 22,
-                            fontWeight: 500,
-                            color: isActive
-                              ? (colors.activeText ?? defaultBranding.activeText)
-                              : (colors.text ?? defaultBranding.text),
-                          }}
+                  {companies.map((company) => {
+                    const itemSx = {
+                      width: "100%",
+                      py: 2,
+                      px: 4,
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      textDecoration: "none",
+                      borderBottom: "1px solid rgba(255,255,255,.05)",
+                    };
+
+                    // Empresa con link externo (sin página interna):
+                    // <a> normal en vez de NavLink, abre en pestaña nueva.
+                    if (company.external) {
+                      return (
+                        <Box
+                          key={company.path}
+                          component="a"
+                          href={company.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={onClose}
+                          sx={itemSx}
                         >
-                          {company.label}
-                        </Typography>
-                      )}
-                    </Box>
-                  ))}
+                          <Typography
+                            sx={{
+                              fontSize: 22,
+                              fontWeight: 500,
+                              color: colors.text ?? defaultBranding.text,
+                            }}
+                          >
+                            {company.label}
+                          </Typography>
+                        </Box>
+                      );
+                    }
+
+                    return (
+                      <Box
+                        key={company.path}
+                        component={NavLink}
+                        to={company.path}
+                        onClick={onClose}
+                        sx={itemSx}
+                      >
+                        {({ isActive }) => (
+                          <Typography
+                            sx={{
+                              fontSize: 22,
+                              fontWeight: 500,
+                              color: isActive
+                                ? (colors.activeText ?? defaultBranding.activeText)
+                                : (colors.text ?? defaultBranding.text),
+                            }}
+                          >
+                            {company.label}
+                          </Typography>
+                        )}
+                      </Box>
+                    );
+                  })}
                 </Collapse>
               </Box>
             );

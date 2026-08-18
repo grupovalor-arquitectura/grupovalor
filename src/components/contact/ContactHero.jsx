@@ -58,19 +58,19 @@ export default function ContactHero() {
             xs: `
               linear-gradient(
                 to bottom,
-                rgba(0,0,0,.45) 0%,
-                rgba(0,0,0,.28) 10%,
-                rgba(0,0,0,.12) 18%,
-                rgba(0,0,0,0) 30%
+                rgba(0,0,0,.6) 0%,
+                rgba(0,0,0,.38) 12%,
+                rgba(0,0,0,.18) 22%,
+                rgba(0,0,0,0) 36%
               )
             `,
             md: `
               linear-gradient(
                 to bottom,
-                rgba(0,0,0,.38) 0%,
-                rgba(0,0,0,.22) 20%,
-                rgba(0,0,0,.08) 50%,
-                rgba(0,0,0,0) 70%
+                rgba(0,0,0,.55) 0%,
+                rgba(0,0,0,.35) 22%,
+                rgba(0,0,0,.15) 45%,
+                rgba(0,0,0,0) 68%
               )
             `,
           },

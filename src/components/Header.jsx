@@ -78,18 +78,18 @@ export default function Header({
           />
         </Box>
 
-        {/* HAMBURGUESA MOBILE */}
+        {/* TRIGGER MENÚ MOBILE */}
         <Box
           sx={{
             display: {
               xs: "flex",
               md: "none",
             },
-            width: 48,
+            minWidth: 48,
             height: 48,
             alignItems: "center",
             justifyContent: "center",
-           
+
           }}
         >
           <MenuIcon

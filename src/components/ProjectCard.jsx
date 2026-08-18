@@ -1,12 +1,33 @@
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import fallbackImage1 from "../assets/IMG_4898.PNG";
+import fallbackImage2 from "../assets/IMG_4899.PNG";
+import fallbackImage3 from "../assets/IMG_4900.PNG";
+
 gsap.registerPlugin(ScrollTrigger);
+
+// Imágenes que se usan cuando un proyecto no tiene coverImage propia.
+const fallbackImages = [fallbackImage1, fallbackImage2, fallbackImage3];
+
+// Determinístico a partir de un identificador del proyecto (no
+// Math.random) para que cada proyecto siempre muestre la misma
+// imagen de respaldo y no "salte" entre renders.
+function pickFallbackImage(seed) {
+  const str = String(seed ?? "");
+
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) % fallbackImages.length;
+  }
+
+  return fallbackImages[Math.abs(hash) % fallbackImages.length];
+}
 
 export default function ProjectCard({
 
@@ -21,6 +42,11 @@ export default function ProjectCard({
   const navigate = useNavigate();
 
   const cardRef = useRef(null);
+
+  const fallbackImage = useMemo(
+    () => pickFallbackImage(project.slug || project.id || cardNumber),
+    [project.slug, project.id, cardNumber]
+  );
 
   useGSAP(() => {
     gsap.from(cardRef.current, {
@@ -88,23 +114,21 @@ return (
         mb: 3,
       }}
     >
-      {project.coverImage && (
-        <Box
-          component="img"
-          src={project.coverImage}
-          alt={project.title}
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            transition: "transform .8s ease",
-            "&:hover": {
-              transform: "scale(1.05)",
-            },
-          }}
-        />
-      )}
+      <Box
+        component="img"
+        src={project.coverImage || fallbackImage}
+        alt={project.title}
+        sx={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+          transition: "transform .8s ease",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      />
     </Box>
 
     {/* LOCATION */}

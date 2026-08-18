@@ -18,9 +18,16 @@ export default function HomeContentPanel({
     arquitectura: "empresas/arquitectura-valor",
     constructora: "empresas/constructora-valor",
     promotora: "empresas/promotora-valor",
-    estrategia: "empresas/estrategia-valor",
     banca: "empresas/banca-valor",
   };
+
+  // Empresas sin página interna: el CTA abre un link externo en
+  // vez de navegar con React Router.
+  const externalRoutes = {
+    estrategia: "https://www.estrategiascomerciales.co/",
+  };
+
+  const externalHref = externalRoutes[active];
 
   return (
     <Box
@@ -94,7 +101,16 @@ export default function HomeContentPanel({
 
         {/* CTA */}
         <Typography
-          onClick={() => navigate(routes[active])}
+          {...(externalHref
+            ? {
+                component: "a",
+                href: externalHref,
+                target: "_blank",
+                rel: "noopener noreferrer",
+              }
+            : {
+                onClick: () => navigate(routes[active]),
+              })}
           sx={{
             color: "primary.main",
             opacity: 0,
@@ -108,6 +124,7 @@ export default function HomeContentPanel({
             alignItems: "center",
             gap: 0.5,
 
+            textDecoration: "none",
             cursor: "pointer",
 
            "&:hover": {

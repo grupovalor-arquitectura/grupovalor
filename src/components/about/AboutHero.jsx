@@ -59,20 +59,21 @@ export default function AboutHero({ heroImage }) {
             xs: `
               linear-gradient(
                 to bottom,
-                rgba(0,0,0,.65) 0%,
-                rgba(0,0,0,.45) 12%,
-                rgba(0,0,0,.22) 28%,
-                rgba(0,0,0,.08) 42%,
+                rgba(0,0,0,.8) 0%,
+                rgba(0,0,0,.58) 12%,
+                rgba(0,0,0,.32) 28%,
+                rgba(0,0,0,.14) 42%,
                 rgba(0,0,0,0) 58%
               )
             `,
             md: `
               linear-gradient(
                 to bottom,
-                rgba(0,0,0,.60) 0%,
-                rgba(0,0,0,.18) 24%,
-                rgba(0,0,0,.06) 50%,
-                rgba(0,0,0,0) 90%
+                rgba(0,0,0,.78) 0%,
+                rgba(0,0,0,.5) 15%,
+                rgba(0,0,0,.26) 30%,
+                rgba(0,0,0,.1) 50%,
+                rgba(0,0,0,0) 75%
               )
             `,
           },

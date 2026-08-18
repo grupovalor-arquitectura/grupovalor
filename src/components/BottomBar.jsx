@@ -46,7 +46,7 @@ export default function BottomBar({
             transition: "all 0.4s ease",
           }}
         >
-          {/* 🔥 usa el onSelect del padre */}
+  
           <BottomMenuItems 
             onSelect={onSelect} 
             disabled={isTransitioning}

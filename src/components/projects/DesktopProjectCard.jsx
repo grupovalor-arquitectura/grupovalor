@@ -1,9 +1,30 @@
 import { Box, Divider, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useReveal from "../../hooks/useReveal";
+
+import fallbackImage1 from "../../assets/IMG_4898.PNG";
+import fallbackImage2 from "../../assets/IMG_4899.PNG";
+import fallbackImage3 from "../../assets/IMG_4900.PNG";
+
+// Imágenes que se usan cuando un proyecto no tiene coverImage propia.
+const fallbackImages = [fallbackImage1, fallbackImage2, fallbackImage3];
+
+// Se elige de forma determinística a partir de un identificador del
+// proyecto (no con Math.random) para que cada proyecto siempre
+// muestre la misma imagen de respaldo y no "salte" entre renders.
+function pickFallbackImage(seed) {
+  const str = String(seed ?? "");
+
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) % fallbackImages.length;
+  }
+
+  return fallbackImages[Math.abs(hash) % fallbackImages.length];
+}
 
 export default function DesktopProjectCard({
   project,
@@ -18,6 +39,11 @@ export default function DesktopProjectCard({
   const cardRef = useRef(null);
 
     useReveal(cardRef);
+
+  const fallbackImage = useMemo(
+    () => pickFallbackImage(project.slug || project.id || cardNumber),
+    [project.slug, project.id, cardNumber]
+  );
 
   return (
     <Box
@@ -109,22 +135,20 @@ export default function DesktopProjectCard({
           bgcolor: "background.default",
         }}
       >
-        {project.coverImage && (
-          <Box
-            component="img"
-            src={project.coverImage}
-            alt={project.title}
-            sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
+        <Box
+          component="img"
+          src={project.coverImage || fallbackImage}
+          alt={project.title}
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
 
-              transition: "transform .9s cubic-bezier(0.22, 1, 0.36, 1)",
-              transform: "scale(1)",
-            }}
-          />
-        )}
+            transition: "transform .9s cubic-bezier(0.22, 1, 0.36, 1)",
+            transform: "scale(1)",
+          }}
+        />
       </Box>
 
       {/* DESKTOP */}

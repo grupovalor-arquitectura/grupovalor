@@ -7,6 +7,9 @@ import AboutHero from "../components/about/AboutHero";
 import AboutIntro from "../components/about/AboutIntro";
 import AboutTeam from "../components/about/AboutTeam";
 import AboutTextSection from "../components/about/AboutTextSection";
+import AboutStats from "../components/about/AboutStats";
+import AboutCertifications from "../components/about/AboutCertifications";
+import AboutPartners from "../components/about/AboutPartners";
 import SEO from "../components/SEO";
 
 import { useProjects } from "../context/ProjectsContext";
@@ -69,7 +72,9 @@ return (
           content={about.vision.content}
       />
 
-      
+      <AboutStats />
+      <AboutCertifications />
+      <AboutPartners />
     </InnerPageLayout>
   );
 }

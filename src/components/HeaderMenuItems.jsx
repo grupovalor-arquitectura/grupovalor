@@ -36,7 +36,10 @@ const companies = [
   },
   {
     label: "Estrategias Valor",
-    path: "/empresas/estrategias-valor",
+    // Link externo: esta empresa no tiene página interna, va directo
+    // al sitio de Estrategias Comerciales.
+    path: "https://www.estrategiascomerciales.co/",
+    external: true,
   },
   {
     label: "Banca Valor",
@@ -203,61 +206,102 @@ export default function HeaderMenuItems({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {companies.map((company) => (
-                    <Box
-                      key={company.path}
-                      component={NavLink}
-                      to={company.path}
-                      onMouseEnter={() =>
-                        setHoveredCompany(company.path)
-                      }
-                      onMouseLeave={() =>
-                        setHoveredCompany(null)
-                      }
-                      sx={{
-                        borderRadius: "999px",
+                  {companies.map((company) => {
+                    const chipSx = {
+                      borderRadius: "999px",
 
-                        px: "12px",
-                        py: "4px",
+                      px: "12px",
+                      py: "4px",
 
-                        textDecoration: "none",
+                      textDecoration: "none",
 
-                        border: `1px solid ${colors.text}`,
+                      border: `1px solid ${colors.text}`,
 
-                        transition:
-                          "all 0.25s ease",
+                      transition:
+                        "all 0.25s ease",
 
-                        "&:hover": {
-                          backgroundColor:
-                            colors.text,
-                        },
+                      "&:hover": {
+                        backgroundColor:
+                          colors.text,
+                      },
 
-                        "&.active": {
-                          backgroundColor:
-                            colors.text,
-                        },
-                      }}
-                    >
-                      {({ isActive }) => (
-                        <Typography
-                          sx={{
-                            fontSize: "13px",
+                      "&.active": {
+                        backgroundColor:
+                          colors.text,
+                      },
+                    };
 
-                            color:
-                              isActive ||
-                              hoveredCompany === company.path
-                                ? colors.activeText
-                                : colors.text,
-
-                            transition:
-                              "color 0.25s ease",
-                          }}
+                    // Empresa con link externo (sin página interna):
+                    // <a> normal en vez de NavLink, abre en pestaña nueva.
+                    if (company.external) {
+                      return (
+                        <Box
+                          key={company.path}
+                          component="a"
+                          href={company.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onMouseEnter={() =>
+                            setHoveredCompany(company.path)
+                          }
+                          onMouseLeave={() =>
+                            setHoveredCompany(null)
+                          }
+                          sx={chipSx}
                         >
-                          {company.label}
-                        </Typography>
-                      )}
-                    </Box>
-                  ))}
+                          <Typography
+                            sx={{
+                              fontSize: "13px",
+
+                              color:
+                                hoveredCompany === company.path
+                                  ? colors.activeText
+                                  : colors.text,
+
+                              transition:
+                                "color 0.25s ease",
+                            }}
+                          >
+                            {company.label}
+                          </Typography>
+                        </Box>
+                      );
+                    }
+
+                    return (
+                      <Box
+                        key={company.path}
+                        component={NavLink}
+                        to={company.path}
+                        onMouseEnter={() =>
+                          setHoveredCompany(company.path)
+                        }
+                        onMouseLeave={() =>
+                          setHoveredCompany(null)
+                        }
+                        sx={chipSx}
+                      >
+                        {({ isActive }) => (
+                          <Typography
+                            sx={{
+                              fontSize: "13px",
+
+                              color:
+                                isActive ||
+                                hoveredCompany === company.path
+                                  ? colors.activeText
+                                  : colors.text,
+
+                              transition:
+                                "color 0.25s ease",
+                            }}
+                          >
+                            {company.label}
+                          </Typography>
+                        )}
+                      </Box>
+                    );
+                  })}
                 </Box>
               )}
             </Box>
