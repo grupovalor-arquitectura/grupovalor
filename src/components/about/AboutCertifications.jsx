@@ -4,28 +4,16 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { defaultCertifications } from "../../data/aboutDefaults";
+
 gsap.registerPlugin(ScrollTrigger);
 
-const certifications = [
-  {
-    title: "Miembro del Consejo Colombiano de Construcción Sostenible (CCCS)",
-    year: "Desde 2013",
-  },
-  {
-    title: "Metodología BIM",
-    year: "Desde 2015",
-  },
-  {
-    title: "Reconocimiento Sociedad Colombiana de Arquitectos",
-    year: "2024",
-  },
-  {
-    title: "Premio Fundadores — Sociedad Colombiana de Ingenieros",
-    year: "2026",
-  },
-];
+export default function AboutCertifications({ certifications }) {
+  // "??" (no "||"): si about.certifications todavía no existe en
+  // Firestore usamos el respaldo, pero si ya existe y está vacío
+  // (la persona borró todas) respetamos ese vacío.
+  const items = certifications ?? defaultCertifications;
 
-export default function AboutCertifications() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const itemsRef = useRef([]);
@@ -77,6 +65,8 @@ export default function AboutCertifications() {
       );
     });
   }, []);
+
+  if (!items.length) return null;
 
   return (
     <Box
@@ -151,8 +141,8 @@ export default function AboutCertifications() {
             width: "100%",
           }}
         >
-          {certifications.map((cert, index) => (
-            <Box key={cert.title} ref={(el) => (itemsRef.current[index] = el)}>
+          {items.map((cert, index) => (
+            <Box key={index} ref={(el) => (itemsRef.current[index] = el)}>
               <Box
                 sx={{
                   display: "flex",
@@ -189,7 +179,7 @@ export default function AboutCertifications() {
                 </Typography>
               </Box>
 
-              {index < certifications.length - 1 && (
+              {index < items.length - 1 && (
                 <Box
                   sx={{
                     height: "1px",

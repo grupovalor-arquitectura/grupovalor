@@ -73,8 +73,8 @@ return (
       />
 
       <AboutStats />
-      <AboutCertifications />
-      <AboutPartners />
+      <AboutCertifications certifications={about.certifications} />
+      <AboutPartners partners={about.partners} />
     </InnerPageLayout>
   );
 }

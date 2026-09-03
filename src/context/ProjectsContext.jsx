@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -167,7 +168,7 @@ export function ProjectsProvider({ children }) {
     [projects]
   );
 
-  const reloadProjects = async () => {
+  const reloadProjects = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -231,7 +232,28 @@ export function ProjectsProvider({ children }) {
       console.log("setLoading(false)");
       setLoading(false);
     }
-  };
+  }, []);
+
+  // Chequeo liviano (una sola lectura de config/website) para saber si
+  // lo que hay en memoria/localStorage quedó desactualizado frente a
+  // Firestore — por ejemplo, porque esta pestaña ya estaba abierta
+  // desde antes de que alguien editara un proyecto en el admin, o
+  // porque el usuario navegó de /admin al sitio público sin recargar
+  // la página. Solo si la versión cambió se vuelve a pedir todo
+  // (reloadProjects); si no, no se gasta la lectura completa.
+  const refreshIfStale = useCallback(async () => {
+    try {
+      const siteConfig = await getSiteConfig();
+      const currentVersion = String(siteConfig.version);
+      const cachedVersion = localStorage.getItem(VERSION_KEY);
+
+      if (cachedVersion !== currentVersion) {
+        await reloadProjects();
+      }
+    } catch (error) {
+      console.error("Error verificando versión del sitio:", error);
+    }
+  }, [reloadProjects]);
 
   const value = {
     projects,
@@ -242,6 +264,7 @@ export function ProjectsProvider({ children }) {
     footer,
     loading,
     reloadProjects,
+    refreshIfStale,
   };
 
   return (

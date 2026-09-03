@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
 import saveProject from "../services/saveProject";
-import saveWithVersion from "../../services/saveWithVersion";
 
 import ProjectForm from "../components/projects/ProjectForm";
 import ConfirmDialog from "../components/ui/ConfirmDialog";
@@ -106,18 +105,21 @@ export default function ProjectDetail() {
       setSaving(true);
 
     
-      const updatedProject = await saveWithVersion(() =>
-        saveProject({
-          isNew,
-          originalProject: originalProject ?? emptyProject,
-          project: {
-            ...formData,
-            slug: generateSlug(formData.title),
-          },
-          coverFile,
-          galleryFiles,
-        })
-      );
+      // No hace falta envolver esto en saveWithVersion: createProject
+      // y updateProject (los dos posibles caminos dentro de
+      // saveProject) ya bumpean config/website.version por su cuenta.
+      // Envolver también acá hacía que la versión subiera dos veces
+      // por cada guardado.
+      const updatedProject = await saveProject({
+        isNew,
+        originalProject: originalProject ?? emptyProject,
+        project: {
+          ...formData,
+          slug: generateSlug(formData.title),
+        },
+        coverFile,
+        galleryFiles,
+      });
 
       await reloadProjects();
 

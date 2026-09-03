@@ -4,85 +4,16 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { defaultPartners, featuredClient } from "../../data/aboutDefaults";
+
 gsap.registerPlugin(ScrollTrigger);
 
-// 🖼️ Logos de aliados, ya conectados desde src/assets/logos/.
-// El de Constructora Experta quedó mapeado por eliminación
-// (cropped-LOGO-ALARGADO-01.png era el único archivo sin nombre de
-// empresa) — confirmar que sea el correcto.
-import logoAlianza from "../../assets/logos/Alianza.png";
-import logoCredicorp from "../../assets/logos/Credicorp.svg";
-import logoPaladin from "../../assets/logos/Paladin.webp";
-import logoDavivienda from "../../assets/logos/Davivienda.png";
-import logoBancoOccidente from "../../assets/logos/Banco de Occidente.png";
-import logoBBVA from "../../assets/logos/bbva-logo-png_seeklogo-352321.png";
-import logoBancoCajaSocial from "../../assets/logos/logo-bcs.svg";
-import logoConstructoraExperta from "../../assets/logos/cropped-LOGO-ALARGADO-01.png";
-import logoConvel from "../../assets/logos/Convel.png";
-import logoMQI from "../../assets/logos/merquimia.jpg";
+export default function AboutPartners({ partners }) {
+  // "??" (no "||"): si about.partners todavía no existe en Firestore
+  // usamos el respaldo, pero si ya existe y está vacío (se borraron
+  // todos) respetamos ese vacío.
+  const items = partners ?? defaultPartners;
 
-const partners = [
-  {
-    name: "Alianza Fiduciaria",
-    url: "https://www.alianza.com.co",
-    logo: logoAlianza,
-  },
-  {
-    name: "Credicorp Capital",
-    url: "https://www.credicorpcapital.com",
-    logo: logoCredicorp,
-  },
-  {
-    name: "Paladin Realty Partners",
-    url: "https://paladinrealty.com",
-    logo: logoPaladin,
-  },
-  {
-    name: "Davivienda",
-    url: "https://www.davivienda.com",
-    logo: logoDavivienda,
-  },
-  {
-    name: "Banco de Occidente",
-    url: "https://www.bancodeoccidente.com.co",
-    logo: logoBancoOccidente,
-  },
-  {
-    name: "BBVA Colombia",
-    url: "https://www.bbva.com.co",
-    logo: logoBBVA,
-  },
-  {
-    name: "Banco Caja Social",
-    url: "https://www.bancocajasocial.com",
-    logo: logoBancoCajaSocial,
-  },
-  {
-    name: "Constructora Experta",
-    url: "https://www.constructoraexperta.com",
-    logo: logoConstructoraExperta,
-  },
-  {
-    name: "Constructora Convel",
-    url: "https://www.convel.co",
-    logo: logoConvel,
-    // Su archivo trae más "aire" (padding transparente) alrededor
-    // del isotipo que el resto de los logos, así que a igual
-    // maxHeight se ve más chico. Se compensa con un tamaño mayor.
-    logoMaxHeight: { xs: 110, md: 150 },
-    // Menos padding en la card para darle más aire disponible al logo.
-    cardPadding: { xs: 1, md: 1.5 },
-  },
-  {
-    name: "MQI Inversiones",
-    url: "https://merquimiagroup.com/en/home/",
-    logo: logoMQI,
-  },
-];
-
-const featuredClient = "Embajada de la República Popular China en Colombia";
-
-export default function AboutPartners() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const gridRef = useRef(null);
@@ -130,6 +61,8 @@ export default function AboutPartners() {
       }
     );
   }, []);
+
+  if (!items.length) return null;
 
   return (
     <Box
@@ -181,9 +114,9 @@ export default function AboutPartners() {
           },
         }}
       >
-        {partners.map((partner) => (
+        {items.map((partner, index) => (
           <Box
-            key={partner.name}
+            key={index}
             component="a"
             href={partner.url}
             target="_blank"
