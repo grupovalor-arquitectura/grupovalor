@@ -31,7 +31,7 @@ export default function HistoryTimelineMobile({
       }}
     >
       {/* ORÍGENES */}
-      <TimelineMoment moment={startMoment} />
+      <TimelineMoment moment={startMoment} showScrollIndicator />
 
       <Box
         sx={{

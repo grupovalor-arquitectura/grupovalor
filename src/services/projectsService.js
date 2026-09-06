@@ -2,9 +2,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firestore";
 import { resolveImage } from "./resolveImage";
 
-// Usado por Home (destacados) y el dashboard admin, donde sí hace falta
-// la lista completa. La vitrina pública /proyectos ya NO usa esta
-// función — usa getProjectsPage() en su lugar (ver projectsPageService.js).
+// Usado por ProjectsContext (Home, /proyectos, dashboard admin) para
+// tener la lista completa una sola vez por sesión, con cache en
+// localStorage. /proyectos ya no pide su propia página aparte
+// (getProjectsPage() quedó sin uso — ver projectsPageService.js) para
+// no repetir esta misma consulta en cada visita.
 export async function getProjects() {
   try {
     const snapshot = await getDocs(collection(db, "projects"));

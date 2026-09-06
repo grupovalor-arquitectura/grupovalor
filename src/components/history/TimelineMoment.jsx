@@ -5,11 +5,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-export default function TimelineMoment({ 
+import ScrollIndicator from "../ScrollIndicator/ScrollIndicator";
 
-  moment, 
+export default function TimelineMoment({
+
+  moment,
   circleRef,
   backgroundColor = "transparent",
+  showScrollIndicator = false,
 }) {
 
 
@@ -22,6 +25,8 @@ export default function TimelineMoment({
   return (
     <Box
       sx={{
+        position: "relative",
+
         width: "100%",
         backgroundColor,
         height: {
@@ -51,6 +56,8 @@ export default function TimelineMoment({
         },
       }}
     >
+      {showScrollIndicator && <ScrollIndicator />}
+
       <Box
         sx={{
           width: {

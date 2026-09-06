@@ -30,6 +30,11 @@ export default function ProjectCard({
   );
 
   useGSAP(() => {
+    // Los dos primeros ya se ven sin scrollear al cargar la página:
+    // según las pruebas de usabilidad, no deben arrancar en opacity:0
+    // (se lee como que la página no cargó, no como una animación).
+    if (index < 2) return;
+
     gsap.from(cardRef.current, {
         opacity: 0,
         y: 60,
@@ -42,7 +47,7 @@ export default function ProjectCard({
             toggleActions: "play none none reverse",
         },
     });
-    }, []);
+    }, [index]);
 
 return (
   <Box

@@ -10,6 +10,7 @@ import { pickFallbackImage } from "../../utils/fallbackProjectImage";
 export default function DesktopProjectCard({
   project,
   cardNumber,
+  revealDisabled = false,
 }) {
 
   const theme = useTheme();
@@ -19,7 +20,7 @@ export default function DesktopProjectCard({
 
   const cardRef = useRef(null);
 
-    useReveal(cardRef);
+    useReveal(cardRef, { disabled: revealDisabled });
 
   const fallbackImage = useMemo(
     () => pickFallbackImage(project.slug || project.id || cardNumber),

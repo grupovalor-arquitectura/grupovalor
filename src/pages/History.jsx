@@ -7,6 +7,7 @@ import TimelineFuture from "../components/history/TimelineFuture";
 import ConnectionTunnel from "../components/history/ConnectionTunnel";
 import MobileMenu from "../components/MobileMenu";
 import SEO from "../components/SEO";
+import ScrollIndicator from "../components/ScrollIndicator/ScrollIndicator";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -56,6 +57,25 @@ export default function History() {
       />
 
       <Footer historyTheme />
+
+      {/* El primer bloque de la historia empieza debajo del header
+          (que aquí no es overlay, a diferencia de Contacto/Nosotros),
+          así que el indicador no puede ir anidado ahí: quedaría fuera
+          de la pantalla al cargar. Fijándolo a la ventana se ve desde
+          el inicio y se oculta al hacer scroll, igual que en las
+          otras páginas, y centrado igual que en Contacto/Nosotros. */}
+      {!isOpen && (
+        <Box
+          sx={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 40,
+            pointerEvents: "none",
+          }}
+        >
+          <ScrollIndicator />
+        </Box>
+      )}
     </>
   );
 }

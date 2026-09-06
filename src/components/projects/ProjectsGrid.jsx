@@ -71,6 +71,11 @@ export default function ProjectsGrid({
                   <DesktopProjectCard
                     project={project}
                     cardNumber={project.order}
+                    // Primera fila = los dos proyectos que ya se ven
+                    // sin scrollear. Según las pruebas de usabilidad,
+                    // esos no deben arrancar en opacity:0 esperando un
+                    // scroll que ya pasó.
+                    revealDisabled={rowIndex === 0}
                   />
                 </Box>
               );

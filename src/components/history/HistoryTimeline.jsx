@@ -239,6 +239,7 @@ export default function HistoryTimeline({startRef}) {
         moment={startMoment}
         circleRef={originMomentRef}
         backgroundColor="background.default"
+        showScrollIndicator
       />
 
     {!isMobile && (
