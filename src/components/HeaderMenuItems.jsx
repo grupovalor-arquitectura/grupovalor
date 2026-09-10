@@ -182,7 +182,7 @@ export default function HeaderMenuItems({
                       "color 0.25s ease",
                   }}
                 >
-                  Empresas
+                  Empresas / Servicios
                 </Typography>
               </Box>
 

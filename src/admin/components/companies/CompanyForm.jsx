@@ -9,6 +9,9 @@ import AdminTextField from "../ui/AdminTextField";
 export default function CompanyForm({
   formData,
   handleChange,
+  onServiceChange,
+  onAddService,
+  onRemoveService,
   onLeaderChange,
   onAddLeader,
   onRemoveLeader,
@@ -16,6 +19,7 @@ export default function CompanyForm({
   onCancel,
 }) {
   const leaders = formData.leaders || [];
+  const services = formData.services || [];
 
   return (
     <Box>
@@ -89,8 +93,100 @@ export default function CompanyForm({
 
       {/* =======================================================
           SERVICIOS
-          (Lo construiremos después)
       ======================================================= */}
+
+      <Typography
+        variant="h5"
+        sx={{
+          color: "background.default",
+          mb: 4,
+        }}
+      >
+        Servicios
+      </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 4,
+          mb: 8,
+        }}
+      >
+        {services.map((service, index) => (
+          <Box
+            key={service.id ?? index}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 4,
+
+              p: 4,
+
+              borderRadius: 2,
+              border: "1px solid",
+              borderColor: "rgba(0,0,0,0.15)",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "background.default",
+                  fontWeight: 600,
+                }}
+              >
+                Servicio {index + 1}
+              </Typography>
+
+              <Button
+                size="small"
+                color="error"
+                onClick={() => onRemoveService(index)}
+                sx={{
+                  minWidth: "auto",
+                }}
+              >
+                Eliminar
+              </Button>
+            </Box>
+
+            <AdminTextField
+              label="Título"
+              value={service.title || ""}
+              onChange={(value) =>
+                onServiceChange(index, "title", value)
+              }
+            />
+
+            <AdminTextField
+              label="Descripción"
+              multiline
+              rows={4}
+              value={service.description || ""}
+              onChange={(value) =>
+                onServiceChange(index, "description", value)
+              }
+            />
+          </Box>
+        ))}
+
+        <Button
+          variant="outlined"
+          color="inherit"
+          onClick={onAddService}
+          sx={{
+            alignSelf: "flex-start",
+          }}
+        >
+          + Agregar servicio
+        </Button>
+      </Box>
 
       {/* =======================================================
           LÍDERES

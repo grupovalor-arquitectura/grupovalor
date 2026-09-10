@@ -48,6 +48,45 @@ export default function CompanyDetail() {
   };
 
   // =======================================================
+  // SERVICIOS
+  // =======================================================
+
+  const handleServiceChange = (index, field, value) => {
+    setFormData((prev) => {
+      const services = [...(prev.services || [])];
+
+      services[index] = {
+        ...services[index],
+        [field]: value,
+      };
+
+      return { ...prev, services };
+    });
+  };
+
+  const handleAddService = () => {
+    setFormData((prev) => ({
+      ...prev,
+      services: [
+        ...(prev.services || []),
+        {
+          id: crypto.randomUUID(),
+          title: "",
+          description: "",
+        },
+      ],
+    }));
+  };
+
+  const handleRemoveService = (index) => {
+    setFormData((prev) => {
+      const services = [...(prev.services || [])];
+      services.splice(index, 1);
+      return { ...prev, services };
+    });
+  };
+
+  // =======================================================
   // LÍDERES
   // =======================================================
 
@@ -122,6 +161,9 @@ export default function CompanyDetail() {
     <CompanyForm
       formData={formData}
       handleChange={handleChange}
+      onServiceChange={handleServiceChange}
+      onAddService={handleAddService}
+      onRemoveService={handleRemoveService}
       onLeaderChange={handleLeaderChange}
       onAddLeader={handleAddLeader}
       onRemoveLeader={handleRemoveLeader}

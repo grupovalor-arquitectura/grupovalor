@@ -41,8 +41,14 @@ const companySlugs = {
   arquitectura: "arquitectura-valor",
   constructora: "constructora-valor",
   promotora: "promotora-valor",
-  estrategia: "estrategia-valor",
   banca: "banca-valor",
+};
+
+// Estrategia Valor no tiene página interna (mismo criterio que en
+// HeaderMenuItems.jsx y VisualCircles.jsx): va directo al sitio
+// externo de Estrategias Comerciales, en pestaña nueva.
+const externalLinks = {
+  estrategia: "https://www.estrategiascomerciales.co/",
 };
 
 export default function VisualCirclesMobile({
@@ -103,6 +109,13 @@ export default function VisualCirclesMobile({
       <Box
         ref={centerRef}
         onClick={() => {
+          const externalUrl = externalLinks[active];
+
+          if (externalUrl) {
+            window.open(externalUrl, "_blank", "noopener,noreferrer");
+            return;
+          }
+
           const slug = companySlugs[active];
 
           if (slug) {

@@ -47,8 +47,14 @@ const companySlugs = {
   arquitectura: "/empresas/arquitectura-valor",
   constructora: "/empresas/constructora-valor",
   promotora: "/empresas/promotora-valor",
-  estrategia: "/empresas/estrategia-valor",
   banca: "/empresas/banca-valor",
+};
+
+// Estrategia Valor no tiene página interna (mismo criterio que en
+// HeaderMenuItems.jsx): va directo al sitio externo de Estrategias
+// Comerciales, en pestaña nueva.
+const externalLinks = {
+  estrategia: "https://www.estrategiascomerciales.co/",
 };
 
 
@@ -114,6 +120,7 @@ export default function VisualCircles({
     const Logo = logos[c.key];
     const isLastCircle = c.pos === 3;
     const slug = companySlugs[c.key];
+    const externalUrl = externalLinks[c.key];
 
     const targetX = entered ? c.pos * 120 : 0;
 
@@ -126,9 +133,15 @@ export default function VisualCircles({
     return (
       <g
         key={`${keyPrefix}${c.pos}`}
-        onClick={isActive && slug ? () => navigate(`/${slug}`) : undefined}
+        onClick={
+          isActive && externalUrl
+            ? () => window.open(externalUrl, "_blank", "noopener,noreferrer")
+            : isActive && slug
+              ? () => navigate(`/${slug}`)
+              : undefined
+        }
         style={{
-          cursor: isActive && slug ? "pointer" : "default",
+          cursor: isActive && (slug || externalUrl) ? "pointer" : "default",
         }}
       >
         <circle

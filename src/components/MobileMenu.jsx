@@ -22,7 +22,7 @@ const items = [
   },
 
   {
-    label: "Empresas",
+    label: "Empresas / Servicios",
     expandable: true,
   },
 
@@ -167,7 +167,7 @@ export default function MobileMenu({
                       color: colors.text ?? defaultBranding.text,
                     }}
                   >
-                    Empresas
+                    Empresas / Servicios
                   </Typography>
                 </Box>
 
